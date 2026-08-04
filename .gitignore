@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files
+data/samples/*
+!data/samples/.gitkeep
+# Allow CSV summaries but exclude large JSON and binary files
+!data/samples/*.csv
+data/samples/*.json
+data/samples/*.dat
+data/samples/*.hea
+data/samples/cgm/*.json
+results/*
+!results/scans/.gitkeep
+!results/visualizations/.gitkeep
+
+# Configuration with secrets
+config/secrets.py
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+key.txt

@@ -1,0 +1,122 @@
+item_key,description,n_patients,coverage_pct,val_min,val_max,coverage_tier
+px011002_metadata,PhenX Education Attainment Met,2063,90.5,,,full-cohort
+px11502_metadata,PhenX Health Insurance MetaData,2063,90.5,,,full-cohort
+px270101_metadata,PhenX Health Care Access MetaD,2063,90.5,,,full-cohort
+px270201_metadata,PhenX English Proficiency Meta,2063,90.5,,,full-cohort
+px270301_metadata,PhenX MetaData,2280,100.0,,,full-cohort
+px280301_metadata,PhenX Job Security MetaData,2063,90.5,,,full-cohort
+px280801_metadata,PhenX Prescriptions Affordabil,2063,90.5,,,full-cohort
+px280901_metadata,PhenX Healthcare Discriminatio,2063,90.5,,,full-cohort
+px281401_metadata,PhenX Housing Insecurity MetaD,2063,90.5,,,full-cohort
+px281501_metadata,PhenX Racial/Ethnic MetaData,2280,100.0,,,full-cohort
+pxahc1,About how long has it been since you last,2061,90.4,0.0,4.0,full-cohort
+pxahc10,"During the past 12 months, was there any",2046,89.7,0.0,1.0,full-cohort
+pxahc2,"Was this a wellness visit, physical, or g",2039,89.4,0.0,1.0,full-cohort
+pxahc3,About how long has it been since you last,256,11.2,0.0,6.0,skip-gated
+pxahc4,Is there a place that you USUALLY go to i,1788,78.4,0.0,2.0,skip-gated
+pxahc5,What kind of place is it/do you go to mos,2026,88.9,1.0,6.0,full-cohort
+pxahc6,"During the past 12 months, how many times",30,1.3,0.0,1.0,skip-gated
+pxahc7,"During the past 12 months, how many times",2055,90.1,0.0,3.0,full-cohort
+pxahc8,"During the past 12 months, have you been",2059,90.3,0.0,1.0,full-cohort
+pxahc9,"During the past 12 months, have you DELAY",2051,90.0,0.0,1.0,full-cohort
+pxdhc1,You are treated with less courtesy than o,2050,89.9,1.0,5.0,full-cohort
+pxdhc2,You are treated with less respect than ot,2049,89.9,1.0,5.0,full-cohort
+pxdhc3,You receive poorer service than others.,2045,89.7,1.0,5.0,full-cohort
+pxdhc4,A doctor or nurse acts as if he or she th,2047,89.8,1.0,5.0,full-cohort
+pxdhc5,A doctor or nurse acts as if he or she is,2056,90.2,1.0,5.0,full-cohort
+pxdhc6,A doctor or nurse acts as if he or she is,2050,89.9,1.0,5.0,full-cohort
+pxdhc7,You feel like a doctor or nurse is not li,2056,90.2,1.0,5.0,full-cohort
+pxed1,What is the highest grade or level of scho,2058,90.3,2.0,21.0,full-cohort
+pxep1,Is English your first language?,2057,90.2,0.0,1.0,full-cohort
+pxep2,Do you speak another language at home?,429,18.8,0.0,1.0,skip-gated
+pxep3,Since you speak a language other than Engl,331,14.5,0.0,3.0,skip-gated
+pxfi1,"The first statement is, ""The food that (I/",2242,98.3,0.0,2.0,full-cohort
+pxfi2,"""(I/we) couldn't afford to eat balanced me",2245,98.5,0.0,2.0,full-cohort
+pxfi3,"In the last year, did you and/or other adu",2243,98.4,0.0,1.0,full-cohort
+pxfi4,"In the last 12 months, did you ever eat le",2243,98.4,0.0,1.0,full-cohort
+pxfi5,"In the last 12 months, were you ever hungr",2254,98.9,0.0,1.0,full-cohort
+pxhi1,What is your living situation today?,2053,90.0,0.0,2.0,full-cohort
+pxhi2,Think about the place you live. Do you hav,2053,90.0,1.0,8.0,full-cohort
+pxhic1,Insurance through a current or former emp,2024,88.8,0.0,999.0,full-cohort
+pxhic2,Insurance purchased directly from an insu,2022,88.7,0.0,999.0,full-cohort
+pxhic3,"Medicare, for people 65 and older, or peo",2033,89.2,0.0,999.0,full-cohort
+pxhic4,"Medicaid, Medical Assistance (MA), the Ch",2038,89.4,0.0,999.0,full-cohort
+pxhic5,"TRICARE or other military health care, in",2033,89.2,0.0,999.0,full-cohort
+pxhic7,Any other type of health insurance covera,2034,89.2,0.0,999.0,full-cohort
+pxhic8,Does this mean you currently have no heal,29,1.3,0.0,1.0,skip-gated
+pxji1,"Thinking about the next 12 months, how lik",1928,84.6,0.0,5.0,full-cohort
+pxji2,About how easy would it be for you to find,1778,78.0,0.0,3.0,skip-gated
+pxne1,What is the main type of housing in your n,2127,93.3,1.0,5.0,full-cohort
+pxne10,There are many interesting things to look,2111,92.6,1.0,4.0,full-cohort
+pxne11,How many motor vehicles in working order,2137,93.7,0.0,6.0,full-cohort
+pxne12,There are many four-way intersections in,2115,92.8,1.0,88.0,full-cohort
+pxne13,The sidewalks in my neighborhood are well,2071,90.8,1.0,4.0,full-cohort
+pxne14,Places for bicycling (such as bike paths),1921,84.3,1.0,4.0,full-cohort
+pxne15,There is so much traffic on the streets t,1998,87.6,1.0,4.0,full-cohort
+pxne16,The crime rate in my neighborhood makes i,2089,91.6,1.0,4.0,full-cohort
+pxne17,There are many places to go within easy w,2134,93.6,1.0,4.0,full-cohort
+pxne2,"Many shops, stores, markets or other place",2135,93.6,1.0,4.0,full-cohort
+pxne3,It is within a 10-15 minute walk to a tran,2033,89.2,1.0,4.0,full-cohort
+pxne4,There are sidewalks on most of the streets,2147,94.2,1.0,88.0,full-cohort
+pxne5,There are facilities to bicycle in or near,2119,92.9,1.0,88.0,full-cohort
+pxne6,My neighborhood has several free or low co,2098,92.0,1.0,4.0,full-cohort
+pxne7,The crime rate in my neighborhood makes it,2061,90.4,1.0,4.0,full-cohort
+pxne8,There is so much traffic on the streets th,2134,93.6,1.0,88.0,full-cohort
+pxne9,I see many people being physically active,2122,93.1,1.0,4.0,full-cohort
+pxpa1,"In the last 12 months, have you delayed ge",2048,89.8,0.0,1.0,full-cohort
+pxpa2,Did any other person in your household del,2019,88.6,0.0,1.0,full-cohort
+pxpa3,"In the last 12 months, was there any time",2042,89.6,0.0,1.0,full-cohort
+pxpa4,"In the last 12 months, was there any time",2010,88.2,0.0,1.0,full-cohort
+pxrd1,How often in the past year?,2216,97.2,1.0,6.0,full-cohort
+pxrd10,How often in the past year?,2238,98.2,1.0,6.0,full-cohort
+pxrd11,How often in your entire life?,2240,98.2,1.0,6.0,full-cohort
+pxrd12,"On a scale of 1-6, how stressful was this",1254,55.0,1.0,6.0,skip-gated
+pxrd13,How often in the past year?,2246,98.5,1.0,6.0,full-cohort
+pxrd14,How often in your entire life?,2243,98.4,1.0,6.0,full-cohort
+pxrd15,"On a scale of 1-6, how stressful was this",1382,60.6,1.0,6.0,skip-gated
+pxrd16,How often in the past year?,2245,98.5,1.0,6.0,full-cohort
+pxrd17,How often in your entire life?,2241,98.3,1.0,6.0,full-cohort
+pxrd18,"On a scale of 1-6, how stressful was this",788,34.6,1.0,6.0,skip-gated
+pxrd19,How often in the past year?,2244,98.4,1.0,6.0,full-cohort
+pxrd2,How often in your entire life?,2246,98.5,1.0,6.0,full-cohort
+pxrd20,How often in your entire life?,2240,98.2,1.0,6.0,full-cohort
+pxrd21,"On a scale of 1-6, how stressful was this",849,37.2,1.0,6.0,skip-gated
+pxrd22,How often in the past year?,2240,98.2,1.0,6.0,full-cohort
+pxrd23,How often in your entire life?,2239,98.2,1.0,6.0,full-cohort
+pxrd24,"On a scale of 1-6, how stressful was this",821,36.0,1.0,6.0,skip-gated
+pxrd25,How often in the past year?,2241,98.3,1.0,6.0,full-cohort
+pxrd26,How often in your entire life?,2244,98.4,1.0,6.0,full-cohort
+pxrd27,"On a scale of 1-6, how stressful was this",786,34.5,1.0,6.0,skip-gated
+pxrd28,How often in the past year?,2250,98.7,1.0,6.0,full-cohort
+pxrd29,How often in your entire life?,2251,98.7,1.0,6.0,full-cohort
+pxrd3,"On a scale of 1-6, how stressful was this",1085,47.6,1.0,6.0,skip-gated
+pxrd30,"On a scale of 1-6, how stressful was this",569,25.0,1.0,6.0,skip-gated
+pxrd31,How often in the past year?,2244,98.4,1.0,6.0,full-cohort
+pxrd32,How often in your entire life?,2241,98.3,1.0,6.0,full-cohort
+pxrd33,"On a scale of 1-6, how stressful was this",961,42.1,1.0,6.0,skip-gated
+pxrd34,How often in the past year?,2242,98.3,1.0,6.0,full-cohort
+pxrd35,How often in your entire life?,2236,98.1,1.0,6.0,full-cohort
+pxrd36,"On a scale of 1-6, how stressful was this",1107,48.6,1.0,6.0,skip-gated
+pxrd37,How often in the past year?,2243,98.4,1.0,6.0,full-cohort
+pxrd38,How often in your entire life?,2237,98.1,1.0,6.0,full-cohort
+pxrd39,"On a scale of 1-6, how stressful was this",1069,46.9,1.0,6.0,skip-gated
+pxrd4,How often in the past year?,2226,97.6,1.0,6.0,full-cohort
+pxrd40,How often in the past year?,2247,98.6,1.0,6.0,full-cohort
+pxrd41,How often in your entire life?,2248,98.6,1.0,6.0,full-cohort
+pxrd42,"On a scale of 1-6, how stressful was this",510,22.4,1.0,6.0,skip-gated
+pxrd43,How often in the past year?,2238,98.2,1.0,6.0,full-cohort
+pxrd44,How often in your entire life?,2235,98.0,1.0,6.0,full-cohort
+pxrd45,"On a scale of 1-6, how stressful was this",1039,45.6,1.0,6.0,skip-gated
+pxrd46,How often in the past year?,2244,98.4,1.0,6.0,full-cohort
+pxrd47,How often in your entire life?,2241,98.3,1.0,6.0,full-cohort
+pxrd48,"On a scale of 1-6, how stressful was this",667,29.3,1.0,6.0,skip-gated
+pxrd49,How often in the past year?,2246,98.5,1.0,6.0,full-cohort
+pxrd5,How often in your entire life?,2238,98.2,1.0,6.0,full-cohort
+pxrd50,How often in your entire life?,2238,98.2,1.0,6.0,full-cohort
+pxrd51,"On a scale of 1-6, how stressful was this",727,31.9,1.0,6.0,skip-gated
+pxrd52,In the Past Year?,2139,93.8,1.0,6.0,full-cohort
+pxrd53,In your entire life?,2141,93.9,1.0,6.0,full-cohort
+pxrd54,"On a scale of 1-6, how stressful was this",718,31.5,1.0,6.0,skip-gated
+pxrd6,"On a scale of 1-6, how stressful was this",1166,51.1,1.0,6.0,skip-gated
+pxrd7,How often in the past year?,2230,97.8,1.0,6.0,full-cohort
+pxrd8,How often in your entire life?,2238,98.2,1.0,6.0,full-cohort

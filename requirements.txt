@@ -1,0 +1,24 @@
+# Azure connectivity
+azure-storage-blob>=12.19.0
+
+# Data analysis
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Jupyter notebooks
+jupyter>=1.0.0
+ipykernel>=6.25.0
+
+# File format handling
+wfdb>=4.1.0  # For reading .hea and .dat files (medical waveform data)
+pyarrow>=12.0.0  # For efficient data handling
+
+# Utilities
+tqdm>=4.65.0  # Progress bars
+python-dateutil>=2.8.0
+python-dotenv>=1.0.0  # Load environment variables from .env for local development
