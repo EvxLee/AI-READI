@@ -28,7 +28,19 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 
 | ID | Status | Key output | One-line result | Keep/Kill |
 |----|--------|-----------|-----------------|-----------|
-| | not started | | | |
+| E1.1 | not started | | | |
+| E1.2 | not started | | | |
+| E1.3 | not started | | | |
+| E1.4 | not started | | | |
+| E1.5 | not started | | | |
+| E1.6 | not started | | | |
+| E1.7 | not started | | | |
+| E2.1 | not started | | | |
+| E2.2 | not started | | | |
+| E2.3 | not started | | | |
+| E2.4 | not started | | | |
+| E2.5 | not started | | | |
+| E2.6 | not started | | | |
 
 ## Log
 
