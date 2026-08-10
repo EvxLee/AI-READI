@@ -15,6 +15,7 @@ full_*.csv
 PROJECT_CONTEXT.md
 repo_reorg_plan.md
 CLAUDE.md
+.claude/
 papers/*/PLAN.md
 papers/*/EXPERIMENTS.md
 

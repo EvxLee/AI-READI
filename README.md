@@ -5,7 +5,7 @@ Analysis code for two cross-sectional studies of the NIH
 diabetes cohort of ~2,280 adults spanning four severity groups, from healthy
 to insulin-treated.
 
-Work by the UCSF Tech Lab team: Evan Lee, Parwaan, and mentor Faris.
+Work by the UCSF Tech Lab team: Evan Lee, Parwaan Virk, and mentor Faris.
 
 ## The two papers
 
@@ -36,7 +36,7 @@ cohort.
 - **Access to the project's Azure Blob container.** The AI-READI dataset is
   controlled-access and is *not* included in this repository. You need your
   own connection string, which requires an executed data use agreement — ask
-  Evan or Faris. Nothing below the install step will work without it.
+  Evan (exl2813@berkeley.edu) Nothing below the install step will work without it.
 
 ### 1. Install
 
@@ -118,19 +118,6 @@ this makes that mistake hard to make by accident.
 | `requirements.txt` | The list of packages to install. One command sets up everything. |
 | `pyproject.toml` | Tells the installer that `src/aireadi/` is a package, so `from aireadi import ...` works from any folder without path juggling. |
 | `.env.example` | Template for your credentials. Copy to `.env` and fill in; `.env` is never committed. |
-| `.claude/` | Settings for Claude Code (an AI coding assistant), if you use it. Harmless and ignorable if you don't. |
-
-Inside each paper folder:
-
-| File / folder | What it's for |
-|---|---|
-| `PLAN.md` | The research plan — the questions, the reasoning, the design. *(Kept locally, not committed — ask the paper's lead.)* |
-| `PRESPEC.md` | The final analysis recipe, written at convergence, dated, then **frozen**. No changing outcome definitions after this. |
-| `RESULTS_LOG.md` | Every analysis run, one line each — **including the ones that found nothing.** This is what lets the paper foreground its strongest results without a reviewer suspecting cherry-picking. |
-| `notebooks/` | The experiments themselves. Thin: load, call the toolbox, plot, interpret. |
-| `results/` | Finished figures and summary tables, named by experiment ID. **Aggregates only** — never anything with one row per person. |
-
----
 
 ## How to run an experiment
 
@@ -152,31 +139,3 @@ fast — nothing re-streams from Azure.
 
 Then: save aggregate output to your paper's `results/`, and add one line to
 `RESULTS_LOG.md` — including if the result was null.
-
----
-
-## The rules
-
-These are short, and they exist because breaking them has already cost this
-project real work.
-
-1. **Never commit participant-level data.** No raw files, no per-person
-   tables, no notebook outputs with `person_id` in them. `data/` is
-   gitignored; keep it that way.
-2. **Read `docs/CAVEATS.md` before touching data.** The wrong HbA1c field,
-   survey codes that look like real scores, device error codes that look like
-   readings — all documented, all have bitten someone here.
-3. **Log every run, including nulls,** in your paper's `RESULTS_LOG.md`.
-4. **Numbers in any report come from executed output,** never from memory.
-5. **Adjust for age + severity group + site** on any association claim.
-   Severity confounds nearly everything in this cohort.
-6. **Shared logic goes in `src/aireadi/`,** not copy-pasted between
-   notebooks. If you write the same cleaning step twice, move it.
-
----
-
-## Notes
-
-The exploratory phase that preceded this layout is preserved in the
-`eda-archive` git tag. Its conclusions are superseded — see `docs/CAVEATS.md`
-for what went wrong and why.
