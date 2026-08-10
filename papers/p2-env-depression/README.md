@@ -11,11 +11,36 @@ depression outcome (CES-D-10) across the diabetes severity spectrum.
 
 | File | Committed | Purpose |
 |---|---|---|
-| `PLAN.md` | no — local | Full research plan |
+| `PLAN.md` | no — local | Full research plan (was `GAMEPLAN.md`) |
+| `EDA_FINDINGS.md` | yes | Exploratory findings report |
+| `prepare_wearable_bmi_full.py` | yes | Builds the merged wearable + BMI + environment table |
 | `PRESPEC.md` | yes | Analysis plan, dated, then **frozen** |
 | `RESULTS_LOG.md` | yes | Every run, including nulls |
 | `notebooks/` | yes, outputs cleared | Numbered experiments, thin |
 | `results/` | yes | Figures and aggregate tables only |
+
+## Migrated from the `parwaan-analysis` branch
+
+That branch was folded into this folder on 2026-08-10 and deleted. Everything
+from it lives here now:
+
+- `notebooks/02_environmental_clinical_eda.ipynb` — **outputs cleared.** They
+  contained rows keyed by `person_id` alongside age and clinical site, which
+  cannot be committed. Re-run to regenerate them locally.
+- `EDA_FINDINGS.md` and `results/fig1–fig3` — unchanged.
+- `prepare_wearable_bmi_full.py` — unchanged, but see below.
+- `GAMEPLAN.md` — byte-identical to `PLAN.md`, so it was not duplicated.
+- The four full-cohort CSVs (`full_merged_wearable_bmi.csv`,
+  `full_env_processed.csv`, `full_bmi_processed.csv`,
+  `depression_related_full.csv`) are participant-level and are **not
+  committed**. They now sit in `data/processed/p2/`, which is gitignored.
+
+**`prepare_wearable_bmi_full.py` still reads the old `data/samples/` paths**
+and will not run as-is. Two of the things it does — Garmin error codes to
+missing, and the sleep day-fraction to hours — are already in
+`src/aireadi/wearables.clean_garmin_manifest()`, and `cohort.build_core_table()`
+now returns most of the merge for free. Worth slimming down to just the
+environmental join rather than repointing the paths.
 
 ## Starting points
 
