@@ -1,24 +1,32 @@
+# Install with:  pip install -r requirements.txt
+# The final line installs src/aireadi as an editable package, so
+# `from aireadi import cohort` works from anywhere in the repo.
+
 # Azure connectivity
 azure-storage-blob>=12.19.0
+python-dotenv>=1.0.0
 
 # Data analysis
 pandas>=2.0.0
 numpy>=1.24.0
+scipy>=1.11.0
+statsmodels>=0.14.0
+scikit-learn>=1.3.0
 
 # Visualization
 matplotlib>=3.7.0
 seaborn>=0.12.0
-plotly>=5.14.0
 
-# Jupyter notebooks
+# Notebooks
 jupyter>=1.0.0
 ipykernel>=6.25.0
+nbstripout>=0.6.1          # clears outputs before commit — a compliance control
 
-# File format handling
-wfdb>=4.1.0  # For reading .hea and .dat files (medical waveform data)
-pyarrow>=12.0.0  # For efficient data handling
+# File formats
+pyarrow>=12.0.0
+wfdb>=4.1.0                # ECG waveforms (.hea / .dat)
 
 # Utilities
-tqdm>=4.65.0  # Progress bars
-python-dateutil>=2.8.0
-python-dotenv>=1.0.0  # Load environment variables from .env for local development
+tqdm>=4.65.0
+
+-e .

@@ -1,116 +1,97 @@
-# AI-READI Dataset - Exploratory Data Analysis Project
+# AI-READI analysis
 
-Comprehensive exploratory data analysis tools for the AI-READI diabetes research dataset stored in Azure Blob Storage.
+Analysis code for two cross-sectional studies of the NIH
+[AI-READI](https://aireadi.org/) dataset (Bridge2AI) — a multimodal Type 2
+diabetes cohort of ~2,280 adults spanning four severity groups, from healthy
+to insulin-treated.
 
-## Quick Start
+Work by the UCSF Tech Lab team: Evan Lee, Parwaan (P2 lead), and mentor Faris.
+
+## The two papers
+
+**Paper 1 — Unrecognized organ damage** (`papers/p1-organ-damage/`)
+
+Three inexpensive tests performed at a single study visit — urine albumin
+(kidney), monofilament exam (nerve), and high-sensitivity troponin (heart) —
+compared against what participants reported a doctor had ever told them. The
+question is how much detectable organ damage goes unrecognized, per organ,
+across the diabetes severity spectrum. Depressive symptoms (CES-D-10) are a
+clearly labelled secondary aim.
+
+**Paper 2 — Environment, BMI, and wearables vs depressive symptoms**
+(`papers/p2-env-depression/`)
+
+Personal indoor environmental exposure (PM2.5 and other home-sensor
+measures), body composition, and wearable-measured physiology, examined side
+by side against one depression outcome (CES-D-10) in a staged diabetes
+cohort.
+
+Each paper's folder holds its analysis plan, prespecification, experiment
+list, results log, notebooks, and committed aggregate outputs.
+
+## Data access
+
+The dataset is **controlled-access** and is not distributed with this
+repository. Running anything here requires your own credentials for the
+project's Azure Blob container under an executed data use agreement.
+
+No participant-level data is committed to this repository, by policy — see
+`CLAUDE.md`.
+
+## Setup
 
 ```bash
-# 1. Clone and enter the repo
-git clone <this-repo-url> && cd ucsf_tech
+git clone https://github.com/EvxLee/AI-READI.git
+cd AI-READI
 
-# 2. Configure Azure credentials (local only)
-cp .env.example .env
-# Edit .env and set:
-#   AZURE_STORAGE_CONNECTION_STRING=...
-#   AZURE_CONTAINER_NAME=aireadi-raw
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt      # installs deps + the aireadi package
 
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Run a container scan (optional but recommended)
-python3 scripts/blob_storage_scanner.py
-
-# 5. Launch the initial inspection notebook
-jupyter notebook notebooks/01_initial_data_inspection.ipynb
+cp .env.example .env                 # then fill in your connection string
 ```
 
-## Dataset Overview
+Verify the install without touching the network:
 
-- **Total Size**: 97.54 GB
-- **Total Files**: 24,256 blobs
-- **Data Modalities**: Clinical data (OMOP CDM), 12-lead ECG, environmental sensors, wearable activity monitors, blood glucose monitors
-
-## What's Included
-
-### Scripts
-
-- **blob_storage_scanner.py** - Comprehensive container scan and cataloging
-- **analyze_structure.py** - Directory structure analysis and insights
-- **explore_metadata.py** - Dataset metadata exploration
-- **explore_clinical_data.py** - Clinical data (OMOP CDM) analysis
-- **sample_wfdb_data.py** - ECG data sampling and visualization
-
-### Notebooks
-
-- **01_initial_data_inspection.ipynb** - Interactive initial data inspection workflow
-- **02_exploratory_data_analysis.ipynb** - True exploratory data analysis (coming soon)
-
-### Configuration
-
-- **Environment variables** (via `.env` or your shell)
-  - `AZURE_STORAGE_CONNECTION_STRING` – full Azure Blob Storage connection string
-  - `AZURE_CONTAINER_NAME` – target container (defaults to `aireadi-raw`)
-  - `AZURE_STUDY_ID` (optional) – study identifier used in some scripts/notebooks
-- **config/azure_config.py** – small helper that reads these env vars; it contains **no secrets**.
-
-## Key Findings
-
-### File Types
-
-- **JSON** (17,494 files, 39.57 GB) - Wearable data, metadata
-- **CSV** (2,237 files, 57.69 GB) - Clinical data (OMOP CDM), environmental sensors
-- **.dat/.hea** (2,257 pairs, 288 MB) - 12-lead ECG data (WFDB format)
-
-### Data Modalities
-
-1. **Clinical Data**: OMOP Common Data Model with person, observation, measurement tables
-2. **ECG Data**: 2,257 12-lead ECGs, 500 Hz sampling rate, 11-second duration
-3. **Environmental Sensors**: Continuous monitoring data from Lee Lab Anura sensors
-4. **Wearable Activity**: 15,245 activity monitor files
-5. **Blood Glucose**: 2,246 glucose monitor files
-
-### What are .dat and .hea files?
-
-These are **WFDB (WaveForm DataBase)** format files used for physiological signals:
-
-- **.hea** = Header file (text) with metadata (sampling rate, lead names, duration)
-- **.dat** = Binary data file with actual ECG signal values
-- Always come in pairs (one .hea + one .dat per recording)
-- Read using the `wfdb` Python library
-
-## Documentation
-
-See [INITIAL_DATA_INSPECTION_GUIDE.md](guides/INITIAL_DATA_INSPECTION_GUIDE.md) for comprehensive documentation including:
-
-- Detailed data structure
-- Analysis workflows
-- Code examples
-- Best practices for large dataset handling
-
-## Project Structure
-
-```
-├── config/           # Config helpers (no secrets; uses env vars)
-├── scripts/          # Python analysis scripts and data utilities
-├── notebooks/        # Jupyter notebooks for inspection and EDA
-├── data/samples/     # Small sample extracts and manifests
-└── results/          # Scan results and visualizations
+```bash
+python -c "import aireadi; print(aireadi.__version__, aireadi.STUDY_ID)"
 ```
 
-## Requirements
+## Using the shared package
 
-- Python 3.9+
-- Azure Storage Account access
-- Libraries: azure-storage-blob, pandas, wfdb, matplotlib, seaborn, jupyter
+All data access and cleaning lives in `src/aireadi/`. Notebooks import from
+it and stay thin, so a fix reaches both papers at once.
 
-## Notes
+```python
+from aireadi import cohort, omop, azure_io
 
-This is a **Type 2 Diabetes research dataset** from the AI-READI project. The dataset is too large (97.54 GB) for full download - use streaming, chunking, and sampling strategies as demonstrated in the provided scripts.
+# One row per participant: severity, age, site, BMI, HbA1c,
+# CES-D-10, PAID-5, comorbidity count, CGM and Garmin summaries.
+df = cohort.build_core_table()
+cohort.qc_report(df)
 
-## Resources
+# Find the source-value keys for a variable you have not located yet.
+cohort.find_items("albumin|creatinine", table="measurement")
+```
 
-- [Initial Data Inspection Guide](guides/INITIAL_DATA_INSPECTION_GUIDE.md)
-- [AI-READI Dataset Introduction](guides/AIREADI_INTRO.md) - Background on diabetes and dataset structure
-- [AI-READI Project](https://aireadi.org/)
-- [OMOP CDM Documentation](https://ohdsi.github.io/CommonDataModel/)
-- [WFDB Documentation](https://wfdb.readthedocs.io/)
+Blobs are downloaded once into `data/cache/` and reused; nothing streams from
+Azure on every run.
+
+## Layout
+
+```
+src/aireadi/     shared data layer (constants, azure_io, omop, wearables, cohort)
+papers/          one folder per paper: plan, prespec, experiments, log, notebooks, results
+docs/            CAVEATS.md (read first), DATASET_OVERVIEW.md, reference/
+data/            gitignored: cache/ for raw downloads, processed/ for derived tables
+```
+
+## Before you touch the data
+
+Read **`docs/CAVEATS.md`**. It documents the traps that have already
+corrupted analyses on this dataset — the wrong HbA1c field, survey special
+codes, troponin below-detection rows, Garmin error codes, and a survey-scoring
+defect that invalidated an entire earlier analysis track.
+
+The exploratory phase that preceded this repository layout is preserved in the
+`eda-archive` git tag. Its conclusions are superseded; see `docs/CAVEATS.md`
+for what went wrong.

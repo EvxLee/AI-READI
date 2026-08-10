@@ -1,4 +1,29 @@
-# Python
+# ── Participant-level data: NEVER commit ────────────────────────────────
+# AI-READI is controlled-access under a data use agreement. Nothing keyed by
+# person_id belongs in this repository -- not raw files, not derived tables,
+# not notebook outputs.
+data/*
+!data/.gitkeep
+
+# Belt and braces: catch person-level tables wherever they land.
+*_per_person.csv
+*_participants.csv
+full_*.csv
+*_full.csv
+
+# ── Personal planning documents (local use only) ────────────────────────
+PROJECT_CONTEXT.md
+repo_reorg_plan.md
+papers/*/PLAN.md
+papers/*/EXPERIMENTS.md
+
+# ── Secrets ─────────────────────────────────────────────────────────────
+.env
+*.key
+key.txt
+config/secrets.py
+
+# ── Python ──────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -6,40 +31,21 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
 *.egg-info/
+.eggs/
 dist/
 build/
 
-# Jupyter
+# ── Jupyter ─────────────────────────────────────────────────────────────
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data files
-data/samples/*
-!data/samples/.gitkeep
-# Allow CSV summaries but exclude large JSON and binary files
-!data/samples/*.csv
-data/samples/*.json
-data/samples/*.dat
-data/samples/*.hea
-data/samples/cgm/*.json
-results/*
-!results/scans/.gitkeep
-!results/visualizations/.gitkeep
-
-# Configuration with secrets
-config/secrets.py
-.env
-
-# IDE
+# ── IDE / OS ────────────────────────────────────────────────────────────
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS
 .DS_Store
 Thumbs.db
-
-key.txt
