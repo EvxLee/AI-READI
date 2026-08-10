@@ -28,7 +28,7 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 
 | ID | Status | Key output | One-line result | Keep/Kill |
 |----|--------|-----------|-----------------|-----------|
-| E1.1 | not started | | | |
+| E1.1 | done | `results/E1_1.csv` | N=2280 participants merged (core+wearable+environmental). 12/17 variables differ significantly (p<0.05, Kruskal-Wallis) across the 4 severity groups. | keep |
 | E1.2 | not started | | | |
 | E1.3 | not started | | | |
 | E1.4 | not started | | | |
@@ -53,3 +53,9 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 **Output:** results/<ID>_*.csv
 
 -->
+
+### E1.1 — 2026-08-10
+**Method:** Descriptive stats (n/mean/median/IQR overall; n/mean/median by severity group; Kruskal-Wallis across groups) for all 17 pre-specified variables (PRESPEC.md sections 3-4), built on cohort.build_core_table() plus environmental_summary.csv
+**Result:** N=2280 participants merged (core+wearable+environmental). 12/17 variables differ significantly (p<0.05, Kruskal-Wallis) across the 4 severity groups.
+**Decision:** keep
+**Output:** results/E1_1.csv
