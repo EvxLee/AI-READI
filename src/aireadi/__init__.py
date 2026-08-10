@@ -11,7 +11,7 @@ once. Read `docs/CAVEATS.md` before using any of it.
 
 from __future__ import annotations
 
-from . import azure_io, cohort, constants, omop, wearables
+from . import azure_io, cohort, constants, omop, results, wearables
 from .constants import (
     CONTAINER_NAME,
     DATASET_VERSION,
@@ -26,6 +26,7 @@ __all__ = [
     "cohort",
     "constants",
     "omop",
+    "results",
     "wearables",
     "CONTAINER_NAME",
     "DATASET_VERSION",

@@ -14,6 +14,7 @@ reporting a maximum of 777.
 from __future__ import annotations
 
 import json
+import re
 
 import numpy as np
 import pandas as pd
@@ -242,6 +243,82 @@ def test_missing_score_is_not_a_negative_screen():
     assert flags.iloc[1] == 0.0
     assert pd.isna(flags.iloc[2])   # not 0.0
     assert flags.iloc[3] == 1.0     # cutoff is inclusive
+
+
+# ── Saving results ──────────────────────────────────────────────────────
+
+@pytest.fixture
+def clean_log():
+    """Restore RESULTS_LOG.md and remove test artifacts afterwards."""
+    from aireadi import results
+    path = results.log_path("p1")
+    original = path.read_text(encoding="utf-8")
+    written: list = []
+    yield written
+    path.write_text(original, encoding="utf-8")
+    for p in written:
+        if p is not None:
+            p.unlink(missing_ok=True)
+
+
+def test_refuses_to_save_participant_level_table(clean_log):
+    """The last line of defence before a per-person table lands in results/."""
+    from aireadi import results
+
+    leaky = pd.DataFrame({"person_id": [1001, 1002], "troponin": [15.0, 3.0]})
+    with pytest.raises(ValueError, match="participant-level"):
+        results.save("E9.9", leaky, paper="p1", method="m", result="r",
+                     decision="keep")
+
+    assert not (results.results_dir("p1") / "E9_9.csv").exists()
+
+
+def test_save_table_writes_file_and_logs(clean_log):
+    from aireadi import results
+
+    table = pd.DataFrame({"organ": ["kidney"], "pct": [72.1]}).set_index("organ")
+    path = results.save("E1.2", table, paper="p1", method="Unrecognized per organ",
+                        result="Kidney 72.1%", decision="keep", name="by_organ")
+    clean_log.append(path)
+
+    assert path.name == "E1_2_by_organ.csv"
+    assert path.exists()
+
+    text = results.log_path("p1").read_text(encoding="utf-8")
+    assert "**Result:** Kidney 72.1%" in text
+    assert "| E1.2 | done |" in text          # status row updated
+    assert "`results/E1_2_by_organ.csv`" in text
+
+
+def test_null_result_is_logged_without_an_artifact(clean_log):
+    from aireadi import results
+
+    results.log("E2D.1", paper="p1", method="Garmin vs damage",
+                result="Nothing survives adjustment", decision="kill")
+
+    text = results.log_path("p1").read_text(encoding="utf-8")
+    assert "**Output:** none" in text
+    assert "| E2D.1 | done | — |" in text
+
+
+def test_pipe_in_a_result_cannot_break_the_status_table(clean_log):
+    from aireadi import results
+
+    results.log("E1.5", paper="p1", method="Threshold sweep",
+                result="rho 0.2 | p 0.03", decision="keep")
+
+    row = next(l for l in results.log_path("p1").read_text().splitlines()
+               if l.startswith("| E1.5 |"))
+    assert r"rho 0.2 \| p 0.03" in row              # the pipe was escaped
+    cells = re.split(r"(?<!\\)\|", row)[1:-1]       # split on unescaped pipes only
+    assert len(cells) == 5                          # table structure intact
+
+
+def test_unknown_paper_is_rejected():
+    from aireadi import results
+
+    with pytest.raises(ValueError, match="paper must be one of"):
+        results.results_dir("p3")
 
 
 if __name__ == "__main__":
