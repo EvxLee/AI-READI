@@ -1,0 +1,15 @@
+,predictor,pair,n,coefficient,odds_ratio,p_value,direction
+0,mean_glucose,Oral Med vs Insulin,794,0.015463442379126219,1.0155836200587114,1.0755070627985588e-13,higher -> more Insulin-like
+1,log_pm25,Oral Med vs Insulin,794,0.23146722032533715,1.2604480088247652,0.007598541392287704,higher -> more Insulin-like
+2,mean_voc,Oral Med vs Insulin,794,0.011337417559140417,1.0114019296472432,0.019227587750998087,higher -> more Insulin-like
+3,steps,Oral Med vs Insulin,794,-7.693070386948674e-05,0.9999230722552213,0.04263906399861241,higher -> more Oral Med-like
+4,bmi,Oral Med vs Insulin,794,0.021390223037979158,1.0216206337718778,0.07415863712773957,higher -> more Insulin-like
+5,mean_temp,Oral Med vs Insulin,794,0.047567533631515745,1.0487170223988043,0.2170501419341685,higher -> more Insulin-like
+6,age,Oral Med vs Insulin,794,0.011327707347827056,1.011392108768465,0.21835173955114195,higher -> more Insulin-like
+7,heart_rate,Oral Med vs Insulin,794,0.022280288741162953,1.0225303480523458,0.2473785016687594,higher -> more Insulin-like
+8,sleep_hours,Oral Med vs Insulin,794,0.04231602144238149,1.0432241078503781,0.25589982486955465,higher -> more Insulin-like
+9,mean_light,Oral Med vs Insulin,794,5.987770974468524,398.5252960837859,0.3115615430265424,higher -> more Insulin-like
+10,mean_nox,Oral Med vs Insulin,794,0.10181829873903571,1.1071822770339677,0.35805572839751554,higher -> more Insulin-like
+11,stress,Oral Med vs Insulin,794,0.0024407848176269758,1.0024437659578371,0.8013986879186894,higher -> more Insulin-like
+12,mean_hum,Oral Med vs Insulin,794,-0.002612286237501029,0.9973911228130742,0.8384564652791795,higher -> more Oral Med-like
+13,active_calories,Oral Med vs Insulin,794,-0.0001087131752420468,0.999891292733821,0.8895852531306332,higher -> more Oral Med-like

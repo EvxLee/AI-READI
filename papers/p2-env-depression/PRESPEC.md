@@ -17,6 +17,59 @@ eventual methods section must say so plainly.
 
 ---
 
+## Amendment — 2026-08-11, direction from project head
+
+**This is a deviation from the frozen sections below, not a silent rewrite —
+those sections are left intact for the audit trail.** Sections 1–10 below
+described a paper with CES-D-10 depression score as the single, primary
+outcome. As of 2026-08-11 that changes:
+
+1. **Primary outcome becomes glycemic control**, not depression, built from
+   participants' raw CGM streams (`build_cgm_table.py`, this folder) rather
+   than the manifest's single mean-glucose value — mean, SD, CV, GMI, %
+   time above 140 mg/dL, % time above 180 mg/dL, % time below 70 mg/dL
+   (hypoglycemia), spikes/day above 180, minutes/day above 180, average
+   spike peak, and MAGE. Every one of these needs its own N and coverage
+   check the same way Section 2 did for the original variables — do not
+   assume full coverage; some Dexcom streams may be too short (<12 readings)
+   to produce a metric, same failure mode `wearables.parse_dexcom_json`
+   already guards against.
+2. **BMI is promoted from Section 4's predictor list to a secondary outcome
+   in its own right** — its own relationship to environmental exposure and
+   to glycemic control gets reported directly, not folded silently into the
+   primary model's coefficient table.
+3. **CES-D-10 (Sections 3, 6 Aim 1, 7 Aim 2 as originally written) becomes a
+   tertiary, side analysis** — every experiment ID in Sections 6–7 below
+   (E1.1–E1.7, E2.1–E2.6) still runs as specified, just understood now as
+   the depression track rather than the paper's primary claim.
+4. **New near-term step, ahead of a single combined 4-group model:** pairwise
+   binary logistic regressions at each adjacent severity boundary (Healthy
+   vs Pre-DM, Pre-DM vs Oral Med, Oral Med vs Insulin), same
+   environmental/BMI/wearable predictor set as Section 4, adjusted for age
+   and site. Tracked as EP.1–EP.3, with EP.4 as a cross-pair synthesis
+   (which predictors are significant at more than one boundary). Already run
+   once, 2026-08-11 (`RESULTS_LOG.md`) — treat that run the same way the
+   original Aim 1/Aim 2 scoping runs are treated: disclosed, not hidden,
+   official confirmation still to come once the CGM metrics and the combined
+   model (EG.1) exist to compare against.
+5. **New primary model (EG.1, not yet run):** a glycemic-control metric
+   (candidate: `tar_180` or `glucose_cv`, final choice to be confirmed once
+   `cgm_glycemic_metrics.csv` is built and its distribution inspected — see
+   `PLAN.md`) regressed on the same predictor set as Section 4, plus age and
+   severity group as covariates. Whether the environmental term is
+   significant in this model is the paper's central claim under the pivot.
+6. **New experiment (ECGM.2, not yet run):** compare CGM-derived metrics
+   between the insulin-dependent age<70 subgroup and the 70+ group, to test
+   whether glycemic control differs by age within the highest-severity
+   group or is a pure severity effect.
+
+Everything else in this document — the dataset, the covariates in Section 5,
+`docs/CAVEATS.md`'s data-handling rules, the reporting rule in Section 10 —
+is unchanged. Sections 1–10 below are preserved as originally frozen and
+should be read as "the depression track's specification," not superseded.
+
+---
+
 ## 1. Objective
 
 Two aims, one outcome (CES-D-10 depression score), tested against three

@@ -24,6 +24,18 @@ executed outputs, never from memory.
   auto-update, re-check that row's Description is still intact before
   committing, and restore it if not.
 
+## Amendment — 2026-08-11, direction from project head
+
+Primary outcome pivots from CES-D-10 depression score to diabetes/glycemic
+control (built from raw CGM streams, not the manifest mean). BMI promoted
+to a secondary outcome in its own right. CES-D-10 work (all of E1.x/E2.x
+below) continues as a tertiary, side-analysis track, not the headline. Full
+reasoning in `PLAN.md`'s "v3 pivot" section and `PRESPEC.md`'s Amendment.
+New experiment IDs added below: **EP.1-EP.4** (pairwise adjacent-severity
+binary models, already run), **ECGM.1-ECGM.2** (CGM-derived glycemic
+metrics build + age-group comparison), **EG.1** (primary model: glycemic
+control ~ environment + BMI + wearables + age + severity).
+
 ## Scoping results (pre-plan, disclosed in methods)
 
 | Run | Result |
@@ -38,19 +50,26 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 
 | ID | Status | Key output | Description — what we want from it | One-line result | Keep/Kill |
 |----|--------|-----------|-----------------|-----------------|-----------|
-| E1.1 | done | `results/E1_1.csv` | Baseline population picture across environment, BMI, wearables, and CES-D-10 — confirms the merged table looks right before any model runs on it. | N=2280 participants merged (core+wearable+environmental). 12/17 variables differ significantly (p<0.05, Kruskal-Wallis) across the 4 severity groups. | keep |
-| E1.2 | not started | | Primary test: does PM2.5, BMI, or wearable behavior independently predict depression score once age, severity, and site are controlled for? | | |
-| E1.3 | not started | | Robustness check: do the same predictors hold when depression is treated as the ≥10 clinical screen (yes/no) instead of a continuous score? | | |
-| E1.4 | not started | | Which single variables carry a depression signal on their own, before any adjustment? | | |
-| E1.5 | not started | | Does the E1.2 story change once the lower-coverage variables (SpO2, CGM glucose) are added back in? | | |
-| E1.6 | not started | | Does the result replicate independently at each of the three clinical sites, or is one site driving it? | | |
-| E1.7 | not started | | Does the result survive known data-quality issues (broken temperature sensor, PM2.5 outliers) and variable overlap (VIF)? | | |
-| E2.1 | not started | | Full profile of the highest-risk subgroup (insulin-dependent, under 70), including depression for the first time. | | |
-| E2.2 | not started | | Headline subgroup test: is this subgroup's depression burden actually higher than the rest of the cohort's? | | |
-| E2.3 | not started | | Within the subgroup, does depression line up with its already-elevated BMI, PM2.5, or wearable profile? | | |
-| E2.4 | not started | | Adjusted version of E2.3: does any variable still predict depression within the subgroup once the others are controlled for? | | |
-| E2.5 | not started | | Does the specific high-BMI + low-activity combination the team originally asked about show elevated depression? | | |
-| E2.6 | not started | | Is the subgroup's depression gap driven by one specific age band, or true across both? | | |
+| E1.1 | done | `results/E1_1.csv` | Baseline population picture across environment, BMI, wearables, and CES-D-10 — confirms the merged table looks right before any model runs on it. Track: primary (general-purpose, not depression-specific). | N=2280 participants merged (core+wearable+environmental). 12/17 variables differ significantly (p<0.05, Kruskal-Wallis) across the 4 severity groups. | keep |
+| **EP.1** | done | `results/EP_1.csv` | Pairwise binary model, Healthy vs Pre-DM: which env/BMI/wearable predictors separate these two adjacent severity groups, and in which direction? Track: primary. | N=1151. Significant (p<0.05): mean_glucose (p=7.7e-11), bmi (p=3.5e-4). | keep |
+| **EP.2** | done | `results/EP_2.csv` | Pairwise binary model, Pre-DM vs Oral Med. Track: primary. | N=1063. Significant (p<0.05): mean_glucose, sleep_hours, age, heart_rate, mean_temp, stress. | keep |
+| **EP.3** | done | `results/EP_3.csv` | Pairwise binary model, Oral Med vs Insulin. Track: primary. | N=794. Significant (p<0.05): mean_glucose, log_pm25 (p=0.0076), mean_voc, steps. | keep |
+| **EP.4** | done | `results/EP_4.csv` | Cross-pair synthesis: which predictors are significant at more than one adjacent-severity boundary (a real severity-linked effect, not a one-boundary artifact)? Track: primary. | Only mean_glucose significant across all 3 boundaries; PM2.5/VOC significant only at the Oral Med->Insulin boundary specifically. | keep |
+| **ECGM.1** | in progress | `data/processed/p2/cgm_glycemic_metrics.csv` (gitignored, participant-level; not a `results/` artifact) | Build per-participant glycemic-control metrics (mean, SD, CV, GMI, TAR140, TAR180, TBR70, spikes/day, spike-minutes/day, spike peak, MAGE) from raw Dexcom streams — this is the new primary outcome's data source. Track: primary. | | |
+| **ECGM.2** | not started | | Do CGM-derived glycemic metrics differ between the insulin-dependent age<70 subgroup and the 70+ group — is glucose control an age effect within the highest-severity group, or purely a severity effect? Track: primary/tertiary crossover (feeds both). | | |
+| **EG.1** | not started | | Primary model: glycemic-control metric ~ log(PM2.5) + other env vars + BMI + wearables + age + severity group (+ site). Is the environmental term significant once severity is controlled for — the paper's central claim under the pivot. Track: primary. | | |
+| E1.2 | not started | | Depression-track test: does PM2.5, BMI, or wearable behavior independently predict depression score once age, severity, and site are controlled for? Track: tertiary/side (was primary pre-pivot). | | |
+| E1.3 | not started | | Robustness check: do the same predictors hold when depression is treated as the ≥10 clinical screen (yes/no) instead of a continuous score? Track: tertiary/side. | | |
+| E1.4 | not started | | Which single variables carry a depression signal on their own, before any adjustment? Track: tertiary/side. | | |
+| E1.5 | not started | | Does the E1.2 story change once the lower-coverage variables (SpO2, CGM glucose) are added back in? Track: tertiary/side. | | |
+| E1.6 | not started | | Does the result replicate independently at each of the three clinical sites, or is one site driving it? Track: tertiary/side. | | |
+| E1.7 | not started | | Does the result survive known data-quality issues (broken temperature sensor, PM2.5 outliers) and variable overlap (VIF)? Track: tertiary/side. | | |
+| E2.1 | not started | | Full profile of the highest-risk subgroup (insulin-dependent, under 70), including depression for the first time. Track: tertiary/side — this is the "pollution + activity + depression in the younger/worse-diabetes subgroup" thread the project head asked to keep exploring. | | |
+| E2.2 | not started | | Headline subgroup test: is this subgroup's depression burden actually higher than the rest of the cohort's? Track: tertiary/side. | | |
+| E2.3 | not started | | Within the subgroup, does depression line up with its already-elevated BMI, PM2.5, or wearable profile? Track: tertiary/side. | | |
+| E2.4 | not started | | Adjusted version of E2.3: does any variable still predict depression within the subgroup once the others are controlled for? Track: tertiary/side. | | |
+| E2.5 | not started | | Does the specific high-BMI + low-activity combination the team originally asked about show elevated depression? Track: tertiary/side. | | |
+| E2.6 | not started | | Is the subgroup's depression gap driven by one specific age band, or true across both? Track: tertiary/side. | | |
 
 ## Log
 
@@ -69,3 +88,27 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 **Result:** N=2280 participants merged (core+wearable+environmental). 12/17 variables differ significantly (p<0.05, Kruskal-Wallis) across the 4 severity groups.
 **Decision:** keep
 **Output:** results/E1_1.csv
+
+### EP.1 — 2026-08-11
+**Method:** Binary logistic regression: outcome=1 if Pre-DM else 0 (restricted to Healthy/Pre-DM), predictors=log_pm25, mean_temp, mean_hum, mean_light, mean_voc, mean_nox, bmi, mean_glucose, steps, stress, heart_rate, sleep_hours, active_calories, age + clinical_site dummies
+**Result:** N=1151. Significant (p<0.05): mean_glucose (higher -> more Pre-DM-like, p=7.74e-11), bmi (higher -> more Pre-DM-like, p=0.000347).
+**Decision:** keep
+**Output:** results/EP_1.csv
+
+### EP.2 — 2026-08-11
+**Method:** Binary logistic regression: outcome=1 if Oral Med else 0 (restricted to Pre-DM/Oral Med), predictors=log_pm25, mean_temp, mean_hum, mean_light, mean_voc, mean_nox, bmi, mean_glucose, steps, stress, heart_rate, sleep_hours, active_calories, age + clinical_site dummies
+**Result:** N=1063. Significant (p<0.05): mean_glucose (higher -> more Oral Med-like, p=7.1e-21), sleep_hours (higher -> more Pre-DM-like, p=0.00133), age (higher -> more Oral Med-like, p=0.00795), heart_rate (higher -> more Oral Med-like, p=0.0132), mean_temp (higher -> more Oral Med-like, p=0.0163), stress (higher -> more Oral Med-like, p=0.042).
+**Decision:** keep
+**Output:** results/EP_2.csv
+
+### EP.3 — 2026-08-11
+**Method:** Binary logistic regression: outcome=1 if Insulin else 0 (restricted to Oral Med/Insulin), predictors=log_pm25, mean_temp, mean_hum, mean_light, mean_voc, mean_nox, bmi, mean_glucose, steps, stress, heart_rate, sleep_hours, active_calories, age + clinical_site dummies
+**Result:** N=794. Significant (p<0.05): mean_glucose (higher -> more Insulin-like, p=1.08e-13), log_pm25 (higher -> more Insulin-like, p=0.0076), mean_voc (higher -> more Insulin-like, p=0.0192), steps (higher -> more Oral Med-like, p=0.0426).
+**Decision:** keep
+**Output:** results/EP_3.csv
+
+### EP.4 — 2026-08-11
+**Method:** Cross-pair synthesis of EP.1-EP.3: predictors significant (p<0.05) in more than one adjacent-severity-boundary logistic model, i.e. a consistent direction of effect as severity increases rather than a one-boundary artifact.
+**Result:** 1 predictor(s) significant across >1 adjacent-pair boundary: mean_glucose. Full per-predictor breakdown in EP_combined.csv.
+**Decision:** keep
+**Output:** results/EP_4.csv
