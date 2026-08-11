@@ -80,6 +80,58 @@ MEASUREMENT_KEYS = {
     "moca_total": "moca_total_score",
 }
 
+# ── Paper 1 organ-damage markers ────────────────────────────────────────
+# Confirmed by E0.1 against measurement.csv (2026-08-11). Do not guess these:
+# `import_albumin` is SERUM albumin in g/dL and is NOT the kidney marker --
+# the kidney marker is the urine albumin-to-creatinine ratio built from the
+# two `import_urine_*` fields, which share units so the ratio is valid.
+P1_MEASUREMENT_KEYS = {
+    "urine_albumin": "import_urine_albumin",       # n=2226
+    "urine_creatinine": "import_urine_creatinine",  # n=2226
+    "troponin_t": "import_troponin_t",             # n=2233, 712 below detection
+    "monofilament_left": "msslffl",                # n=2268, sites felt 0-10
+    "monofilament_right": "mssrffl",               # n=2268, sites felt 0-10
+}
+
+# Urine albumin and creatinine are reported in the same units, so
+# albumin/creatinine * 1000 yields ACR in mg/g. Sanity: median 7.0 mg/g,
+# and ACR >= 30 reproduces the documented 320-participant kidney spot-check.
+ACR_UNIT_SCALE = 1000
+
+# Sites felt per foot on the monofilament exam. 10 = full protective sensation.
+MONOFILAMENT_MAX_SITES = 10
+
+# hs-cTnT limit of detection: below-detection rows are reported AT 6 ng/L and
+# carry OPERATOR_BELOW_DETECTION. That value is a limit, not a reading.
+TROPONIN_LOD_NG_L = 6.0
+# The assay's own reported upper reference limit (measurement.range_high).
+# Guideline 99th-percentile cutoffs are sex-specific and the public release has
+# no sex variable -- final thresholds are a PRESPEC decision, swept in E1.5.
+TROPONIN_ASSAY_URL_NG_L = 16.0
+
+# ── Organ -> self-report comparator ─────────────────────────────────────
+# Confirmed by E0.2 against the 30-item mhoccur battery and
+# condition_occurrence.csv. Responses are 0/1 with 777 = refused.
+#
+# NERVE HAS NO COMPARATOR. The battery contains no neuropathy, numbness or
+# foot-sensation item; the nearest keys are `mhoccur_cns` ("Other neurological
+# conditions", which also covers the separately-listed MS/Parkinson's/dementia)
+# and `mhoccur_circ` ("Circulation problems", which is vascular, not neural).
+# Neither is a defensible comparator. This triggered the Phase 0 gate; Evan
+# resolved it on 2026-08-11 (logged as E0.GATE): nerve is retained for measured
+# prevalence, multi-organ counts and the Aim 2 depression analysis, and is
+# excluded from the unrecognized fraction, which covers kidney and heart only.
+ORGAN_SELF_REPORT = {
+    "kidney": ["mhoccur_rnl"],              # "Kidney problems", 246 yes
+    "heart": ["mhoccur_mi", "mhoccur_cvdot"],  # "Heart attack" 124, "Other heart issues" 317
+    "nerve": [],                            # none exist -- see above
+}
+
+# Broad neuro/vascular items that look like a nerve comparator and are not.
+# Recorded so nobody rediscovers them and reaches for them; the E0.GATE
+# decision is that they are not used at all, not even as a sensitivity check.
+NERVE_PROXY_ITEMS_REJECTED = ["mhoccur_cns", "mhoccur_circ"]
+
 # observation.csv (observation_source_value, text before the first comma)
 OBSERVATION_KEYS = {
     "cesd_total": "cestl",         # CES-D-10 total, 0-30, screen-positive >= 10

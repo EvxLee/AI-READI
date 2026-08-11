@@ -19,6 +19,12 @@ CLAUDE.md
 papers/*/PLAN.md
 papers/*/EXPERIMENTS.md
 
+# ── Working-session reports (local only) ────────────────────────────────
+# Plain-language write-ups of what happened in a session, for the team. The
+# durable record is RESULTS_LOG.md, which IS committed; these are narrative
+# around it and may quote intermediate per-person figures while drafting.
+reports/
+
 # ── Secrets ─────────────────────────────────────────────────────────────
 .env
 *.key
