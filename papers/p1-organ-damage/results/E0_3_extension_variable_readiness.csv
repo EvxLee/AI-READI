@@ -1,0 +1,14 @@
+variable,n_participants,status,notes
+CES-D-10 (cestl),2277,ready,"455 screen-positive (>=10); sum of 10 items == cestl for all 2,224 checked, confirming items are pre-reversed"
+PAID-5 (paidscore),2229,ready,451 distress-positive (>=8)
+BMI (bmi_vsorres),2272,ready,median 28.4
+HbA1c (import_hba1c),2211,ready,median 5.8%; lbscat_a1c median 13.8 g/dL confirms it is haemoglobin
+CGM mean glucose,2245,ready,"median 125.0 mg/dL, from the manifest"
+CGM TAR>180 / CV / MAGE,0,BUILD REQUIRED,"manifest carries mean glucose only; needs parsing 2,245 per-participant CGM files"
+Garmin steps/HR/stress/sleep/SpO2,2184,ready,error codes cleaned; sleep fraction x24 verified (0.39 -> 9.4 h)
+ECG numeric metrics (rate/PR/QRSD/QT/QTc/axes),2251,ready,2257 manifest rows for 2251 people — dedupe needed
+ECG machine interpretation text,2251,BUILD REQUIRED,NOT in the manifest (machine_text is the device name); statements live in the per-participant .hea headers. 60-header sample found infarct statements and an explicit 'Unconfirmed Diagnosis' stamp
+Age / site / severity,2280,ready,"age 40-94 median 61; UAB 800, UW 798, UCSD 682"
+SDOH healthcare_access (pxahc),2063,ready,"10 items, prefix-selected"
+SDOH food_insecurity (pxfi),2273,ready,"5 items, prefix-selected"
+SDOH housing_insecurity (pxhi),2062,ready,"2 items, prefix-selected"

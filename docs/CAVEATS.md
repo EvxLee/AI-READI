@@ -10,6 +10,18 @@ analyses before anyone noticed.
   **`import_hba1c`**. The names look interchangeable and are not.
 - **BMI is `bmi_vsorres`** in the measurement table — a directly recorded
   value, not something to compute from height and weight.
+- **`import_albumin` is SERUM albumin in g/dL, not the kidney marker.** The
+  kidney marker is the urine albumin-to-creatinine ratio built from
+  `import_urine_albumin` and `import_urine_creatinine`. The two urine fields
+  carry the same unit, so `albumin / creatinine * 1000` gives ACR in mg/g
+  (median 7.0, which is the expected healthy value).
+- **One participant has a urine creatinine of 0.** That is a void too dilute
+  to interpret, not an infinite ratio — but left as `inf` it passes every
+  `>= threshold` comparison and silently counts as kidney damage. This is the
+  single participant separating the "~320 abnormal" figure quoted in `PLAN.md`
+  from the correct 319. `cohort.build_p1_table` guards it.
+- **Monofilament is two fields, `msslffl` and `mssrffl`** — sites felt out of
+  10 per foot, where 10 is full protective sensation. Not a pass/fail flag.
 - **Troponin below-detection rows carry `operator_concept_id = 4171756`.**
   Their value is a detection limit, not a measurement. Handle them
   explicitly or every heart-injury count is wrong.
@@ -71,6 +83,46 @@ zero notebooks so far:
 Always select by prefix — `omop.phenx_family("food_insecurity")`. Never by
 position. `docs/reference/phenx_item_catalog.csv` lists every item with its
 wording, coverage, and value range.
+
+**A bare prefix match is not enough either** (found and fixed in E0.1–E0.4,
+Aug 2026). `pxhi` is a prefix of `pxhic`, so a `startswith` selection put all
+seven insurance items inside the two-item housing-insecurity score — the same
+wrong-instrument outcome as the positional bug, reached a different way. Every
+family also picked up its own survey metadata (`pxrdcmpdat`, `pxnestartts`,
+`pxfistartts`), scoring dates and timestamps as if they were Likert responses.
+`phenx_family` now matches `<prefix><digit>`, which yields exactly the item
+counts in the table above. If you select items by hand anywhere, do the same.
+
+## Self-report history
+
+- **There is no neuropathy item in v3.0.0.** The `mhoccur` battery has 30
+  items covering kidney, heart, stroke, circulation and "other neurological
+  conditions", but nothing for nerve damage, numbness, or foot sensation.
+  `condition_occurrence.csv` is the same 30 items re-expressed as OMOP
+  conditions and adds nothing. So the monofilament exam has no self-report
+  comparator and **nerve cannot carry an "unrecognized" fraction**. Decided at
+  the Phase 0 gate (`E0.GATE`, 2026-08-11): nerve keeps measured prevalence,
+  multi-organ counts and the depression aim; the unrecognized fraction covers
+  kidney and heart only. **`mhoccur_cns` and `mhoccur_circ` are not stand-ins**
+  — one is a leftovers bin sitting beside separate MS/Parkinson's/dementia
+  items, the other is vascular. Neither is used, in any analysis.
+- **Responses are 0/1 with 777 = refused**, and `mhoccur_yn` does not gate the
+  individual items: 551 answered yes to the gate, but 246 reported kidney
+  problems and 382 reported a heart condition, so the items were answered
+  cohort-wide. Do not filter on the gate.
+- **A refusal is not a "no".** Keep it NaN — the whole point of an unawareness
+  estimate is that "never told" and "would not say" are different.
+
+## ECG
+
+- **`machine_text` in the ECG manifest is the device name** ("PageWriter TC"),
+  identical for all 2,257 rows — it is not the machine interpretation. The
+  interpretation statements live in the per-participant WFDB `.hea` headers as
+  `interpretation_comment_*` and `comment_*_key`, and carry an explicit
+  "Unconfirmed Diagnosis" line. Reading them means harvesting ~2,257 small
+  header files.
+- **The manifest has 2,257 rows for 2,251 participants** — six have a repeat
+  ECG. Deduplicate before merging or those people get double-counted.
 
 ## Wearables
 

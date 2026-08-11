@@ -1,0 +1,6 @@
+organ,self_report_items,question_wording,n_yes,status
+kidney,mhoccur_rnl,Kidney problems,246,usable
+heart,mhoccur_mi + mhoccur_cvdot,Heart attack | Other heart issues (Examples: pace,382,usable
+nerve,NONE FOUND,no neuropathy / numbness / foot-sensation item exists,0,"no comparator — E0.GATE: prevalence only, no unrecognized fraction"
+nerve (candidate proxy),mhoccur_cns,Other neurological conditions,179,REJECTED at E0.GATE — too broad; not used in any analysis
+nerve (candidate proxy),mhoccur_circ,Circulation problems (Examples: art,204,REJECTED at E0.GATE — too broad; not used in any analysis

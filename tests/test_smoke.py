@@ -234,6 +234,90 @@ def test_cgm_metrics():
     assert wearables.cgm_metrics([100, 105, 110]) is None
 
 
+# ── PhenX family selection ──────────────────────────────────────────────
+
+def _phenx_obs():
+    keys = ["pxhi1", "pxhi2",                      # housing insecurity: 2 items
+            "pxhic1", "pxhic2", "pxhic3",          # insurance: a different battery
+            "pxfi1", "pxfi2", "pxfistartts"]       # food insecurity + a timestamp
+    return pd.DataFrame({
+        "person_id": [1] * len(keys),
+        "observation_source_value": [f"{k}, item text" for k in keys],
+        "value_as_number": [1.0] * len(keys),
+    })
+
+
+def test_housing_family_does_not_swallow_the_insurance_battery():
+    """`pxhi` is a prefix of `pxhic`; a bare startswith merges two instruments.
+
+    This is the EDA-era SDOH defect in a subtler form -- same wrong-instrument
+    outcome, reached through prefix ambiguity rather than positional slicing.
+    """
+    obs = omop.add_item_key(_phenx_obs())
+    housing = omop.phenx_family(obs, "housing_insecurity")
+    assert sorted(housing.columns) == ["pxhi1", "pxhi2"]
+
+    insurance = omop.phenx_family(obs, "insurance_type")
+    assert not set(insurance.columns) & set(housing.columns)
+
+
+def test_phenx_family_excludes_survey_metadata_fields():
+    """`pxfistartts` is a timestamp, not a response; it must not be scored."""
+    obs = omop.add_item_key(_phenx_obs())
+    food = omop.phenx_family(obs, "food_insecurity")
+    assert sorted(food.columns) == ["pxfi1", "pxfi2"]
+
+
+# ── Paper 1 organ-damage markers ────────────────────────────────────────
+
+def test_acr_guards_against_zero_urine_creatinine():
+    """A dilute void is unmeasurable, not an infinite ratio.
+
+    Left as inf it passes every `>= threshold` test and silently counts as
+    kidney damage -- this is the one participant separating the documented
+    "~320 abnormal" spot-check from the correct 319.
+    """
+    df = pd.DataFrame({
+        "urine_albumin": [0.48, 30.0, 0.08],
+        "urine_creatinine": [65.8, 50.0, 0.0],
+    })
+    out = cohort._add_kidney_acr(df)
+
+    assert out["acr_mg_g"].iloc[0] == pytest.approx(7.295, abs=1e-3)
+    assert out["acr_mg_g"].iloc[1] == pytest.approx(600.0)
+    assert pd.isna(out["acr_mg_g"].iloc[2])
+    assert not np.isinf(out["acr_mg_g"].dropna()).any()
+    assert (out["acr_mg_g"] >= 30).sum() == 1        # not 2
+
+
+def test_monofilament_summarises_the_worse_foot():
+    df = pd.DataFrame({
+        "monofilament_left": [10.0, 10.0, 4.0, np.nan],
+        "monofilament_right": [10.0, 6.0, 7.0, 10.0],
+    })
+    out = cohort._add_monofilament_summary(df)
+
+    assert list(out["monofilament_min"][:3]) == [10.0, 6.0, 4.0]
+    assert list(out["monofilament_insensate_sites"][:3]) == [0.0, 4.0, 9.0]
+    # One foot examined is not a whole-participant summary.
+    assert pd.isna(out["monofilament_insensate_sites"].iloc[3])
+
+
+def test_nerve_has_no_self_report_comparator():
+    """E0.2: this release has no neuropathy item, and none may be invented.
+
+    If a future release adds one, this test fails and the gate decision in
+    RESULTS_LOG.md gets revisited deliberately rather than by accident.
+    """
+    assert constants.ORGAN_SELF_REPORT["nerve"] == []
+    assert constants.ORGAN_SELF_REPORT["kidney"] == ["mhoccur_rnl"]
+    assert set(constants.ORGAN_SELF_REPORT["heart"]) == {"mhoccur_mi", "mhoccur_cvdot"}
+    # E0.GATE rejected the broad proxies outright -- they stay out of the
+    # mapping entirely, not even as a sensitivity comparator.
+    for proxy in constants.NERVE_PROXY_ITEMS_REJECTED:
+        assert not any(proxy in items for items in constants.ORGAN_SELF_REPORT.values())
+
+
 # ── Threshold flags ─────────────────────────────────────────────────────
 
 def test_missing_score_is_not_a_negative_screen():

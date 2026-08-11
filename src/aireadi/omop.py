@@ -11,6 +11,8 @@ The one rule that matters: run every survey value through
 
 from __future__ import annotations
 
+import re
+
 import numpy as np
 import pandas as pd
 
@@ -128,22 +130,27 @@ def item_descriptions(df: pd.DataFrame, *, source_col: str | None = None) -> pd.
 
 def pivot_items(df: pd.DataFrame, keys: list[str] | None = None, *,
                 prefix: str | None = None,
+                item_pattern: str | None = None,
                 aggfunc: str = "first") -> pd.DataFrame:
     """Pivot long OMOP rows into one row per participant, one column per item.
 
-    Pass either an explicit `keys` list or a `prefix` (e.g. "pxfi" for the
-    food-insecurity battery). Expects the output of `add_item_key`.
+    Pass an explicit `keys` list, a `prefix` (e.g. "pxfi" for the
+    food-insecurity battery), or an `item_pattern` regex for cases where a bare
+    prefix is ambiguous -- see `phenx_family`. Expects the output of
+    `add_item_key`.
     """
     if "item_key" not in df.columns:
         raise KeyError("Call add_item_key() first.")
-    if keys is None and prefix is None:
-        raise ValueError("Pass keys= or prefix=.")
+    if keys is None and prefix is None and item_pattern is None:
+        raise ValueError("Pass keys=, prefix=, or item_pattern=.")
 
     sel = df
     if keys is not None:
         sel = sel[sel["item_key"].isin(keys)]
     if prefix is not None:
         sel = sel[sel["item_key"].str.startswith(prefix, na=False)]
+    if item_pattern is not None:
+        sel = sel[sel["item_key"].str.match(item_pattern, na=False)]
 
     return sel.pivot_table(
         index="person_id", columns="item_key", values="value_clean",
@@ -245,8 +252,15 @@ def phenx_family(observation_with_keys: pd.DataFrame, family: str) -> pd.DataFra
     "different" SDOH scores by positionally slicing one alphabetically sorted
     battery -- the slices were neither contiguous nor the instrument they were
     labelled as. Every result from that era is an artifact.
+
+    Items are matched as ``<prefix><digit>``, not by a bare `startswith`. A
+    bare prefix match is wrong twice over: `pxhi` (housing, 2 items) also
+    swallows the whole `pxhic` insurance battery, and every family picks up its
+    own survey-metadata fields (`pxrdcmpdat`, `pxnestartts`, ...), which are
+    dates and timestamps rather than responses. Both were live in this function
+    until E0.3 profiled the families and caught it.
     """
     from .constants import PHENX_FAMILIES
 
     prefix = PHENX_FAMILIES.get(family, family)
-    return pivot_items(observation_with_keys, prefix=prefix)
+    return pivot_items(observation_with_keys, item_pattern=rf"^{re.escape(prefix)}\d")

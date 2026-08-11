@@ -1,0 +1,5 @@
+study_group_label,n,age_median,acr_measured,troponin_measured,monofilament_measured,cesd_measured
+Healthy,776,60.0,765,766,771,776
+Pre-DM,560,61.0,550,551,558,559
+Oral Med,686,63.0,662,666,685,686
+Insulin,258,62.0,248,250,254,256
