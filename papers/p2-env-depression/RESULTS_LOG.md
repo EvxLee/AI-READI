@@ -51,13 +51,13 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 | ID | Status | Key output | Description — what we want from it | One-line result | Keep/Kill |
 |----|--------|-----------|-----------------|-----------------|-----------|
 | E1.1 | done | `results/E1_1.csv` | Baseline population picture across environment, BMI, wearables, and CES-D-10 — confirms the merged table looks right before any model runs on it. Track: primary (general-purpose, not depression-specific). | N=2280 participants merged (core+wearable+environmental). 12/17 variables differ significantly (p<0.05, Kruskal-Wallis) across the 4 severity groups. | keep |
-| **EP.1** | done | `results/EP_1.csv` | Pairwise binary model, Healthy vs Pre-DM: which env/BMI/wearable predictors separate these two adjacent severity groups, and in which direction? Track: primary. | N=1151. Significant (p<0.05): mean_glucose (p=7.7e-11), bmi (p=3.5e-4). | keep |
-| **EP.2** | done | `results/EP_2.csv` | Pairwise binary model, Pre-DM vs Oral Med. Track: primary. | N=1063. Significant (p<0.05): mean_glucose, sleep_hours, age, heart_rate, mean_temp, stress. | keep |
-| **EP.3** | done | `results/EP_3.csv` | Pairwise binary model, Oral Med vs Insulin. Track: primary. | N=794. Significant (p<0.05): mean_glucose, log_pm25 (p=0.0076), mean_voc, steps. | keep |
-| **EP.4** | done | `results/EP_4.csv` | Cross-pair synthesis: which predictors are significant at more than one adjacent-severity boundary (a real severity-linked effect, not a one-boundary artifact)? Track: primary. | Only mean_glucose significant across all 3 boundaries; PM2.5/VOC significant only at the Oral Med->Insulin boundary specifically. | keep |
-| **ECGM.1** | in progress | `data/processed/p2/cgm_glycemic_metrics.csv` (gitignored, participant-level; not a `results/` artifact) | Build per-participant glycemic-control metrics (mean, SD, CV, GMI, TAR140, TAR180, TBR70, spikes/day, spike-minutes/day, spike peak, MAGE) from raw Dexcom streams — this is the new primary outcome's data source. Track: primary. | | |
-| **ECGM.2** | not started | | Do CGM-derived glycemic metrics differ between the insulin-dependent age<70 subgroup and the 70+ group — is glucose control an age effect within the highest-severity group, or purely a severity effect? Track: primary/tertiary crossover (feeds both). | | |
-| **EG.1** | not started | | Primary model: glycemic-control metric ~ log(PM2.5) + other env vars + BMI + wearables + age + severity group (+ site). Is the environmental term significant once severity is controlled for — the paper's central claim under the pivot. Track: primary. | | |
+| EP.1 | done | `results/EP_1.csv` | Pairwise binary model, Healthy vs Pre-DM: which env/BMI/wearable predictors separate these two adjacent severity groups, and in which direction? Track: primary. | N=1151. Significant (p<0.05): mean_glucose (p=7.7e-11), bmi (p=3.5e-4). | keep |
+| EP.2 | done | `results/EP_2.csv` | Pairwise binary model, Pre-DM vs Oral Med. Track: primary. | N=1063. Significant (p<0.05): mean_glucose, sleep_hours, age, heart_rate, mean_temp, stress. | keep |
+| EP.3 | done | `results/EP_3.csv` | Pairwise binary model, Oral Med vs Insulin. Track: primary. | N=794. Significant (p<0.05): mean_glucose, log_pm25 (p=0.0076), mean_voc, steps. | keep |
+| EP.4 | done | `results/EP_4.csv` | Cross-pair synthesis: which predictors are significant at more than one adjacent-severity boundary (a real severity-linked effect, not a one-boundary artifact)? Track: primary. | Only mean_glucose significant across all 3 boundaries; PM2.5/VOC significant only at the Oral Med->Insulin boundary specifically. | keep |
+| ECGM.1 | done | `data/processed/p2/cgm_glycemic_metrics.csv` (gitignored, participant-level; not a `results/` artifact) | Build per-participant glycemic-control metrics (mean, SD, CV, GMI, TAR140, TAR180, TBR70, spikes/day, spike-minutes/day, spike peak, MAGE) from raw Dexcom streams — this is the new primary outcome's data source. Track: primary. | N=2245 streams pulled, 2243 parsed successfully (2 had <12 valid readings). No coverage issue. | keep |
+| ECGM.2 | done | `results/ECGM_2.csv` | Do CGM-derived glycemic metrics differ between the insulin-dependent age<70 subgroup and the 70+ group — is glucose control an age effect within the highest-severity group, or purely a severity effect? Track: primary/tertiary crossover (feeds both). | N(<70)=189, N(70+)=69. Only glucose_cv differs significantly (p=0.008, higher variability in 70+); mean glucose, TAR, TBR, spikes, MAGE do not differ by age within the insulin-dependent group. | keep |
+| EG.1 | done | `results/EG_1.csv` (+ `EG_1_summary.csv`, `EG_1_<outcome>.csv` per candidate outcome) | Primary model: glycemic-control metric ~ log(PM2.5) + other env vars + BMI + wearables + age + severity group (+ site). Is the environmental term significant once severity is controlled for — the paper's central claim under the pivot. Track: primary. | N=1944 (4 candidate outcomes: glucose_mean, glucose_cv, tar_180, spikes_per_day_180). log(PM2.5) NOT significant in any of the 4 (p=0.99, 0.11, 0.30, 0.16). BMI significant for glucose_mean (p=0.037) and glucose_cv (p=0.0007, negative direction). | rescope — see takeaways below |
 | E1.2 | not started | | Depression-track test: does PM2.5, BMI, or wearable behavior independently predict depression score once age, severity, and site are controlled for? Track: tertiary/side (was primary pre-pivot). | | |
 | E1.3 | not started | | Robustness check: do the same predictors hold when depression is treated as the ≥10 clinical screen (yes/no) instead of a continuous score? Track: tertiary/side. | | |
 | E1.4 | not started | | Which single variables carry a depression signal on their own, before any adjustment? Track: tertiary/side. | | |
@@ -112,3 +112,39 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 **Result:** 1 predictor(s) significant across >1 adjacent-pair boundary: mean_glucose. Full per-predictor breakdown in EP_combined.csv.
 **Decision:** keep
 **Output:** results/EP_4.csv
+
+### EG.1_glucose_mean — 2026-08-11
+**Method:** OLS: glucose_mean ~ log1p(PM2.5) + env vars + BMI + wearables + age + severity-group dummies + site dummies
+**Result:** N=1944, R2=0.286. log_pm25 p=0.988, bmi p=0.0366.
+**Decision:** keep
+**Output:** results/EG_1_glucose_mean.csv
+
+### EG.1_glucose_cv — 2026-08-11
+**Method:** OLS: glucose_cv ~ log1p(PM2.5) + env vars + BMI + wearables + age + severity-group dummies + site dummies
+**Result:** N=1944, R2=0.228. log_pm25 p=0.114, bmi p=0.000712.
+**Decision:** keep
+**Output:** results/EG_1_glucose_cv.csv
+
+### EG.1_tar_180 — 2026-08-11
+**Method:** OLS: tar_180 ~ log1p(PM2.5) + env vars + BMI + wearables + age + severity-group dummies + site dummies
+**Result:** N=1944, R2=0.312. log_pm25 p=0.299, bmi p=0.179.
+**Decision:** keep
+**Output:** results/EG_1_tar_180.csv
+
+### EG.1_spikes_per_day_180 — 2026-08-11
+**Method:** OLS: spikes_per_day_180 ~ log1p(PM2.5) + env vars + BMI + wearables + age + severity-group dummies + site dummies
+**Result:** N=1944, R2=0.251. log_pm25 p=0.156, bmi p=0.0648.
+**Decision:** keep
+**Output:** results/EG_1_spikes_per_day_180.csv
+
+### EG.1 — 2026-08-11
+**Method:** Cross-outcome summary of the primary model (see EG.1_<outcome> rows for each individual fit): tests log(PM2.5) and BMI against 4 candidate CGM-derived glycemic-control outcomes (glucose_mean, glucose_cv, tar_180, spikes_per_day_180).
+**Result:** Across 4 candidate glycemic-control outcomes (glucose_mean, glucose_cv, tar_180, spikes_per_day_180), log(PM2.5) significant (p<0.05) in 0/4; BMI significant in 2/4. See EG_1_summary.csv for per-outcome detail.
+**Decision:** keep
+**Output:** results/EG_1.csv
+
+### ECGM.2 — 2026-08-11
+**Method:** Mann-Whitney U comparing 8 CGM-derived glycemic-control metrics between the insulin-dependent age<70 subgroup and the insulin-dependent 70+ group.
+**Result:** Insulin-dependent subgroup: N(<70)=189, N(70+)=69. Metrics differing significantly by age (p<0.05, Mann-Whitney): glucose_cv.
+**Decision:** keep
+**Output:** results/ECGM_2.csv
