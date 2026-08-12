@@ -1,26 +1,40 @@
 #!/usr/bin/env python3
-"""EP.1-EP.3 -- pairwise adjacent-severity binary logistic models.
+"""EP.1-EP.7 -- pairwise severity-group binary logistic models.
 
 Project-head-directed near-term step (2026-08-11, see PLAN.md / PRESPEC.md
 amendment): instead of one 4-group model, fit a separate binary logistic
-regression for each pair of *adjacent* severity categories --
+regression for each pair of severity categories.
+
+EP.1-EP.3 cover the three *adjacent* boundaries --
 
     Healthy vs Pre-DM
     Pre-DM  vs Oral Med
     Oral Med vs Insulin
 
--- using the same environmental / BMI / wearable predictor set as the main
-Aim 1 model, adjusted for age and clinical site. For each pair this reports
-which predictors are significant and their direction (does the predictor
-go up or down crossing that specific severity boundary), rather than only
-an overall severity trend.
+EP.5-EP.7 (added 2026-08-12, same project-head note: "you might as well do
+every pair of those four groups... it's kind of a sanity check") cover the
+three *non-adjacent* pairs --
+
+    Healthy  vs Oral Med
+    Healthy  vs Insulin
+    Pre-DM   vs Insulin
+
+The point of the non-adjacent pairs is a sanity check on the gradient
+assumption: if severity is a real continuum, predictors that separate
+adjacent groups should show up at least as strongly (and in the same
+direction) across the wider gaps, not disappear or flip.
+
+All pairs use the same environmental / BMI / wearable predictor set as the
+main Aim 1 model, adjusted for age and clinical site. For each pair this
+reports which predictors are significant and their direction (does the
+predictor go up or down crossing that specific severity boundary).
 
 `mean_glucose` (CGM manifest mean) is included as a predictor here on
 purpose, even though glycemic control is partly definitional of severity
 group: the project head specifically wants to see whether the same
-predictors that separate adjacent severity groups also line up with the
-richer CGM-derived metrics from `build_cgm_table.py` (EP.4, once that
-pull finishes) -- that comparison is the point, not a design flaw.
+predictors that separate severity groups also line up with the richer
+CGM-derived metrics from `build_cgm_table.py` (EG.1) -- that comparison is
+the point, not a design flaw.
 
 Not yet doing the VIF/multicollinearity diagnostics PRESPEC.md assigns to
 E1.7 -- this is a first pass, flagged as such in the result summary.
@@ -43,6 +57,14 @@ PAIRS = [
     ("Healthy", "Pre-DM"),
     ("Pre-DM", "Oral Med"),
     ("Oral Med", "Insulin"),
+]
+
+# Non-adjacent pairs -- the remaining 3 of all C(4,2)=6 possible pairs,
+# requested 2026-08-12 as a gradient/continuum sanity check.
+NONADJACENT_PAIRS = [
+    ("Healthy", "Oral Med"),
+    ("Healthy", "Insulin"),
+    ("Pre-DM", "Insulin"),
 ]
 
 PREDICTORS = [
@@ -106,52 +128,62 @@ def fit_pair(df: pd.DataFrame, group_a: str, group_b: str) -> tuple[pd.DataFrame
     return out.sort_values("p_value"), n
 
 
+def run_pair(df: pd.DataFrame, exp_id: str, group_a: str, group_b: str, all_results: list) -> None:
+    table, n = fit_pair(df, group_a, group_b)
+    print(f"\n{'='*80}\n{exp_id}: {group_a} vs {group_b}  (N={n})\n{'='*80}")
+    if table.empty:
+        print("  Could not fit (insufficient N or separation issue).")
+        summary = f"N={n}, could not fit."
+        results.log(exp_id, paper="p2",
+                    method=f"Binary logistic ({group_a}=0 vs {group_b}=1), predictors: "
+                            f"{', '.join(PREDICTORS)}, + clinical_site dummies",
+                    result=summary, decision="rescope")
+        return
+
+    pd.set_option("display.width", 200)
+    print(table.round(4).to_string())
+
+    sig = table[table["p_value"] < 0.05]
+    sig_list = ", ".join(f"{v} ({r.direction}, p={r.p_value:.3g})" for v, r in sig.iterrows())
+    summary = f"N={n}. Significant (p<0.05): {sig_list if sig_list else 'none'}."
+
+    table.insert(0, "pair", f"{group_a} vs {group_b}")
+    table.insert(1, "n", n)
+    table = table.reset_index().rename(columns={"index": "predictor"})
+    all_results.append(table)
+
+    results.save(
+        exp_id, table, paper="p2",
+        method=f"Binary logistic regression: outcome=1 if {group_b} else 0 (restricted to "
+                f"{group_a}/{group_b}), predictors={', '.join(PREDICTORS)} + clinical_site dummies",
+        result=summary,
+        decision="keep",
+    )
+
+
 def main() -> None:
     df = build_table()
-    all_results = []
+    adjacent_results: list = []
+    nonadjacent_results: list = []
 
     for i, (group_a, group_b) in enumerate(PAIRS, start=1):
-        exp_id = f"EP.{i}"
-        table, n = fit_pair(df, group_a, group_b)
-        print(f"\n{'='*80}\n{exp_id}: {group_a} vs {group_b}  (N={n})\n{'='*80}")
-        if table.empty:
-            print("  Could not fit (insufficient N or separation issue).")
-            summary = f"N={n}, could not fit."
-            results.log(exp_id, paper="p2",
-                        method=f"Binary logistic ({group_a}=0 vs {group_b}=1), predictors: "
-                                f"{', '.join(PREDICTORS)}, + clinical_site dummies",
-                        result=summary, decision="rescope")
-            continue
+        run_pair(df, f"EP.{i}", group_a, group_b, adjacent_results)
 
-        pd.set_option("display.width", 200)
-        print(table.round(4).to_string())
+    for i, (group_a, group_b) in enumerate(NONADJACENT_PAIRS, start=5):
+        run_pair(df, f"EP.{i}", group_a, group_b, nonadjacent_results)
 
-        sig = table[table["p_value"] < 0.05]
-        sig_list = ", ".join(f"{v} ({r.direction}, p={r.p_value:.3g})" for v, r in sig.iterrows())
-        summary = f"N={n}. Significant (p<0.05): {sig_list if sig_list else 'none'}."
-
-        table.insert(0, "pair", f"{group_a} vs {group_b}")
-        table.insert(1, "n", n)
-        table = table.reset_index().rename(columns={"index": "predictor"})
-        all_results.append(table)
-
-        results.save(
-            exp_id, table, paper="p2",
-            method=f"Binary logistic regression: outcome=1 if {group_b} else 0 (restricted to "
-                    f"{group_a}/{group_b}), predictors={', '.join(PREDICTORS)} + clinical_site dummies",
-            result=summary,
-            decision="keep",
-        )
-
+    all_results = adjacent_results + nonadjacent_results
     if all_results:
         combined = pd.concat(all_results, ignore_index=True)
         combined_path = Path(__file__).resolve().parent / "results" / "EP_combined.csv"
         combined.to_csv(combined_path, index=False)
-        print(f"\nCombined table for all pairs written to {combined_path}")
+        print(f"\nCombined table for all {len(all_results)} pairs written to {combined_path}")
 
+    if adjacent_results:
         # EP.4: cross-pair synthesis -- which predictors are significant, and
         # in the same direction, across more than one adjacent-pair boundary.
-        sig_only = combined[combined["p_value"] < 0.05]
+        adjacent_combined = pd.concat(adjacent_results, ignore_index=True)
+        sig_only = adjacent_combined[adjacent_combined["p_value"] < 0.05]
         counts = sig_only.groupby("predictor")["pair"].apply(list)
         print("\nEP.4 synthesis -- predictors significant in more than one adjacent-pair boundary:")
         recurring = counts[counts.apply(len) > 1]
@@ -170,12 +202,22 @@ def main() -> None:
         recurring_df["significant_in_pairs"] = recurring_df["significant_in_pairs"].apply(str)
         results.save(
             "EP.4", recurring_df if len(recurring_df) else None, paper="p2",
-            method="Cross-pair synthesis of EP.1-EP.3: predictors significant (p<0.05) in more than "
-                    "one adjacent-severity-boundary logistic model, i.e. a consistent direction of effect "
-                    "as severity increases rather than a one-boundary artifact.",
+            method="Cross-pair synthesis of EP.1-EP.3 (adjacent boundaries only): predictors "
+                    "significant (p<0.05) in more than one adjacent-severity-boundary logistic model, "
+                    "i.e. a consistent direction of effect as severity increases rather than a "
+                    "one-boundary artifact.",
             result=synth_summary,
             decision="keep" if len(recurring) else "rescope",
         )
+
+    if nonadjacent_results:
+        # EP.8 (informal, not its own ID): sanity check -- does mean_glucose,
+        # the one predictor significant at every adjacent boundary, also stay
+        # significant and same-direction across the wider non-adjacent gaps?
+        nonadj_combined = pd.concat(nonadjacent_results, ignore_index=True)
+        glucose_rows = nonadj_combined[nonadj_combined["predictor"] == "mean_glucose"]
+        print("\nGradient sanity check -- mean_glucose across non-adjacent pairs:")
+        print(glucose_rows[["pair", "n", "p_value", "direction"]].to_string(index=False))
 
 
 if __name__ == "__main__":

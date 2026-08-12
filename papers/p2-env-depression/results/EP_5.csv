@@ -1,0 +1,15 @@
+,predictor,pair,n,coefficient,odds_ratio,p_value,direction
+0,mean_glucose,Healthy vs Oral Med,1242,0.06122557222922463,1.063138701708395,3.411926729179536e-44,higher -> more Oral Med-like
+1,bmi,Healthy vs Oral Med,1242,0.05555509289774692,1.0571272556719438,7.685074344995145e-07,higher -> more Oral Med-like
+2,mean_temp,Healthy vs Oral Med,1242,0.1045390559459362,1.1101987528819686,0.0011902925916460428,higher -> more Oral Med-like
+3,heart_rate,Healthy vs Oral Med,1242,0.032408323506838296,1.032939192560307,0.026084398257047538,higher -> more Oral Med-like
+4,sleep_hours,Healthy vs Oral Med,1242,-0.06872248178493041,0.9335857311765707,0.07954766966639966,higher -> more Healthy-like
+5,age,Healthy vs Oral Med,1242,0.012062285682994422,1.0121353284430408,0.0839252411005397,higher -> more Oral Med-like
+6,steps,Healthy vs Oral Med,1242,-5.416448382327325e-05,0.9999458369830458,0.09206186227372894,higher -> more Healthy-like
+7,stress,Healthy vs Oral Med,1242,0.013626401186041755,1.013719663720124,0.11858950716744758,higher -> more Oral Med-like
+8,mean_hum,Healthy vs Oral Med,1242,0.013218147540404833,1.0133058934391164,0.2278489776256053,higher -> more Oral Med-like
+9,mean_nox,Healthy vs Oral Med,1242,0.12297704176090908,1.1308584581306005,0.28034306054086644,higher -> more Oral Med-like
+10,log_pm25,Healthy vs Oral Med,1242,0.0739801908530588,1.076785475083252,0.3437963514640713,higher -> more Oral Med-like
+11,mean_voc,Healthy vs Oral Med,1242,-0.002579508658907814,0.9974238154147796,0.5753605145603309,higher -> more Healthy-like
+12,active_calories,Healthy vs Oral Med,1242,-0.00028096675150046164,0.9997190727159608,0.718143252941728,higher -> more Healthy-like
+13,mean_light,Healthy vs Oral Med,1242,0.6723760788831272,1.9588862636065014,0.9010505973570252,higher -> more Oral Med-like
