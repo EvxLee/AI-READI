@@ -63,6 +63,34 @@ outcome. As of 2026-08-11 that changes:
    whether glycemic control differs by age within the highest-severity
    group or is a pure severity effect.
 
+## Amendment — 2026-08-15, direction from project head
+
+EG.1 (Amendment §5) found log(PM2.5) not significant for any of 4
+glycemic-control outcomes once BMI, wearables, age, and severity group are
+covariates. Project head's read: pollution likely doesn't act on blood
+sugar directly — it may instead discourage physical activity and raise
+BMI, which then worsens glycemic control (mediation chain: worse pollution
+→ less activity / higher BMI → worse blood sugar control). Also requested,
+verbatim: run one version pooling all three clinical sites together, and
+another separating them, since "these versions both provide different
+useful information potentially."
+
+7. **New experiments EG.2 (pooled) and EG.3 (per-site):** test the first
+   link only — does log(PM2.5) predict steps, active_calories, and BMI,
+   controlling for age? EG.2 pools all 3 sites (site as a covariate); EG.3
+   refits the same model separately within each site. Both already run,
+   2026-08-15 — see `RESULTS_LOG.md`. Result: log(PM2.5) is significant
+   (pooled) for all three outcomes, but direction is **mixed relative to
+   the hypothesis** — BMI moves in the hypothesized direction (higher
+   pollution → higher BMI), while steps and active_calories move in the
+   **opposite** direction (higher pollution → more activity, not less).
+   Per-site breakdown shows the effect is strongest and most consistent at
+   UW; not yet clear whether this is a real site-specific pattern or a
+   confound (e.g., a covariate not yet in the model, or a Simpson's-paradox
+   effect from between-site differences). Flagged for project-head
+   discussion before proceeding to the second mediation link
+   (activity/BMI → glycemic control).
+
 Everything else in this document — the dataset, the covariates in Section 5,
 `docs/CAVEATS.md`'s data-handling rules, the reporting rule in Section 10 —
 is unchanged. Sections 1–10 below are preserved as originally frozen and
