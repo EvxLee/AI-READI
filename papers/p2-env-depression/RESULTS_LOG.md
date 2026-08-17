@@ -68,7 +68,7 @@ descriptive, kept for its original ID — not depression-specific).
 | EG.5b | done | `results/EG_5b.csv` | Link 1, per-site (no pooling): same model as EG.5a, refit within UW/UAB/UCSD separately. EG.5's rework of EG.3. Track: primary. | log(PM2.5) significant at: UW (active_minutes_v2_per_day, p=0.020, NEGATIVE — opposite of the pooled v1 direction; active_calories p=0.0001; bmi p<0.0001), UCSD (bmi only, p=1.4e-05). UAB: none significant. The v1/v2 sign flip between pooled and per-site suggests the pooled active-minutes result is not a stable within-site effect. | keep |
 | EG.5c | done | `results/EG_5c.csv` (+ per-fit `EG_5c_<variant>_<outcome>.csv`) | Link 2: 4 candidate glycemic-control outcomes ~ active_minutes_v1/v2 + active_calories + bmi + age + severity dummies + site dummies. EG.5's rework of EG.4. Track: primary. | 8 fits (2 variants x 4 outcomes). active_minutes_v1_per_day significant for glucose_mean (p=0.0257, positive) and spikes_per_day_180 (p=0.0387, positive); not significant for glucose_cv or tar_180. active_minutes_v2_per_day not significant for any of the 4. Better than steps (0/4 in EG.4) but still weak and inconsistent between v1/v2. | keep |
 | EG.6 | not started | | Single combined mediation model chaining pollution -> activity/BMI -> glycemic control, instead of two separate regressions, to report an actual indirect effect with its own significance test. Depends on EG.5's result for which activity measure to use. Track: primary. | | |
-| EG.7 | not started | | Sensitivity: rerun EG.1 (and EG.4) without severity-group dummies as a covariate. Tests whether severity group is absorbing pollution's/BMI's true effect rather than acting as a neutral confounder. Track: primary. | | |
+| EG.7 | done | `results/EG_7.csv` (+ EG.7a/EG.7b per-outcome detail) | Sensitivity: rerun EG.1 (EG.7a) and EG.4 (EG.7b) with severity-group dummies removed, to test whether severity group was absorbing pollution's/BMI's true effect (overcontrol) rather than acting as a neutral confounder. Track: primary. | **Confirmed overcontrol, for pollution specifically.** log(PM2.5) flips from non-significant to significant (p<0.05) once severity is dropped, in 2/4 outcomes (glucose_cv p=0.0061, tar_180 p=0.0168 — both were p>0.1 with severity in). BMI is significant for 2/4 in both versions but the picture shifts: glucose_mean stays significant and gets much stronger (p<0.0001 vs. p=0.037), tar_180 goes from ns to p<0.0001, while glucose_cv (significant with severity, p=0.0007) becomes ns without it. steps stays non-significant in all 4 either way (0/4) — the overcontrol issue is specific to pollution/BMI, not steps. | keep — this explains a real chunk of EG.1's null result |
 | EG.8 | not started | | Per-site replication of EG.1: does the null pollution result on glycemic control hold at each site individually, or does it vary the way the first mediation link did in EG.3? Track: primary. | | |
 | EG.9 | not started | | VIF/multicollinearity diagnostics on EG.1's predictor set (BMI, severity, glucose, PM2.5 expected to be collinear per docs/CAVEATS.md). High VIF would explain EG.1's null pollution term without requiring "no true effect." Track: primary. | | |
 
@@ -299,3 +299,57 @@ descriptive, kept for its original ID — not depression-specific).
 **Result:** Across 2 active-minutes variants x 4 outcomes (8 fits), the active-minutes predictor significant (p<0.05) in 2/8. See EG_5c_summary.csv for per-fit detail; compare against EG.4 where steps was significant in 0/4.
 **Decision:** keep
 **Output:** results/EG_5c.csv
+
+### EG.7a_glucose_mean — 2026-08-17
+**Method:** OLS: glucose_mean ~ log1p(PM2.5) + env vars + BMI + wearables + age + site dummies (NO severity-group dummies -- EG.1 minus severity, to test overcontrol).
+**Result:** N=1944, R2=0.063. log_pm25 p=0.159 (was 0.988 with severity), bmi p=1.7e-07.
+**Decision:** keep
+**Output:** results/EG_7a_glucose_mean.csv
+
+### EG.7a_glucose_cv — 2026-08-17
+**Method:** OLS: glucose_cv ~ log1p(PM2.5) + env vars + BMI + wearables + age + site dummies (NO severity-group dummies -- EG.1 minus severity, to test overcontrol).
+**Result:** N=1944, R2=0.061. log_pm25 p=0.00614 (was 0.114 with severity), bmi p=0.794.
+**Decision:** keep
+**Output:** results/EG_7a_glucose_cv.csv
+
+### EG.7a_tar_180 — 2026-08-17
+**Method:** OLS: tar_180 ~ log1p(PM2.5) + env vars + BMI + wearables + age + site dummies (NO severity-group dummies -- EG.1 minus severity, to test overcontrol).
+**Result:** N=1944, R2=0.066. log_pm25 p=0.0168 (was 0.299 with severity), bmi p=3.95e-06.
+**Decision:** keep
+**Output:** results/EG_7a_tar_180.csv
+
+### EG.7a_spikes_per_day_180 — 2026-08-17
+**Method:** OLS: spikes_per_day_180 ~ log1p(PM2.5) + env vars + BMI + wearables + age + site dummies (NO severity-group dummies -- EG.1 minus severity, to test overcontrol).
+**Result:** N=1944, R2=0.052. log_pm25 p=0.788 (was 0.156 with severity), bmi p=0.103.
+**Decision:** keep
+**Output:** results/EG_7a_spikes_per_day_180.csv
+
+### EG.7b_glucose_mean — 2026-08-17
+**Method:** OLS: glucose_mean ~ steps + active_calories + bmi + age + site dummies (NO severity-group dummies -- EG.4 minus severity, to test overcontrol).
+**Result:** N=2116, R2=0.037. steps p=0.652 (was 0.556 with severity), active_calories p=0.00242, bmi p=1.25e-11.
+**Decision:** keep
+**Output:** results/EG_7b_glucose_mean.csv
+
+### EG.7b_glucose_cv — 2026-08-17
+**Method:** OLS: glucose_cv ~ steps + active_calories + bmi + age + site dummies (NO severity-group dummies -- EG.4 minus severity, to test overcontrol).
+**Result:** N=2116, R2=0.032. steps p=0.841 (was 0.803 with severity), active_calories p=0.458, bmi p=0.0146.
+**Decision:** keep
+**Output:** results/EG_7b_glucose_cv.csv
+
+### EG.7b_tar_180 — 2026-08-17
+**Method:** OLS: tar_180 ~ steps + active_calories + bmi + age + site dummies (NO severity-group dummies -- EG.4 minus severity, to test overcontrol).
+**Result:** N=2116, R2=0.039. steps p=0.527 (was 0.434 with severity), active_calories p=0.00428, bmi p=1.4e-10.
+**Decision:** keep
+**Output:** results/EG_7b_tar_180.csv
+
+### EG.7b_spikes_per_day_180 — 2026-08-17
+**Method:** OLS: spikes_per_day_180 ~ steps + active_calories + bmi + age + site dummies (NO severity-group dummies -- EG.4 minus severity, to test overcontrol).
+**Result:** N=2116, R2=0.031. steps p=0.464 (was 0.239 with severity), active_calories p=0.147, bmi p=0.000474.
+**Decision:** keep
+**Output:** results/EG_7b_spikes_per_day_180.csv
+
+### EG.7 — 2026-08-17
+**Method:** Overcontrol sensitivity check: EG.1 and EG.4 rerun with severity-group dummies removed from the predictor set, compared side by side against the original with-severity p-values.
+**Result:** log(PM2.5) flips from non-significant to significant (p<0.05) once severity is dropped, in 2/4 outcomes. steps flips the same way in 0/4 outcomes. See EG_7a_summary.csv / EG_7b_summary.csv for full before/after detail.
+**Decision:** keep
+**Output:** results/EG_7.csv
