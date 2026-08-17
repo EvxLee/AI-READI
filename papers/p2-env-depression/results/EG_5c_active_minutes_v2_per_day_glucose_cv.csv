@@ -1,0 +1,5 @@
+,active_variant,outcome,n,predictor,coefficient,p_value
+0,active_minutes_v2_per_day,glucose_cv,2090,age,0.037786827800815506,0.00018636131744338775
+1,active_minutes_v2_per_day,glucose_cv,2090,bmi,-0.04064024301980955,0.009530751330952722
+2,active_minutes_v2_per_day,glucose_cv,2090,active_minutes_v2_per_day,-0.0018675586713856062,0.0946065874601106
+3,active_minutes_v2_per_day,glucose_cv,2090,active_calories,-0.0008191086780194918,0.28325770252515703

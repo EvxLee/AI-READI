@@ -63,7 +63,10 @@ descriptive, kept for its original ID — not depression-specific).
 | EG.2 | done | `results/EG_2.csv` | Mediation step 1, pooled across all 3 sites: does log(PM2.5) predict activity (steps, active_calories) and BMI, controlling for age + site dummies? Tests project head's hypothesis chain (worse pollution -> less activity/higher BMI -> worse glycemic control) at its first link. Track: primary. | N=2110-2225. log(PM2.5) significant (p<0.05) for all 3 outcomes: steps (p=1.09e-06, coef=+412.9 — MORE steps, opposite of hypothesized direction), active_calories (p=0.000207, coef=+12.3 — also opposite direction), bmi (p=1.11e-11, coef=+1.08 — matches hypothesized direction). | keep — surprising direction on steps/active_calories flagged for discussion |
 | EG.3 | done | `results/EG_3.csv` | Mediation step 1, same model refit separately within each of the 3 clinical sites (no pooling) — checks whether EG.2's pooled effect is a real within-site relationship or an artifact of between-site differences. Track: primary. | log(PM2.5) significant at: UW (steps, active_calories, bmi — all 3, all positive direction, matching pooled), UAB (steps only, positive), UCSD (bmi only, positive). Direction consistent with EG.2 everywhere it's significant; effect is strongest and most consistent at UW. | keep |
 | EG.4 | done | `results/EG_4.csv` | Second mediation link: does activity (steps/active_calories) or BMI predict glycemic control, controlling for age/severity? Necessary condition for the mediation story: if activity/BMI don't predict glycemic control here, pollution's effect on them (EG.2/EG.3) can't be mediating anything. Track: primary. | Across 4 candidate glycemic-control outcomes (glucose_mean, glucose_cv, tar_180, spikes_per_day_180), steps significant (p<0.05) in 0/4; active_calories significant in 2/4 (glucose_mean, tar_180); bmi significant in 1/4 (glucose_cv, negative direction). | keep |
-| EG.5 | not started | | Rebuild EG.2-EG.4 with a minutes-in-activity-level measure (from raw Garmin physical_activity stream: sedentary/generic/walking/running labels) replacing steps, which failed both mediation links. active_calories and bmi stay as-is. Two grouping variants: sedentary-vs-rest, and sedentary+generic-vs-walking+running. Track: primary. | | |
+| EG.5 | done | see EG.5a/EG.5b/EG.5c | Rebuild EG.2-EG.4 with a minutes-in-activity-level measure (from raw Garmin physical_activity stream: sedentary/generic/walking/running labels) replacing steps, which failed both mediation links. active_calories and bmi stay as-is. Two grouping variants: v1 = sedentary-vs-rest, v2 = sedentary+generic-vs-walking+running. Track: primary. | Mixed improvement over steps: active_minutes_v1 significant (pooled, link 1) and significant in 2/4 link-2 outcomes, unlike steps which was significant in 0/4 for link 2. v2 not significant pooled but flips sign at UW. Full detail in EG.5a-c. | keep |
+| EG.5a | done | `results/EG_5a.csv` | Link 1, pooled across all 3 sites: active_minutes_v1/v2, active_calories, bmi ~ log1p(PM2.5) + age + site dummies. EG.5's rework of EG.2. Track: primary. | N~2085-2225. log(PM2.5) significant for active_minutes_v1_per_day (p=0.0423, positive — more pollution, more active minutes, same backwards direction as steps), active_calories (p=0.0002, positive), bmi (p=1.11e-11, positive, as hypothesized). active_minutes_v2_per_day not significant (p=0.054, negative trend). | keep |
+| EG.5b | done | `results/EG_5b.csv` | Link 1, per-site (no pooling): same model as EG.5a, refit within UW/UAB/UCSD separately. EG.5's rework of EG.3. Track: primary. | log(PM2.5) significant at: UW (active_minutes_v2_per_day, p=0.020, NEGATIVE — opposite of the pooled v1 direction; active_calories p=0.0001; bmi p<0.0001), UCSD (bmi only, p=1.4e-05). UAB: none significant. The v1/v2 sign flip between pooled and per-site suggests the pooled active-minutes result is not a stable within-site effect. | keep |
+| EG.5c | done | `results/EG_5c.csv` (+ per-fit `EG_5c_<variant>_<outcome>.csv`) | Link 2: 4 candidate glycemic-control outcomes ~ active_minutes_v1/v2 + active_calories + bmi + age + severity dummies + site dummies. EG.5's rework of EG.4. Track: primary. | 8 fits (2 variants x 4 outcomes). active_minutes_v1_per_day significant for glucose_mean (p=0.0257, positive) and spikes_per_day_180 (p=0.0387, positive); not significant for glucose_cv or tar_180. active_minutes_v2_per_day not significant for any of the 4. Better than steps (0/4 in EG.4) but still weak and inconsistent between v1/v2. | keep |
 | EG.6 | not started | | Single combined mediation model chaining pollution -> activity/BMI -> glycemic control, instead of two separate regressions, to report an actual indirect effect with its own significance test. Depends on EG.5's result for which activity measure to use. Track: primary. | | |
 | EG.7 | not started | | Sensitivity: rerun EG.1 (and EG.4) without severity-group dummies as a covariate. Tests whether severity group is absorbing pollution's/BMI's true effect rather than acting as a neutral confounder. Track: primary. | | |
 | EG.8 | not started | | Per-site replication of EG.1: does the null pollution result on glycemic control hold at each site individually, or does it vary the way the first mediation link did in EG.3? Track: primary. | | |
@@ -230,3 +233,69 @@ descriptive, kept for its original ID — not depression-specific).
 **Result:** Across 4 candidate glycemic-control outcomes (glucose_mean, glucose_cv, tar_180, spikes_per_day_180), steps significant (p<0.05) in 0/4; active_calories significant in 2/4; bmi significant in 1/4. See EG_4_summary.csv for per-outcome detail.
 **Decision:** keep
 **Output:** results/EG_4.csv
+
+### EG.5a — 2026-08-17
+**Method:** OLS, pooled across all 3 sites: active_minutes_v1_per_day / active_minutes_v2_per_day / active_calories / bmi ~ log1p(PM2.5) + age + clinical_site dummies. EG.5 rework of EG.2, replacing steps with the raw activity-level-minutes measure.
+**Result:** Pooled across all 3 sites. log(PM2.5) significant (p<0.05) for: active_minutes_v1_per_day (p=0.0423, coef=+ 6.7102), active_calories (p=0.000207, coef=+ 12.2959), bmi (p=1.11e-11, coef=+ 1.0837).
+**Decision:** keep
+**Output:** results/EG_5a.csv
+
+### EG.5b — 2026-08-17
+**Method:** OLS, refit separately within each of the 3 sites: active_minutes_v1_per_day / active_minutes_v2_per_day / active_calories / bmi ~ log1p(PM2.5) + age. EG.5 rework of EG.3, replacing steps.
+**Result:** Per-site (no pooling). log(PM2.5) significant (p<0.05) for: UW/active_minutes_v2_per_day (p=0.0202, coef=- 8.8862), UW/active_calories (p=0.000108, coef=+ 21.4722), UW/bmi (p=4.25e-10, coef=+ 1.6735), UCSD/bmi (p=1.43e-05, coef=+ 1.3545).
+**Decision:** keep
+**Output:** results/EG_5b.csv
+
+### EG.5c_active_minutes_v1_per_day_glucose_mean — 2026-08-17
+**Method:** OLS: glucose_mean ~ active_minutes_v1_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v1_per_day.
+**Result:** N=2090, R2=0.281. active_minutes_v1_per_day p=0.0257, active_calories p=0.138, bmi p=0.0545.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v1_per_day_glucose_mean.csv
+
+### EG.5c_active_minutes_v1_per_day_glucose_cv — 2026-08-17
+**Method:** OLS: glucose_cv ~ active_minutes_v1_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v1_per_day.
+**Result:** N=2090, R2=0.225. active_minutes_v1_per_day p=0.316, active_calories p=0.463, bmi p=0.0149.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v1_per_day_glucose_cv.csv
+
+### EG.5c_active_minutes_v1_per_day_tar_180 — 2026-08-17
+**Method:** OLS: tar_180 ~ active_minutes_v1_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v1_per_day.
+**Result:** N=2090, R2=0.307. active_minutes_v1_per_day p=0.113, active_calories p=0.157, bmi p=0.177.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v1_per_day_tar_180.csv
+
+### EG.5c_active_minutes_v1_per_day_spikes_per_day_180 — 2026-08-17
+**Method:** OLS: spikes_per_day_180 ~ active_minutes_v1_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v1_per_day.
+**Result:** N=2090, R2=0.252. active_minutes_v1_per_day p=0.0387, active_calories p=0.498, bmi p=0.105.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v1_per_day_spikes_per_day_180.csv
+
+### EG.5c_active_minutes_v2_per_day_glucose_mean — 2026-08-17
+**Method:** OLS: glucose_mean ~ active_minutes_v2_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v2_per_day.
+**Result:** N=2090, R2=0.279. active_minutes_v2_per_day p=0.842, active_calories p=0.00132, bmi p=0.0668.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v2_per_day_glucose_mean.csv
+
+### EG.5c_active_minutes_v2_per_day_glucose_cv — 2026-08-17
+**Method:** OLS: glucose_cv ~ active_minutes_v2_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v2_per_day.
+**Result:** N=2090, R2=0.225. active_minutes_v2_per_day p=0.0946, active_calories p=0.283, bmi p=0.00953.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v2_per_day_glucose_cv.csv
+
+### EG.5c_active_minutes_v2_per_day_tar_180 — 2026-08-17
+**Method:** OLS: tar_180 ~ active_minutes_v2_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v2_per_day.
+**Result:** N=2090, R2=0.306. active_minutes_v2_per_day p=0.619, active_calories p=0.00515, bmi p=0.213.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v2_per_day_tar_180.csv
+
+### EG.5c_active_minutes_v2_per_day_spikes_per_day_180 — 2026-08-17
+**Method:** OLS: spikes_per_day_180 ~ active_minutes_v2_per_day + active_calories + bmi + age + severity-group dummies + site dummies. EG.5 rework of EG.4, replacing steps with active_minutes_v2_per_day.
+**Result:** N=2090, R2=0.251. active_minutes_v2_per_day p=0.09, active_calories p=0.909, bmi p=0.145.
+**Decision:** keep
+**Output:** results/EG_5c_active_minutes_v2_per_day_spikes_per_day_180.csv
+
+### EG.5c — 2026-08-17
+**Method:** Cross-outcome summary of EG.5's second link (see EG.5c_<variant>_<outcome> rows for each individual fit): tests active_minutes_v1_per_day and active_minutes_v2_per_day (in place of steps) against 4 candidate glycemic-control outcomes, controlling for active_calories, bmi, age, and severity group.
+**Result:** Across 2 active-minutes variants x 4 outcomes (8 fits), the active-minutes predictor significant (p<0.05) in 2/8. See EG_5c_summary.csv for per-fit detail; compare against EG.4 where steps was significant in 0/4.
+**Decision:** keep
+**Output:** results/EG_5c.csv

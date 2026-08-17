@@ -1,0 +1,5 @@
+,active_variant,outcome,n,predictor,coefficient,p_value
+0,active_minutes_v1_per_day,tar_180,2090,age,0.0590962231289141,0.11151844080019611
+1,active_minutes_v1_per_day,tar_180,2090,active_minutes_v1_per_day,0.0052373422082163225,0.11303722426039915
+2,active_minutes_v1_per_day,tar_180,2090,active_calories,0.004620169793833395,0.15688906489470714
+3,active_minutes_v1_per_day,tar_180,2090,bmi,0.07719929263957578,0.17714456880220875

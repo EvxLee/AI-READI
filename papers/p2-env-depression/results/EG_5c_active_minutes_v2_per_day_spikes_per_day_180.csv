@@ -1,0 +1,5 @@
+,active_variant,outcome,n,predictor,coefficient,p_value
+0,active_minutes_v2_per_day,spikes_per_day_180,2090,age,0.014196974686599414,3.3388482472262943e-07
+1,active_minutes_v2_per_day,spikes_per_day_180,2090,active_minutes_v2_per_day,0.0005204297160363563,0.08995559213340036
+2,active_minutes_v2_per_day,spikes_per_day_180,2090,bmi,-0.006275764369639552,0.1448260268655823
+3,active_minutes_v2_per_day,spikes_per_day_180,2090,active_calories,2.399126987728545e-05,0.9089046330467206
