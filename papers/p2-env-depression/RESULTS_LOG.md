@@ -62,7 +62,7 @@ descriptive, kept for its original ID — not depression-specific).
 | EG.1 | done | `results/EG_1.csv` (+ `EG_1_summary.csv`, `EG_1_<outcome>.csv` per candidate outcome) | Primary model: glycemic-control metric ~ log(PM2.5) + other env vars + BMI + wearables + age + severity group (+ site). Is the environmental term significant once severity is controlled for — the paper's central claim under the pivot. Track: primary. | N=1944 (4 candidate outcomes: glucose_mean, glucose_cv, tar_180, spikes_per_day_180). log(PM2.5) NOT significant in any of the 4 (p=0.99, 0.11, 0.30, 0.16). BMI significant for glucose_mean (p=0.037) and glucose_cv (p=0.0007, negative direction). | rescope — see takeaways below |
 | EG.2 | done | `results/EG_2.csv` | Mediation step 1, pooled across all 3 sites: does log(PM2.5) predict activity (steps, active_calories) and BMI, controlling for age + site dummies? Tests project head's hypothesis chain (worse pollution -> less activity/higher BMI -> worse glycemic control) at its first link. Track: primary. | N=2110-2225. log(PM2.5) significant (p<0.05) for all 3 outcomes: steps (p=1.09e-06, coef=+412.9 — MORE steps, opposite of hypothesized direction), active_calories (p=0.000207, coef=+12.3 — also opposite direction), bmi (p=1.11e-11, coef=+1.08 — matches hypothesized direction). | keep — surprising direction on steps/active_calories flagged for discussion |
 | EG.3 | done | `results/EG_3.csv` | Mediation step 1, same model refit separately within each of the 3 clinical sites (no pooling) — checks whether EG.2's pooled effect is a real within-site relationship or an artifact of between-site differences. Track: primary. | log(PM2.5) significant at: UW (steps, active_calories, bmi — all 3, all positive direction, matching pooled), UAB (steps only, positive), UCSD (bmi only, positive). Direction consistent with EG.2 everywhere it's significant; effect is strongest and most consistent at UW. | keep |
-| EG.4 | not started | | Second mediation link: does activity (steps/active_calories) or BMI predict glycemic control, controlling for age/severity? Natural follow-up to EG.2/EG.3's first-link result. | | |
+| EG.4 | done | `results/EG_4.csv` | Second mediation link: does activity (steps/active_calories) or BMI predict glycemic control, controlling for age/severity? Necessary condition for the mediation story: if activity/BMI don't predict glycemic control here, pollution's effect on them (EG.2/EG.3) can't be mediating anything. Track: primary. | Across 4 candidate glycemic-control outcomes (glucose_mean, glucose_cv, tar_180, spikes_per_day_180), steps significant (p<0.05) in 0/4; active_calories significant in 2/4 (glucose_mean, tar_180); bmi significant in 1/4 (glucose_cv, negative direction). | keep |
 
 ## Log
 
@@ -195,3 +195,33 @@ descriptive, kept for its original ID — not depression-specific).
 **Result:** Same model refit separately per site (no pooling, no site dummy). log(PM2.5) significant (p<0.05) for: UW/steps (p=0.0002, coef=+ 490.9384), UW/active_calories (p=0.000108, coef=+ 21.4722), UW/bmi (p=4.25e-10, coef=+ 1.6735), UAB/steps (p=0.00171, coef=+ 417.5841), UCSD/bmi (p=1.43e-05, coef=+ 1.3545). Compare against EG.2's pooled estimate -- a pooled-significant effect that disappears or reverses at one site means the pooled estimate is being driven by between-site differences, not a within-site pollution effect.
 **Decision:** keep
 **Output:** results/EG_3.csv
+
+### EG.4_glucose_mean — 2026-08-17
+**Method:** OLS: glucose_mean ~ steps + active_calories + bmi + age + severity-group dummies + site dummies
+**Result:** N=2116, R2=0.280. steps p=0.556, active_calories p=0.0046, bmi p=0.0703.
+**Decision:** keep
+**Output:** results/EG_4_glucose_mean.csv
+
+### EG.4_glucose_cv — 2026-08-17
+**Method:** OLS: glucose_cv ~ steps + active_calories + bmi + age + severity-group dummies + site dummies
+**Result:** N=2116, R2=0.228. steps p=0.803, active_calories p=0.143, bmi p=0.0218.
+**Decision:** keep
+**Output:** results/EG_4_glucose_cv.csv
+
+### EG.4_tar_180 — 2026-08-17
+**Method:** OLS: tar_180 ~ steps + active_calories + bmi + age + severity-group dummies + site dummies
+**Result:** N=2116, R2=0.309. steps p=0.434, active_calories p=0.00891, bmi p=0.207.
+**Decision:** keep
+**Output:** results/EG_4_tar_180.csv
+
+### EG.4_spikes_per_day_180 — 2026-08-17
+**Method:** OLS: spikes_per_day_180 ~ steps + active_calories + bmi + age + severity-group dummies + site dummies
+**Result:** N=2116, R2=0.252. steps p=0.239, active_calories p=0.208, bmi p=0.0956.
+**Decision:** keep
+**Output:** results/EG_4_spikes_per_day_180.csv
+
+### EG.4 — 2026-08-17
+**Method:** Cross-outcome summary of the second mediation link (see EG.4_<outcome> rows for each individual fit): tests steps, active_calories, and BMI against 4 candidate CGM-derived glycemic-control outcomes, controlling for age and severity group.
+**Result:** Across 4 candidate glycemic-control outcomes (glucose_mean, glucose_cv, tar_180, spikes_per_day_180), steps significant (p<0.05) in 0/4; active_calories significant in 2/4; bmi significant in 1/4. See EG_4_summary.csv for per-outcome detail.
+**Decision:** keep
+**Output:** results/EG_4.csv
