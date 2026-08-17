@@ -135,9 +135,10 @@ severity-group dummies + site dummies (OLS).
 **Result:** log(PM2.5) not significant in any of the 4 (p=0.99, 0.11,
 0.30, 0.16). BMI significant for glucose_mean (p=0.037) and glucose_cv
 (p=0.0007, negative direction). Decision: rescope, not kill — see the
-mediation hypothesis in Section 8.
+mediation hypothesis in Section 8, and the overcontrol concern in EG.7
+below.
 
-## 8. Mediation follow-up (EG.2–EG.3, done; EG.4+ open)
+## 8. Mediation follow-up (EG.2–EG.4 done; EG.5–EG.6 open)
 
 EG.1's null environmental term prompted a mediation hypothesis
 (2026-08-15, project head): pollution may not act on glycemic control
@@ -148,20 +149,32 @@ worsens glycemic control.
 |---|---|
 | EG.2 | First link, pooled: steps / active_calories / bmi ~ log1p(PM2.5) + age + site dummies, all 3 sites together |
 | EG.3 | First link, per-site: same model, refit separately within UW / UAB / UCSD, no pooling |
+| EG.4 | Second link: 4 candidate glycemic-control outcomes ~ steps + active_calories + bmi + age + severity dummies + site dummies |
 
-**Result:** log(PM2.5) significant (pooled) for all 3 outcomes, but
-direction is mixed relative to the hypothesis — BMI moves as expected
+**EG.2/EG.3 result:** log(PM2.5) significant (pooled) for all 3 outcomes,
+but direction is mixed relative to the hypothesis — BMI moves as expected
 (more pollution → higher BMI), while steps and active_calories move
 **opposite** to it (more pollution → more activity). Per-site: the effect
 is strongest and most consistent at UW; UAB shows it only for steps; UCSD
 only for BMI. Not yet resolved whether this is a real site-specific
-pattern or a confound — flagged for project-head discussion.
+pattern or a confound.
 
-**Open, not yet specified:** a model of the second link (does
-activity/BMI predict glycemic control, controlling for age/severity?) and,
-if the first two links hold up, a single model chaining pollution →
-activity/BMI → glycemic control directly (formal mediation analysis)
-rather than two separate regressions.
+**EG.4 result:** steps not significant for any of the 4 glycemic-control
+outcomes; active_calories significant for 2/4; BMI significant for 1/4
+(glucose_cv, negative direction — counter to the usual expectation, likely
+the same severity-group absorption issue as EG.1). Steps looks like a dead
+end for the mediation story on both links; active_calories is the more
+promising activity measure.
+
+**Open — planned, not yet run:**
+
+| ID | Purpose |
+|---|---|
+| EG.5 | Rebuild EG.2–EG.4 with a minutes-in-activity-level measure (from the raw Garmin `physical_activity` stream's `sedentary`/`generic`/`walking`/`running` labels) replacing `steps`, since `steps` failed both mediation links. `active_calories` and `bmi` stay as-is. Two grouping variants to compare: (a) sedentary vs. everything else, (b) sedentary+generic vs. walking+running. |
+| EG.6 | A single combined mediation model chaining pollution → activity/BMI → glycemic control, rather than two separate regressions (EG.2–EG.4 style) — needed to report an actual indirect effect with its own significance test, not just "both links looked plausible separately." Depends on EG.5's result for which activity measure to use. |
+| EG.7 | Sensitivity: rerun EG.1 (and EG.4) without severity-group dummies as a covariate. Tests the overcontrol hypothesis — severity group is largely defined by glycemic control itself, so including it may be absorbing pollution's and BMI's true effects rather than being a neutral confounder. |
+| EG.8 | Per-site replication of EG.1: does the null pollution result on glycemic control hold at each site individually, or does it vary the way the first mediation link did in EG.3? |
+| EG.9 | VIF / multicollinearity diagnostics on EG.1's predictor set (BMI, severity group, glucose, PM2.5 are expected to be collinear per `docs/CAVEATS.md`). High VIF would give a more mundane explanation for EG.1's null pollution term than "no true effect," and should be reported either way. |
 
 ## 9. CGM-derived metrics build and age comparison (ECGM.1–ECGM.2, done)
 
