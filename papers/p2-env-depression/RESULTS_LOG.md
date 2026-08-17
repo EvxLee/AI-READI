@@ -24,33 +24,26 @@ executed outputs, never from memory.
   auto-update, re-check that row's Description is still intact before
   committing, and restore it if not.
 
-## Amendment — 2026-08-11, direction from project head
+## History
 
-Primary outcome pivots from CES-D-10 depression score to diabetes/glycemic
-control (built from raw CGM streams, not the manifest mean). BMI promoted
-to a secondary outcome in its own right. CES-D-10 work (all of E1.x/E2.x
-below) continues as a tertiary, side-analysis track, not the headline. Full
-reasoning in `PLAN.md`'s "v3 pivot" section and `PRESPEC.md`'s Amendment.
-New experiment IDs added below: **EP.1-EP.4** (pairwise adjacent-severity
-binary models, already run), **ECGM.1-ECGM.2** (CGM-derived glycemic
-metrics build + age-group comparison), **EG.1** (primary model: glycemic
-control ~ environment + BMI + wearables + age + severity).
+Depression (CES-D-10) was the paper's sole primary outcome through
+2026-08-10, with a scoping-phase Aim 1/Aim 2 already run pre-PRESPEC. On
+2026-08-11 the project head pivoted the paper to glycemic control and BMI
+as environmental-exposure outcomes, demoting depression to a side track;
+on 2026-08-17 depression was dropped from the plan entirely, since none of
+that side-track work (E1.2–E1.7, E2.1–E2.6) was ever run — those IDs and
+the original depression-era scoping numbers are removed from the Status
+table below and are not part of the plan going forward. Full history is in
+git log; `PRESPEC.md`'s overhaul header links back to the interim
+amendments if needed.
 
-**Added 2026-08-12:** **EP.5-EP.7** (the 3 remaining non-adjacent severity
-pairs — Healthy vs Oral Med, Healthy vs Insulin, Pre-DM vs Insulin — a
-gradient/continuum sanity check requested by the project head alongside the
-original adjacent-pair ask: "you might as well do every pair of those four
-groups").
-
-## Scoping results (pre-plan, disclosed in methods)
-
-| Run | Result |
-|---|---|
-| Aim 1 main model, N = 1,951 complete cases | CES-D-10 ~ log(PM2.5) + BMI + steps + stress + HR + sleep + age + severity + site. Indoor PM2.5 p = 1e-6; BMI p = 1.3e-5; insulin dependence p = 0.0018; younger age significant. |
-| Aim 2 subgroup, insulin-dependent under 70, N = 188 | Mean CES-D-10 8.62 vs 5.61 for the rest; 36.7% positive screens vs 18.5%. |
-
-Open question: is the subgroup's depression excess explained by its elevated
-BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
+Current experiment families: **EP.1–EP.7** (severity-pair binary models —
+3 adjacent + 3 non-adjacent + 1 cross-pair synthesis), **ECGM.1–ECGM.2**
+(CGM-derived glycemic metrics build + age-group comparison), **EG.1**
+(primary model: glycemic control ~ environment + BMI + wearables + age +
+severity), **EG.2–EG.3** (mediation follow-up: does pollution predict
+activity/BMI, pooled and per-site), **E1.1** (general-purpose baseline
+descriptive, kept for its original ID — not depression-specific).
 
 ## Status
 
@@ -69,18 +62,7 @@ BMI / PM2.5 / wearable profile, or independent? Either answer publishes.
 | EG.1 | done | `results/EG_1.csv` (+ `EG_1_summary.csv`, `EG_1_<outcome>.csv` per candidate outcome) | Primary model: glycemic-control metric ~ log(PM2.5) + other env vars + BMI + wearables + age + severity group (+ site). Is the environmental term significant once severity is controlled for — the paper's central claim under the pivot. Track: primary. | N=1944 (4 candidate outcomes: glucose_mean, glucose_cv, tar_180, spikes_per_day_180). log(PM2.5) NOT significant in any of the 4 (p=0.99, 0.11, 0.30, 0.16). BMI significant for glucose_mean (p=0.037) and glucose_cv (p=0.0007, negative direction). | rescope — see takeaways below |
 | EG.2 | done | `results/EG_2.csv` | Mediation step 1, pooled across all 3 sites: does log(PM2.5) predict activity (steps, active_calories) and BMI, controlling for age + site dummies? Tests project head's hypothesis chain (worse pollution -> less activity/higher BMI -> worse glycemic control) at its first link. Track: primary. | N=2110-2225. log(PM2.5) significant (p<0.05) for all 3 outcomes: steps (p=1.09e-06, coef=+412.9 — MORE steps, opposite of hypothesized direction), active_calories (p=0.000207, coef=+12.3 — also opposite direction), bmi (p=1.11e-11, coef=+1.08 — matches hypothesized direction). | keep — surprising direction on steps/active_calories flagged for discussion |
 | EG.3 | done | `results/EG_3.csv` | Mediation step 1, same model refit separately within each of the 3 clinical sites (no pooling) — checks whether EG.2's pooled effect is a real within-site relationship or an artifact of between-site differences. Track: primary. | log(PM2.5) significant at: UW (steps, active_calories, bmi — all 3, all positive direction, matching pooled), UAB (steps only, positive), UCSD (bmi only, positive). Direction consistent with EG.2 everywhere it's significant; effect is strongest and most consistent at UW. | keep |
-| E1.2 | not started | | Depression-track test: does PM2.5, BMI, or wearable behavior independently predict depression score once age, severity, and site are controlled for? Track: tertiary/side (was primary pre-pivot). | | |
-| E1.3 | not started | | Robustness check: do the same predictors hold when depression is treated as the ≥10 clinical screen (yes/no) instead of a continuous score? Track: tertiary/side. | | |
-| E1.4 | not started | | Which single variables carry a depression signal on their own, before any adjustment? Track: tertiary/side. | | |
-| E1.5 | not started | | Does the E1.2 story change once the lower-coverage variables (SpO2, CGM glucose) are added back in? Track: tertiary/side. | | |
-| E1.6 | not started | | Does the result replicate independently at each of the three clinical sites, or is one site driving it? Track: tertiary/side. | | |
-| E1.7 | not started | | Does the result survive known data-quality issues (broken temperature sensor, PM2.5 outliers) and variable overlap (VIF)? Track: tertiary/side. | | |
-| E2.1 | not started | | Full profile of the highest-risk subgroup (insulin-dependent, under 70), including depression for the first time. Track: tertiary/side — this is the "pollution + activity + depression in the younger/worse-diabetes subgroup" thread the project head asked to keep exploring. | | |
-| E2.2 | not started | | Headline subgroup test: is this subgroup's depression burden actually higher than the rest of the cohort's? Track: tertiary/side. | | |
-| E2.3 | not started | | Within the subgroup, does depression line up with its already-elevated BMI, PM2.5, or wearable profile? Track: tertiary/side. | | |
-| E2.4 | not started | | Adjusted version of E2.3: does any variable still predict depression within the subgroup once the others are controlled for? Track: tertiary/side. | | |
-| E2.5 | not started | | Does the specific high-BMI + low-activity combination the team originally asked about show elevated depression? Track: tertiary/side. | | |
-| E2.6 | not started | | Is the subgroup's depression gap driven by one specific age band, or true across both? Track: tertiary/side. | | |
+| EG.4 | not started | | Second mediation link: does activity (steps/active_calories) or BMI predict glycemic control, controlling for age/severity? Natural follow-up to EG.2/EG.3's first-link result. | | |
 
 ## Log
 
