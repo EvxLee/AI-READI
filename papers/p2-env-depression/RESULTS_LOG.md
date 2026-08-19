@@ -81,6 +81,7 @@ descriptive, kept for its original ID — not depression-specific).
 | EG.17 | done | `data/processed/p2/cgm_range_features.csv` (gitignored, participant-level; not a `results/` artifact) | Build the project head's exact 5-level glycemic-range feature set (2026-08-19): severe_hypo (<54), moderate_hypo (54-69), normal (70-180), moderate_hyper (181-250), severe_hyper (>250), each with minutes/day, fraction of readings, mean glucose within range, and windows/day. Plus overall glucose_mean, glucose_overall_variance (pooled-reading variance, distinct from EG.12's interday metric), glucose_mean_daily_variance (matches EG.12's intraday_glucose_variance), and glucose_cv_ratio (SD/mean, unscaled). Supersedes the earlier informal 140/180 thresholds — existing tar_180/spikes_per_day_180 already used 180 so no prior results need rework. Track: primary. | N=2245 streams pulled, 2243 parsed (2 failed, <12 valid readings). 27 columns total. Not yet run through the pollution models — that's the next step (EG.18+), pending confirmation of which of the 15 range-features to prioritize testing. | keep |
 | EG.18 | done | `results/EG_18_summary.csv` | Full grid: all 24 EG.17 features x 3 pollutants (PM2.5/NOx/VOC) x pooled+per-site, no-severity design. 288 fits total. Track: primary. | 44/288 significant at p<0.05 (~3x the ~14 expected by chance, not multiple-comparison-corrected — flagged as a caveat). Strongest, cross-site-replicated finding: PM2.5 -> moderate_hyper_mean_glucose (average glucose while in the 181-250 band) significant pooled (p=0.0033) AND independently at both UCSD (p=0.045) and UAB (p=0.047) — the first result in the whole EG series to replicate at 2 of 3 sites with the same design. PM2.5 also pooled-significant (not yet site-replicated) for glucose_cv_ratio, glucose_overall_variance, normal_minutes_per_day/fraction (negative — less time in range), moderate_hypo and severe_hypo/hyper time/fraction/windows. NOx/VOC mostly site-specific-only (UCSD), consistent with EG.13/EG.14's pattern. | keep — moderate_hyper_mean_glucose is the strongest candidate headline result so far |
 | EG.19 | done | `results/EG_19_summary.csv` | Extends EG.16 (which only tested PM2.5 as the outcome) across all 6 environmental metrics (PM2.5, NOx, VOC, temp, humidity, light) as outcomes, using EG.16's original pre-EG.17 CGM predictor set (glucose_mean, glucose_cv, intraday/interday variance, hba1c) + bmi + age + site. Exploratory/correlational, per project-head request. Track: primary. | 6/30 significant. All 5 glycemic markers significant for log_pm25 (matches EG.16 exactly, hba1c strongest p=2.0e-06). Only one other hit: hba1c~mean_temp (p=0.0377). NOx, VOC, humidity, and light show NO significant relationship with any glycemic marker — the reverse-direction correlation is specific to PM2.5 (and weakly temperature via hba1c), not a general "glycemic markers track environment" pattern. | keep — clarifies EG.16's result is PM2.5-specific, not universal |
+| EG.20 | done | `results/EG_20_summary.csv` (+ EG.20_<outcome> per-outcome detail) | Completes the project head's exact request: all 5 CGM/HbA1c features together in ONE multivariate model per environmental outcome (not 5 separate univariate models like EG.16/EG.19). Track: primary. | 3/30 significant, all for log_pm25: hba1c (p=1.2e-05, strongest, same as univariate), intraday_glucose_variance (p=0.0033, negative direction — flips from positive in EG.19's univariate version), glucose_cv (p=0.0076). glucose_mean and interday_glucose_variance drop out once the others are controlled for (they were significant alone in EG.19 but don't hold up jointly) — hba1c and glucose_cv are the two markers that independently carry the PM2.5 signal. | keep — this is the complete, final answer to "CGM features + covariates predicting environment" |
 
 ## Log
 
@@ -441,3 +442,45 @@ descriptive, kept for its original ID — not depression-specific).
 **Result:** 30 fits (6 environmental outcomes x 5 glycemic predictors, EG.16's original pre-EG.17 CGM feature set). 6 significant at p<0.05: log_pm25~hba1c (p=1.99e-06), log_pm25~interday_glucose_variance (p=1.08e-05), log_pm25~glucose_cv (p=0.00111), log_pm25~glucose_mean (p=0.0247), log_pm25~intraday_glucose_variance (p=0.0355), mean_temp~hba1c (p=0.0377). Exploratory/correlational only, per EG.16's framing.
 **Decision:** keep
 **Output:** results/EG_19.csv
+
+### EG.20_log_pm25 — 2026-08-19
+**Method:** OLS, multivariate: log_pm25 ~ all 5 glycemic features simultaneously (glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c) + bmi + age + site dummies.
+**Result:** N=2139, R2=0.123. Significant (p<0.05): hba1c (p=1.15e-05), intraday_glucose_variance (p=0.00333), glucose_cv (p=0.00764).
+**Decision:** keep
+**Output:** results/EG_20_log_pm25.csv
+
+### EG.20_log_nox — 2026-08-19
+**Method:** OLS, multivariate: log_nox ~ all 5 glycemic features simultaneously (glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c) + bmi + age + site dummies.
+**Result:** N=2139, R2=0.018. Significant (p<0.05): none.
+**Decision:** keep
+**Output:** results/EG_20_log_nox.csv
+
+### EG.20_log_voc — 2026-08-19
+**Method:** OLS, multivariate: log_voc ~ all 5 glycemic features simultaneously (glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c) + bmi + age + site dummies.
+**Result:** N=2139, R2=0.019. Significant (p<0.05): none.
+**Decision:** keep
+**Output:** results/EG_20_log_voc.csv
+
+### EG.20_mean_temp — 2026-08-19
+**Method:** OLS, multivariate: mean_temp ~ all 5 glycemic features simultaneously (glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c) + bmi + age + site dummies.
+**Result:** N=2139, R2=0.080. Significant (p<0.05): none.
+**Decision:** keep
+**Output:** results/EG_20_mean_temp.csv
+
+### EG.20_mean_hum — 2026-08-19
+**Method:** OLS, multivariate: mean_hum ~ all 5 glycemic features simultaneously (glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c) + bmi + age + site dummies.
+**Result:** N=2139, R2=0.085. Significant (p<0.05): none.
+**Decision:** keep
+**Output:** results/EG_20_mean_hum.csv
+
+### EG.20_mean_light — 2026-08-19
+**Method:** OLS, multivariate: mean_light ~ all 5 glycemic features simultaneously (glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c) + bmi + age + site dummies.
+**Result:** N=2140, R2=0.012. Significant (p<0.05): none.
+**Decision:** keep
+**Output:** results/EG_20_mean_light.csv
+
+### EG.20 — 2026-08-19
+**Method:** OLS, multivariate: environmental_metric ~ glucose_mean + glucose_cv + intraday_glucose_variance + interday_glucose_variance + hba1c (all 5 together) + bmi + age + site dummies, for each of 6 environmental outcomes. Completes the project head's request for 'CGM features + covariates' as a single combined model, not 5 separate single-predictor models (EG.16/EG.19).
+**Result:** Multivariate version of EG.19 -- all 5 glycemic features together in one model per environmental outcome, instead of 5 separate univariate models. 3/30 significant at p<0.05: log_pm25~hba1c (p=1.15e-05), log_pm25~intraday_glucose_variance (p=0.00333), log_pm25~glucose_cv (p=0.00764). Compare against EG.19's univariate results to see which predictors survive once the others are controlled for.
+**Decision:** keep
+**Output:** results/EG_20.csv
