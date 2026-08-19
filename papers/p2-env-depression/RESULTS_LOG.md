@@ -71,6 +71,13 @@ descriptive, kept for its original ID — not depression-specific).
 | EG.7 | done | `results/EG_7.csv` (+ EG.7a/EG.7b per-outcome detail) | Sensitivity: rerun EG.1 (EG.7a) and EG.4 (EG.7b) with severity-group dummies removed, to test whether severity group was absorbing pollution's/BMI's true effect (overcontrol) rather than acting as a neutral confounder. Track: primary. | **Confirmed overcontrol, for pollution specifically.** log(PM2.5) flips from non-significant to significant (p<0.05) once severity is dropped, in 2/4 outcomes (glucose_cv p=0.0061, tar_180 p=0.0168 — both were p>0.1 with severity in). BMI is significant for 2/4 in both versions but the picture shifts: glucose_mean stays significant and gets much stronger (p<0.0001 vs. p=0.037), tar_180 goes from ns to p<0.0001, while glucose_cv (significant with severity, p=0.0007) becomes ns without it. steps stays non-significant in all 4 either way (0/4) — the overcontrol issue is specific to pollution/BMI, not steps. | keep — this explains a real chunk of EG.1's null result |
 | EG.8 | done | `results/EG_8.csv` | Per-site replication of EG.7a's no-severity primary model: does the newly-significant pollution effect on glycemic control hold at each site individually, or is it driven by one site? Track: primary. | **Mixed, not a clean replication.** log(PM2.5)-glucose_cv is significant at UCSD only (p=0.0012, positive, same direction as pooled), not at UW or UAB. log(PM2.5)-tar_180 (pooled p=0.0168) is not significant at any single site individually (UAB closest, p=0.056). So the pollution-glycemic-control link from EG.7a is real for at least one site/outcome pair, but it is not a uniform, cohort-wide effect -- it looks concentrated at UCSD, similar to how the mediation-link effect (EG.2/EG.3) was concentrated at UW. | keep — real but site-heterogeneous, worth reporting as such |
 | EG.9 | not started | | VIF/multicollinearity diagnostics on EG.1's predictor set (BMI, severity, glucose, PM2.5 expected to be collinear per docs/CAVEATS.md). High VIF would explain EG.1's null pollution term without requiring "no true effect." Track: primary. | | |
+| EG.10 | done | `results/EG_10.csv` | Project-head follow-up to EG.8: is EG.7a's glucose_cv/tar_180 significance concentrated in one severity group, or evenly spread? Compares severity-group distribution within those model rows to the full cohort. Track: primary. | Not skewed. Severity-group distribution within both significant-outcome models matches the full cohort within 0.4 percentage points for every group. Rules out "one severity group is driving the effect" as an explanation for EG.7a/EG.8's results. | keep |
+| EG.11 | done | `results/EG_11.csv` | Project-head follow-up to EG.8: per-site descriptive stats (mean/median/SD/IQR/max) for PM2.5, NOx, VOC, to test whether UCSD (where EG.8's effect replicated) is simply more or more variably polluted than UW/UAB. Track: primary. | **Does not support the hypothesis.** UAB has the highest PM2.5 mean (19.0) and SD (55.6) of the 3 sites; UCSD is only moderate (mean 12.3, SD 40.8), lower than UAB on both. UW is lowest on both. So UCSD is not the most-polluted or most-variable site, yet it's the one where EG.8's effect replicated — the site concentration isn't explained by pollution exposure level alone. | keep |
+| EG.12 | done | `data/processed/p2/glucose_variability_metrics.csv` (gitignored, participant-level; not a `results/` artifact) | Build intraday (within-day) and interday (between-day) glucose variability metrics from raw CGM streams, per project head's request for the standard Rodbard-style variability decomposition. Track: primary. | N=2245 streams pulled, 2243 parsed. 4 participants have <2 valid days so interday_glucose_variance is NaN for them. Design choice (flagged for lead confirmation): a day needs >=12 readings to count. | keep |
+| EG.13 | done | `results/EG_13.csv` (+ EG.13a pooled, EG.13b per-site) | Repeat EG.7a/EG.8's no-severity design with NOx (log1p) in place of PM2.5, pooled + per-site. Track: primary. | Pooled: log_nox not significant for any of the 4 outcomes (closest: glucose_cv p=0.051). Per-site: significant at UCSD only, for glucose_mean (p=0.0235), tar_180 (p=0.018), spikes_per_day_180 (p=0.0286) — none of these were pooled-significant. Same UCSD-concentration pattern as PM2.5. | keep |
+| EG.14 | done | `results/EG_14.csv` (+ EG.14a pooled, EG.14b per-site) | Repeat EG.7a/EG.8's no-severity design with VOC (log1p) in place of PM2.5, pooled + per-site. Track: primary. | Pooled: log_voc not significant for any of the 4 outcomes. Per-site: UAB/spikes_per_day_180 (p=0.0127), UCSD/glucose_cv (p=0.0214) — weaker and less consistent than PM2.5 or NOx. | keep |
+| EG.15 | done | `results/EG_15_summary.csv` | Repeat the no-severity pollution tests (PM2.5, NOx, VOC) against EG.12's new intraday/interday variability outcomes, pooled + per-site. Track: primary. | **Strongest result in the EG series.** PM2.5 -> interday_glucose_variance is significant pooled (p=1.1e-05) AND replicates at 2 of 3 sites individually (UAB p=0.014, UCSD p=0.0067; UW p=0.14, weaker but same positive direction). PM2.5 -> intraday_glucose_variance significant pooled only (p=0.033), no site replicates alone. NOx/VOC mostly null except NOx/UCSD/intraday (p=0.043). | keep — PM2.5-interday effect is the most cross-site-consistent finding so far |
+| EG.16 | done | `results/EG_16_summary.csv` | Project-head-requested reverse-direction, exploratory/correlational check: log(PM2.5) ~ glycemic marker + bmi + age + site, for glucose_mean, glucose_cv, intraday/interday variance, and hba1c (for comparison). Track: primary. | All 5 glycemic markers significant (p<0.05): glucose_mean (p=0.025), glucose_cv (p=0.0011), intraday variance (p=0.035), interday variance (p=1.1e-05), hba1c (p=2.0e-06, strongest). Read as correlational only — pollution isn't caused by blood sugar; likely reflects shared geographic/site structure even after controlling for site dummies. | keep — flagged as exploratory, not causal |
 
 ## Log
 
@@ -359,3 +366,63 @@ descriptive, kept for its original ID — not depression-specific).
 **Result:** log(PM2.5) significant (p<0.05) per-site for: UCSD/glucose_cv (p=0.00118, coef=+ 1.0034). Compare against EG.7a's pooled result (significant for glucose_cv p=0.0061, tar_180 p=0.0168) -- a pooled-significant effect that doesn't replicate at any single site means it is likely driven by between-site differences, not a real within-site effect.
 **Decision:** keep
 **Output:** results/EG_8.csv
+
+### EG.10 — 2026-08-18
+**Method:** Descriptive: study_group_label distribution among the complete-case rows used in EG.7a's glucose_cv and tar_180 models, compared to the full cohort's distribution.
+**Result:** Severity-group distribution within EG.7a's glucose_cv/tar_180 model rows, compared to the full cohort's distribution. Max absolute deviation from cohort proportions: 0.4 percentage points. See EG_10.csv for the full breakdown.
+**Decision:** keep
+**Output:** results/EG_10.csv
+
+### EG.11 — 2026-08-18
+**Method:** Descriptive: mean/median/SD/IQR/max for mean_pm25, mean_nox, mean_voc, broken out by clinical_site, from environmental_summary.csv.
+**Result:** Per-site PM2.5/NOx/VOC descriptive stats (mean, median, SD, IQR, max). PM2.5 SD is highest at UAB (SD=40.83). Full table in EG_11.csv -- checked against EG.8's finding that the pollution-glucose_cv effect only replicated at UCSD.
+**Decision:** keep
+**Output:** results/EG_11.csv
+
+### EG.13a — 2026-08-18
+**Method:** OLS, pooled, no severity-group dummies: glycemic control ~ log_nox + other env vars + BMI + wearables + age + site dummies.
+**Result:** log_nox significant (p<0.05) for: none.
+**Decision:** keep
+**Output:** results/EG_13a.csv
+
+### EG.13b — 2026-08-18
+**Method:** OLS, per-site (no pooling), no severity-group dummies: glycemic control ~ log_nox + other env vars + BMI + wearables + age, refit within each site.
+**Result:** Pooled: log_nox significant for none. Per-site: significant for UCSD/glucose_mean (p=0.0235), UCSD/tar_180 (p=0.018), UCSD/spikes_per_day_180 (p=0.0286).
+**Decision:** keep
+**Output:** results/EG_13b.csv
+
+### EG.13 — 2026-08-18
+**Method:** Combined pooled + per-site test of log_nox (in place of PM2.5) against the same no-severity primary-model design as EG.7a/EG.8.
+**Result:** Pooled: log_nox significant for none. Per-site: significant for UCSD/glucose_mean (p=0.0235), UCSD/tar_180 (p=0.018), UCSD/spikes_per_day_180 (p=0.0286).
+**Decision:** keep
+**Output:** results/EG_13.csv
+
+### EG.14a — 2026-08-18
+**Method:** OLS, pooled, no severity-group dummies: glycemic control ~ log_voc + other env vars + BMI + wearables + age + site dummies.
+**Result:** log_voc significant (p<0.05) for: none.
+**Decision:** keep
+**Output:** results/EG_14a.csv
+
+### EG.14b — 2026-08-18
+**Method:** OLS, per-site (no pooling), no severity-group dummies: glycemic control ~ log_voc + other env vars + BMI + wearables + age, refit within each site.
+**Result:** Pooled: log_voc significant for none. Per-site: significant for UAB/spikes_per_day_180 (p=0.0127), UCSD/glucose_cv (p=0.0214).
+**Decision:** keep
+**Output:** results/EG_14b.csv
+
+### EG.14 — 2026-08-18
+**Method:** Combined pooled + per-site test of log_voc (in place of PM2.5) against the same no-severity primary-model design as EG.7a/EG.8.
+**Result:** Pooled: log_voc significant for none. Per-site: significant for UAB/spikes_per_day_180 (p=0.0127), UCSD/glucose_cv (p=0.0214).
+**Decision:** keep
+**Output:** results/EG_14.csv
+
+### EG.15 — 2026-08-18
+**Method:** OLS, no severity-group dummies: intraday_glucose_variance / interday_glucose_variance ~ log(pollutant) + other env vars + BMI + wearables + age (+ site dummies pooled, or refit per-site). Pollutant = PM2.5, NOx, or VOC.
+**Result:** Across 3 pollutants x 2 new variability outcomes x (pooled + 3 sites), significant (p<0.05) for: PM2.5/pooled/intraday_glucose_variance (p=0.0325), PM2.5/pooled/interday_glucose_variance (p=1.12e-05), PM2.5/per_site/UAB/interday_glucose_variance (p=0.014), PM2.5/per_site/UCSD/interday_glucose_variance (p=0.00673), NOx/per_site/UCSD/intraday_glucose_variance (p=0.0426). See EG_15_summary.csv for full detail.
+**Decision:** keep
+**Output:** results/EG_15.csv
+
+### EG.16 — 2026-08-18
+**Method:** OLS, exploratory/correlational (not causal): log1p(PM2.5) ~ glycemic_predictor + bmi + age + site dummies, run separately for each glycemic_predictor in {glucose_mean, glucose_cv, intraday_glucose_variance, interday_glucose_variance, hba1c}. Tests which glycemic marker co-varies most with pollution exposure, per project head's request; pollution is not plausibly caused by blood sugar, so this is read as a correlational comparison, not a mechanism test.
+**Result:** Reverse-direction (log(PM2.5) ~ glycemic marker + bmi + age + site), exploratory/correlational only. Significant (p<0.05): glucose_mean (p=0.0247), glucose_cv (p=0.00111), intraday_glucose_variance (p=0.0355), interday_glucose_variance (p=1.08e-05), hba1c (p=1.99e-06). hba1c p=1.99e-06, for comparison against the CGM-derived metrics.
+**Decision:** keep
+**Output:** results/EG_16.csv

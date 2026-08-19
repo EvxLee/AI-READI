@@ -166,15 +166,32 @@ the same severity-group absorption issue as EG.1). Steps looks like a dead
 end for the mediation story on both links; active_calories is the more
 promising activity measure.
 
-**Open — planned, not yet run:**
+**EG.7/EG.8 result (done, 2026-08-17):** dropping severity group confirms
+overcontrol — log(PM2.5) becomes significant for glucose_cv and tar_180.
+But EG.8's per-site check found this only replicates at UCSD, not UW or
+UAB — real, but not yet a uniform cohort-wide effect.
+
+**Open — EG.6, EG.9 planned, not yet run:**
 
 | ID | Purpose |
 |---|---|
-| EG.5 | Rebuild EG.2–EG.4 with a minutes-in-activity-level measure (from the raw Garmin `physical_activity` stream's `sedentary`/`generic`/`walking`/`running` labels) replacing `steps`, since `steps` failed both mediation links. `active_calories` and `bmi` stay as-is. Two grouping variants to compare: (a) sedentary vs. everything else, (b) sedentary+generic vs. walking+running. |
 | EG.6 | A single combined mediation model chaining pollution → activity/BMI → glycemic control, rather than two separate regressions (EG.2–EG.4 style) — needed to report an actual indirect effect with its own significance test, not just "both links looked plausible separately." Depends on EG.5's result for which activity measure to use. |
-| EG.7 | Sensitivity: rerun EG.1 (and EG.4) without severity-group dummies as a covariate. Tests the overcontrol hypothesis — severity group is largely defined by glycemic control itself, so including it may be absorbing pollution's and BMI's true effects rather than being a neutral confounder. |
-| EG.8 | Per-site replication of EG.1: does the null pollution result on glycemic control hold at each site individually, or does it vary the way the first mediation link did in EG.3? |
 | EG.9 | VIF / multicollinearity diagnostics on EG.1's predictor set (BMI, severity group, glucose, PM2.5 are expected to be collinear per `docs/CAVEATS.md`). High VIF would give a more mundane explanation for EG.1's null pollution term than "no true effect," and should be reported either way. |
+
+## 8a. Follow-up batch to EG.7/EG.8 (EG.10–EG.16, done 2026-08-18)
+
+Project head's follow-up to EG.7/EG.8's site-concentrated pollution
+effect, relayed 2026-08-18. All six pieces done:
+
+| ID | What | Result |
+|---|---|---|
+| EG.10 | Severity-group distribution within EG.7a's significant-outcome (glucose_cv, tar_180) model rows, vs. the full cohort. | Not skewed — matches cohort within 0.4 points for every group. Rules out one severity group driving the effect. |
+| EG.11 | Per-site descriptive stats for PM2.5/NOx/VOC (mean, median, SD, IQR, max). | UAB is the most-polluted and most-variable site, not UCSD — the site where EG.8's effect replicated is *not* the most exposed site. |
+| EG.12 | Build intraday (within-day) and interday (between-day) glucose variability metrics from raw CGM streams — the standard Rodbard-style decomposition. `data/processed/p2/glucose_variability_metrics.csv`, gitignored. | N=2,245 pulled, 2,243 parsed; 4 participants lack the 2 valid days needed for interday variance. |
+| EG.13 | Repeat EG.7a/EG.8's design with NOx instead of PM2.5. | Not significant pooled; significant at UCSD only for 3 of 4 outcomes — same site-concentration pattern as PM2.5. |
+| EG.14 | Repeat with VOC instead of PM2.5. | Not significant pooled; weaker and less consistent per-site than PM2.5/NOx. |
+| EG.15 | Repeat the pollution tests (PM2.5/NOx/VOC) against EG.12's new intraday/interday outcomes. | **PM2.5 → interday_glucose_variance is significant pooled (p=1.1e-05) and replicates at 2 of 3 sites (UAB, UCSD)** — the most cross-site-consistent finding in the paper so far. |
+| EG.16 | Reverse-direction, exploratory only: log(PM2.5) ~ glycemic marker + bmi + age + site, for glucose_mean/glucose_cv/intraday/interday variance and hba1c. | All 5 markers significant; hba1c strongest (p=2.0e-06). Read as correlational, not causal — flagged as such in the write-up. |
 
 ## 9. CGM-derived metrics build and age comparison (ECGM.1–ECGM.2, done)
 
