@@ -1,4 +1,0 @@
-organ,marker,source_fields,n_measured,median,p95,notes
-kidney,urine ACR (mg/g),import_urine_albumin / import_urine_creatinine,2225,7.0,119.8,"same units, so ratio x1000 = mg/g; 1 zero-creatinine void -> NaN"
-heart,hs-cTnT (ng/L),import_troponin_t,2233,10.24,33.2,"712 below detection, reported AT the 6 ng/L limit; assay URL 16"
-nerve,"monofilament sites felt, worse foot (0-10)",msslffl / mssrffl,2268,10.0,,10 = full protective sensation; both feet examined

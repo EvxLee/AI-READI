@@ -1,0 +1,31 @@
+definition,outcome,side,universe,k,n,pct,ci_lo,ci_hi
+undiagnosed_range,abn_kidney,discordant,Healthy + Pre-DM,13,46,28.3,17.3,42.5
+undiagnosed_range,abn_kidney,concordant,Healthy + Pre-DM,109,1259,8.7,7.2,10.3
+undiagnosed_range,abn_heart,discordant,Healthy + Pre-DM,10,46,21.7,12.3,35.6
+undiagnosed_range,abn_heart,concordant,Healthy + Pre-DM,158,1260,12.5,10.8,14.5
+undiagnosed_range,abn_nerve,discordant,Healthy + Pre-DM,5,45,11.1,4.8,23.5
+undiagnosed_range,abn_nerve,concordant,Healthy + Pre-DM,144,1257,11.5,9.8,13.3
+undiagnosed_range,abn_any,discordant,Healthy + Pre-DM,20,45,44.4,30.9,58.8
+undiagnosed_range,abn_any,concordant,Healthy + Pre-DM,320,1256,25.5,23.1,28.0
+undiagnosed_range,abn_multi,discordant,Healthy + Pre-DM,5,45,11.1,4.8,23.5
+undiagnosed_range,abn_multi,concordant,Healthy + Pre-DM,78,1256,6.2,5.0,7.7
+undiagnosed_range_cgm,abn_kidney,discordant,Healthy + Pre-DM,11,52,21.2,12.2,34.0
+undiagnosed_range_cgm,abn_kidney,concordant,Healthy + Pre-DM,108,1243,8.7,7.2,10.4
+undiagnosed_range_cgm,abn_heart,discordant,Healthy + Pre-DM,8,53,15.1,7.9,27.1
+undiagnosed_range_cgm,abn_heart,concordant,Healthy + Pre-DM,162,1243,13.0,11.3,15.0
+undiagnosed_range_cgm,abn_nerve,discordant,Healthy + Pre-DM,8,55,14.5,7.6,26.2
+undiagnosed_range_cgm,abn_nerve,concordant,Healthy + Pre-DM,145,1255,11.6,9.9,13.4
+undiagnosed_range_cgm,abn_any,discordant,Healthy + Pre-DM,16,52,30.8,19.9,44.3
+undiagnosed_range_cgm,abn_any,concordant,Healthy + Pre-DM,322,1240,26.0,23.6,28.5
+undiagnosed_range_cgm,abn_multi,discordant,Healthy + Pre-DM,6,52,11.5,5.4,23.0
+undiagnosed_range_cgm,abn_multi,concordant,Healthy + Pre-DM,78,1240,6.3,5.1,7.8
+insulin_at_target,abn_kidney,discordant,Insulin only,35,121,28.9,21.6,37.6
+insulin_at_target,abn_kidney,concordant,Insulin only,41,124,33.1,25.4,41.7
+insulin_at_target,abn_heart,discordant,Insulin only,60,122,49.2,40.5,57.9
+insulin_at_target,abn_heart,concordant,Insulin only,63,126,50.0,41.4,58.6
+insulin_at_target,abn_nerve,discordant,Insulin only,28,121,23.1,16.5,31.4
+insulin_at_target,abn_nerve,concordant,Insulin only,36,123,29.3,22.0,37.8
+insulin_at_target,abn_any,discordant,Insulin only,76,120,63.3,54.4,71.4
+insulin_at_target,abn_any,concordant,Insulin only,84,122,68.9,60.2,76.4
+insulin_at_target,abn_multi,discordant,Insulin only,35,120,29.2,21.8,37.8
+insulin_at_target,abn_multi,concordant,Insulin only,41,122,33.6,25.8,42.4

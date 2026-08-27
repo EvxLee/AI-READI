@@ -1,0 +1,47 @@
+organ,model,term,odds_ratio,ci_lo,ci_hi,p,n_model,e14_odds_ratio,e14_p,reproduces_e14
+kidney,A: age + severity + site,C(study_group_label)[T.Pre-DM],0.32,0.12,0.855,0.02305048435464161,315,0.32,0.0230504843546416,True
+kidney,A: age + severity + site,C(study_group_label)[T.Oral Med],0.323,0.133,0.787,0.012847961500080572,315,0.323,0.0128479615000805,True
+kidney,A: age + severity + site,C(study_group_label)[T.Insulin],0.135,0.053,0.344,2.7047607815847184e-05,315,0.135,2.7047607815847184e-05,True
+kidney,A: age + severity + site,C(clinical_site)[T.UCSD],0.486,0.255,0.925,0.028018019199485513,315,0.486,0.0280180191994855,True
+kidney,A: age + severity + site,C(clinical_site)[T.UW],0.602,0.315,1.15,0.1242159270977437,315,0.602,0.1242159270977437,True
+kidney,A: age + severity + site,age,0.994,0.972,1.017,0.6302989853520292,315,0.994,0.6302989853520292,True
+kidney,B: A + HbA1c + BMI,C(study_group_label)[T.Pre-DM],0.246,0.086,0.703,0.008844640499745208,310,0.246,0.0088446404997452,True
+kidney,B: A + HbA1c + BMI,C(study_group_label)[T.Oral Med],0.185,0.069,0.498,0.0008276799818816219,310,0.185,0.0008276799818816,True
+kidney,B: A + HbA1c + BMI,C(study_group_label)[T.Insulin],0.059,0.02,0.175,3.6835899818262757e-07,310,0.059,3.683589981826276e-07,True
+kidney,B: A + HbA1c + BMI,C(clinical_site)[T.UCSD],0.53,0.271,1.036,0.06329960385553772,310,0.53,0.0632996038555377,True
+kidney,B: A + HbA1c + BMI,C(clinical_site)[T.UW],0.644,0.328,1.264,0.20092923000873364,310,0.644,0.2009292300087336,True
+kidney,B: A + HbA1c + BMI,age,0.999,0.974,1.024,0.9115427389837651,310,0.999,0.9115427389837653,True
+kidney,B: A + HbA1c + BMI,hba1c,1.32,1.079,1.615,0.006994938147637193,310,1.32,0.0069949381476371,True
+kidney,B: A + HbA1c + BMI,bmi,1.017,0.981,1.054,0.3545729977251515,310,1.017,0.3545729977251515,True
+kidney,C: B + marker magnitude,C(study_group_label)[T.Pre-DM],0.195,0.062,0.614,0.005242655661265829,310,0.195,0.0052426556612658,True
+kidney,C: B + marker magnitude,C(study_group_label)[T.Oral Med],0.202,0.068,0.598,0.0038726917080197506,310,0.202,0.0038726917080197,True
+kidney,C: B + marker magnitude,C(study_group_label)[T.Insulin],0.078,0.023,0.261,3.448514354987509e-05,310,0.078,3.448514354987509e-05,True
+kidney,C: B + marker magnitude,C(clinical_site)[T.UCSD],0.695,0.334,1.446,0.3300643665893441,310,0.695,0.3300643665893441,True
+kidney,C: B + marker magnitude,C(clinical_site)[T.UW],0.716,0.343,1.494,0.37308030981692963,310,0.716,0.3730803098169296,True
+kidney,C: B + marker magnitude,age,0.992,0.964,1.021,0.5908222012148802,310,0.992,0.5908222012148802,True
+kidney,C: B + marker magnitude,hba1c,1.35,1.091,1.671,0.005754713452039699,310,1.35,0.0057547134520396,True
+kidney,C: B + marker magnitude,bmi,1.014,0.975,1.054,0.49793021404750226,310,1.014,0.4979302140475022,True
+kidney,C: B + marker magnitude,log_acr,0.442,0.343,0.57,3.091032495135966e-10,310,0.442,3.0910324951359655e-10,True
+heart,A: age + severity + site,C(study_group_label)[T.Pre-DM],0.845,0.419,1.704,0.637773281283396,447,0.845,0.637773281283396,True
+heart,A: age + severity + site,C(study_group_label)[T.Oral Med],0.517,0.291,0.916,0.02370199534235536,447,0.517,0.0237019953423553,True
+heart,A: age + severity + site,C(study_group_label)[T.Insulin],0.467,0.253,0.861,0.014736021457436662,447,0.467,0.0147360214574366,True
+heart,A: age + severity + site,C(clinical_site)[T.UCSD],0.976,0.599,1.591,0.9226192334161554,447,0.976,0.9226192334161554,True
+heart,A: age + severity + site,C(clinical_site)[T.UW],1.274,0.77,2.108,0.3456716556672198,447,1.274,0.3456716556672198,True
+heart,A: age + severity + site,age,0.961,0.941,0.981,0.00016771508349195535,447,0.961,0.0001677150834919,True
+heart,B: A + HbA1c + BMI,C(study_group_label)[T.Pre-DM],0.869,0.42,1.799,0.7054090137311533,438,0.869,0.7054090137311533,True
+heart,B: A + HbA1c + BMI,C(study_group_label)[T.Oral Med],0.555,0.3,1.026,0.060290173321712506,438,0.555,0.0602901733217125,True
+heart,B: A + HbA1c + BMI,C(study_group_label)[T.Insulin],0.548,0.274,1.099,0.09023457972050153,438,0.548,0.0902345797205015,True
+heart,B: A + HbA1c + BMI,C(clinical_site)[T.UCSD],0.97,0.589,1.595,0.9029529407527317,438,0.97,0.9029529407527316,True
+heart,B: A + HbA1c + BMI,C(clinical_site)[T.UW],1.299,0.775,2.179,0.3211658036412779,438,1.299,0.3211658036412779,True
+heart,B: A + HbA1c + BMI,age,0.96,0.939,0.98,0.00017222637909990575,438,0.96,0.0001722263790999,True
+heart,B: A + HbA1c + BMI,hba1c,0.928,0.792,1.089,0.36166286577423845,438,0.928,0.3616628657742384,True
+heart,B: A + HbA1c + BMI,bmi,0.986,0.956,1.018,0.3900881172669598,438,0.986,0.3900881172669598,True
+heart,C: B + marker magnitude,C(study_group_label)[T.Pre-DM],0.901,0.433,1.876,0.7812173811853562,438,0.901,0.7812173811853562,True
+heart,C: B + marker magnitude,C(study_group_label)[T.Oral Med],0.545,0.294,1.01,0.05384306557745761,438,0.545,0.0538430655774576,True
+heart,C: B + marker magnitude,C(study_group_label)[T.Insulin],0.588,0.292,1.184,0.13701030687367494,438,0.588,0.1370103068736749,True
+heart,C: B + marker magnitude,C(clinical_site)[T.UCSD],0.945,0.573,1.56,0.8256902940281504,438,0.945,0.8256902940281504,True
+heart,C: B + marker magnitude,C(clinical_site)[T.UW],1.276,0.759,2.145,0.35848189779232076,438,1.276,0.3584818977923207,True
+heart,C: B + marker magnitude,age,0.959,0.939,0.98,0.0001718969739490818,438,0.959,0.000171896973949,True
+heart,C: B + marker magnitude,hba1c,0.933,0.796,1.095,0.3970214595653292,438,0.933,0.3970214595653292,True
+heart,C: B + marker magnitude,bmi,0.985,0.955,1.016,0.3443379680056051,438,0.985,0.3443379680056051,True
+heart,C: B + marker magnitude,log_troponin,0.622,0.392,0.985,0.04314677410159987,438,0.622,0.0431467741015998,True

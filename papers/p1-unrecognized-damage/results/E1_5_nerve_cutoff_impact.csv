@@ -1,0 +1,6 @@
+nerve_rule,is_primary,nerve_prevalence_pct,any_organ_pct,two_plus_organs_pct,kidney_unrecognized_pct
+>=1 of 10 missed,False,19.6,37.9,12.8,71.7
+>=2 of 10 missed,True,14.6,34.6,11.4,71.7
+>=3 of 10 missed,False,10.7,32.2,10.5,71.7
+>=4 of 10 missed,False,7.7,30.6,9.4,71.7
+>=5 of 10 missed,False,5.8,29.7,8.6,71.7

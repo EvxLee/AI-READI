@@ -1,0 +1,5 @@
+stratum,exposure,outcome,scale,n,smaller_cell,estimate,ci_lo,ci_hi,boot_ci_lo,boot_ci_hi,p,q,interval_note,note
+Healthy,cesd_z,abn_nerve,per cohort-wide SD,756,88,1.1322,0.8593,1.4918,,,0.3776138938917939,0.3776138938917939,,
+Pre-DM,cesd_z,abn_nerve,per cohort-wide SD,543,60,1.1722,0.8864,1.5503,,,0.2652415748576311,0.35365543314350817,,
+Oral Med,cesd_z,abn_nerve,per cohort-wide SD,657,104,1.1745,0.9349,1.4755,,,0.1670094102252001,0.35365543314350817,,
+Insulin,cesd_z,abn_nerve,per cohort-wide SD,241,63,1.1839,0.8858,1.5824,,,0.2539918009428427,0.35365543314350817,,

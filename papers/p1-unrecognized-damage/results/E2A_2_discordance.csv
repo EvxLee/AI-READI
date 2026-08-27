@@ -1,0 +1,4 @@
+group,n_discordant,n_universe,pct
+"No diabetes label, HbA1c >= 6.5%",46,1336,3.4
+"No diabetes label, CGM mean >= 154 mg/dL",55,1336,4.1
+"Insulin group, HbA1c < 7.0%",122,258,47.3

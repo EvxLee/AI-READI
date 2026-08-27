@@ -32,7 +32,7 @@ from .azure_io import repo_root
 
 __all__ = ["save", "log", "results_dir", "log_path"]
 
-PAPER_DIRS = {"p1": "p1-organ-damage", "p2": "p2-env-depression"}
+PAPER_DIRS = {"p1": "p1-unrecognized-damage", "p2": "p2-env-depression"}
 
 # Columns that make a table participant-level. Anything with one of these is
 # individual data and belongs in data/processed/, never papers/*/results/.
@@ -74,12 +74,20 @@ def _check_not_participant_level(df: pd.DataFrame, experiment_id: str) -> None:
 
 
 def save(experiment_id: str, artifact=None, *, paper: str, method: str,
-         result: str, decision: str, name: str | None = None) -> Path | None:
+         result: str, decision: str, name: str | None = None,
+         primary: bool = True) -> Path | None:
     """Write an experiment's artifact and record it in RESULTS_LOG.md.
 
     `artifact` may be a matplotlib Figure, a pandas DataFrame or Series, or
     None for a run with nothing to save. `decision` is normally "keep",
     "kill", or "rescope".
+
+    An experiment often produces several artifacts. Every one of them gets its
+    own entry in the log, but the STATUS TABLE has a single row per ID, and
+    whichever call ran last would otherwise own it -- so E1.2's row ended up
+    advertising a secondary table instead of the headline. Pass
+    `primary=False` on the supporting artifacts; only the primary one writes
+    the status row.
 
     Returns the path written, or None if there was no artifact.
     """
@@ -105,7 +113,8 @@ def save(experiment_id: str, artifact=None, *, paper: str, method: str,
             )
 
     _append_log(paper, experiment_id, method, result, decision, path)
-    _update_status_row(paper, experiment_id, result, decision, path)
+    if primary:
+        _update_status_row(paper, experiment_id, result, decision, path)
     return path
 
 

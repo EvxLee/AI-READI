@@ -1,0 +1,5 @@
+study_group_label,healthcare_access_barriers,prescription_unaffordable,food_insecurity,food_insecure,housing_insecure,clinician_discrimination
+Healthy,0.186,0.181,0.287,0.075,0.039,1.353
+Pre-DM,0.193,0.231,0.384,0.093,0.051,1.397
+Oral Med,0.226,0.344,0.561,0.148,0.059,1.34
+Insulin,0.445,0.647,1.118,0.291,0.091,1.42

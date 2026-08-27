@@ -15,6 +15,21 @@ analyses before anyone noticed.
   `import_urine_albumin` and `import_urine_creatinine`. The two urine fields
   carry the same unit, so `albumin / creatinine * 1000` gives ACR in mg/g
   (median 7.0, which is the expected healthy value).
+- **254 participants have a urine albumin of exactly 0, and `log(ACR)` throws
+  them away.** They are not flagged below-detection — every albumin row carries
+  operator `4172703` ("=") — and the smallest positive value in the release is
+  0.01 mg/dL, so a zero is a measurement rounded below the reporting floor, not
+  a missing one. They are also not a random 11%: 14.5% of the Healthy group
+  against 8.5% of Insulin, so dropping them strips the least-damaged
+  participants preferentially off the healthy end and flattens every continuous
+  kidney gradient. `associations.add_outcome_columns` substitutes half the
+  reporting floor (0.005 mg/dL, giving ACR ≈ 0.076 mg/g at median creatinine —
+  which lands on the smallest ACR actually observed, 0.0749, the check that the
+  floor was read right) and keeps the drop-the-zeros version as
+  `log_acr_positive` for the sensitivity line. Binary `abn_kidney` is untouched:
+  0 and 0.076 are both below 30. Found at the start of Phase 2, 17 Aug 2026; no
+  Phase-1 result is affected, because the only Phase-1 analysis using log ACR
+  (`E1.4`) runs on abnormal participants only, where no zeros exist.
 - **One participant has a urine creatinine of 0.** That is a void too dilute
   to interpret, not an infinite ratio — but left as `inf` it passes every
   `>= threshold` comparison and silently counts as kidney damage. This is the
@@ -22,10 +37,31 @@ analyses before anyone noticed.
   from the correct 319. `cohort.build_p1_table` guards it.
 - **Monofilament is two fields, `msslffl` and `mssrffl`** — sites felt out of
   10 per foot, where 10 is full protective sensation. Not a pass/fail flag.
+- **The two derived monofilament columns are on different scales, and only one
+  of them carries the cutoff.** `monofilament_min` is the WORSE FOOT (sites
+  felt, 0–10) and is what `abn_nerve` thresholds: missed = `10 -
+  monofilament_min`, abnormal at ≥ 2 missed. `monofilament_insensate_sites`
+  sums BOTH feet (0–20) and is descriptive only. They differ by roughly a
+  factor of two over the same participants, so a plot or a summary built on
+  the wrong one puts the abnormality line in the wrong place while still
+  looking entirely plausible. This caught a Phase-1 figure on 17 Aug 2026 —
+  the giveaway was an x-axis running to 20 under a "of 10" label.
 - **Troponin below-detection rows carry `operator_concept_id = 4171756`.**
   Their value is a detection limit, not a measurement. Handle them
   explicitly or every heart-injury count is wrong.
-  `omop.extract_lab(..., flag_below_detection=True)` does this.
+  `omop.extract_lab(..., flag_below_detection=True)` does this. All 712 such
+  rows carry exactly 6.0; the other 1,521 carry operator 4172703 ("="). A
+  naive `troponin >= 6` therefore calls 2,232 of 2,233 people abnormal. Any
+  summary statistic must say which denominator it used: the median is 7.96
+  over all measured results and 10.24 over the detectable ones.
+- **One troponin row reads 1.77 ng/L with an "=" operator** — below the
+  stated 6 ng/L limit of detection, so it is either a lower true LOD than
+  documented or a lab error. n = 1, so it changes nothing, but do not treat
+  6.0 as a hard floor when writing range checks.
+- **Monofilament asymmetry is not always physiology.** 14 participants score
+  0 on both feet, and 6 score 0 on one foot and 10 on the other. A completely
+  insensate foot beside a perfect one is clinically unusual; if a nerve result
+  ever turns on these rows, inspect them before interpreting.
 
 ## Surveys
 
@@ -76,13 +112,36 @@ zero notebooks so far:
 | Healthcare access | `pxahc` | 1–10 |
 | Clinician discrimination | `pxdhc` | 1–7 |
 | Prescription affordability | `pxpa` | 1–4 |
-| Insurance type | `pxhic` | 1–8 |
+| Insurance type | `pxhic` | 1–5, 7–8 (7 items — **`pxhic6` is absent from v3.0.0**) |
 | Neighborhood | `pxne` | 1–17 (this one *was* scored correctly) |
 | Racial discrimination | `pxrd` | the mis-sliced battery |
 
 Always select by prefix — `omop.phenx_family("food_insecurity")`. Never by
 position. `docs/reference/phenx_item_catalog.csv` lists every item with its
 wording, coverage, and value range.
+
+**Selecting the right items is only half the job — scoring them is the other
+half, and three separate traps live there** (found in E2F.1, 17 Aug 2026;
+`omop.phenx_scores` handles all three):
+
+- **Two batteries are NOT monotonic in their coded values.** `pxhi1` ("What is
+  your living situation today?") is 0 = no steady place (n=15), 1 = steady place
+  (n=1,943), 2 = have a place but worried about losing it (n=95) — so security
+  runs 1 > 2 > 0, and a model treating the code as a severity scale points the
+  effect somewhere meaningless. `pxfi1`/`pxfi2` are the same shape: their 1 level
+  is *rarer* than their 2 level (63 vs 246), which is the tell that the answer
+  order is never / often / sometimes rather than a graded scale. Recode to an
+  affirmative indicator; never sum the raw code.
+- **Skip-gated items cannot go in a summed score.** `pxahc3` (n=256), `pxahc4`
+  (n=1,788) and `pxahc6` (n=30) are asked only of some participants, so a sum
+  including them measures how many questions someone was asked.
+- **Some items are nominal.** `pxahc5` ("what kind of place do you go to", 1–6)
+  and `pxhi2` (housing-problem list, 8 = none, n=1,707) are categories, not
+  quantities.
+
+Use the validated instrument scoring where one exists — food insecurity is the
+USDA 5-item short form, scored as an affirmative count with the cutoff at ≥ 2,
+which sidesteps the `pxfi1`/`pxfi2` coding problem by construction.
 
 **A bare prefix match is not enough either** (found and fixed in E0.1–E0.4,
 Aug 2026). `pxhi` is a prefix of `pxhic`, so a `startswith` selection put all
@@ -129,7 +188,44 @@ counts in the table above. If you select items by hand anywhere, do the same.
 - **Garmin error codes:** `0` for heart rate and SpO2, `-2` for stress and
   respiratory rate. These mean "no reading". Treat as missing before
   averaging or every summary drifts toward zero.
+- **Scrubbing the error code is NOT enough — the manifest averages are already
+  contaminated.** AI-READI computed `average_*` upstream *with* the sentinels
+  included, so a contaminated mean lands between the sentinel and the truth
+  instead of on it, and sails through any `!= 0` test. In v3.0.0: 12
+  participants have a resting heart rate below 30 bpm (lowest **0.03**), 113
+  have a **negative** stress score on a 0–100 scale (lowest −1.19 — only
+  reachable if most contributing readings were the −2 sentinel), 131 have a
+  sleep average outside 1–14 h (including one implying a fraction of a day above
+  1.4), and 147 have a step average of exactly 0 after sixteen days of wear. Apply
+  `GARMIN_PLAUSIBLE_RANGES` after the scrub;
+  `wearables.clean_garmin_manifest` does this by default and
+  `apply_plausibility=False` reproduces the old behaviour for sensitivity
+  checks. **This changes conclusions:** in E2D.1 three of 40 adjusted results
+  flip — steps vs any-organ damage stops surviving FDR (q 0.047 → 0.111) while
+  heart rate and stress vs log ACR start surviving (q 0.066 → 0.015 and
+  0.051 → 0.015). Found 17 Aug 2026. No Phase-1 result is affected: Phase 1 uses
+  no wearable variable, and all five verifiers pass after the rebuild. **Paper 2
+  leans on these columns heavily and must rebuild its tables.**
 - **`average_sleep_hours` is a fraction of a day** — multiply by 24.
+- **Dexcom CGM writes `"Low"` and `"High"` as STRINGS, not numbers.** The G6 only
+  reports between 40 and 400 mg/dL; outside that range `blood_glucose.value`
+  holds one of those two tokens. In v3.0.0 that is **39,632 readings across 495
+  participants** (22% of the cohort): 34,449 `"High"` and 5,183 `"Low"`. A
+  `float(value)` raises and — if the exception is swallowed — silently deletes
+  them, which strips readings from exactly the participants with the worst
+  control: one participant has 2,258 of 2,568 readings as `"High"`, and two
+  participants lose their entire stream and drop out of the analysis. Mean, CV,
+  MAGE and time-above-range are all biased as a result, hardest where glycaemia
+  matters most for organ damage. These are **censored** values, like the troponin
+  below-detection rows, and `parse_dexcom_json` now maps them to the
+  reportable-range boundary (`CGM_SENTINEL_VALUES`) and reports per-participant
+  counts on `.attrs["censored"]`. That is conservative for time-above-range and
+  understates variability, which is the honest direction — a censored excursion's
+  true amplitude is unrecoverable. 51 participants are over 5% censored and 23
+  over 25%; exclude or flag those in any variability analysis. Also note the
+  manifest's own `average_glucose_level_mg_dl` handles these differently and
+  disagrees with a boundary-substituted mean for 59 participants, so the two are
+  not interchangeable. Found 17 Aug 2026 (E2A.1 build).
 - **Respiratory rate reads 6–9 against an expected 12–20.** Device quirk:
   relative comparison only, never as an absolute value.
 - `wearables.clean_garmin_manifest` applies all three.

@@ -9,14 +9,30 @@ Work by the UCSF Tech Lab team: Evan Lee, Parwaan Virk, and mentor Faris.
 
 ## The two papers
 
-**Paper 1 — Unrecognized organ damage** (`papers/p1-organ-damage/`)
+**Paper 1 — Unrecognized kidney and heart damage**
+(`papers/p1-unrecognized-damage/`)
+
+*Unrecognized kidney and heart damage across the type 2 diabetes spectrum: a
+cross-sectional analysis of the AI-READI dataset.*
 
 Three inexpensive tests performed at a single study visit — urine albumin
-(kidney), monofilament exam (nerve), and high-sensitivity troponin (heart) —
+(kidney), high-sensitivity troponin (heart), and a monofilament exam (nerve) —
 compared against what participants reported a doctor had ever told them. The
-question is how much detectable organ damage goes unrecognized, per organ,
-across the diabetes severity spectrum. Depressive symptoms (CES-D-10) are a
-clearly labelled secondary aim.
+question is how much detectable organ damage goes unrecognized across the
+diabetes severity spectrum. Depressive symptoms (CES-D-10) are a clearly
+labelled secondary aim.
+
+Nerve is measured and reported, but this release contains no neuropathy
+self-report item, so the *unrecognized* claim covers kidney and heart only —
+which is why the title names two organs and the results describe three.
+
+Status: all phases (0–4) complete and independently verified; results frozen
+at `E3.FREEZE` on 25 Aug 2026 against a dated `PRESPEC.md` (Evan's sign-off
+pending). Of 615 participants with kidney or heart damage on a study-visit
+test, 471 (76.6%) reported no corresponding diagnosis; 21.3% of all evaluable
+participants — 40.7% of those on insulin — carry unrecognized kidney or heart
+damage. The secondary depression aim did not meet its pre-specified criterion
+and is reported as exploratory.
 
 **Paper 2 — Environment, BMI, and wearables vs depressive symptoms**
 (`papers/p2-env-depression/`)
@@ -56,7 +72,7 @@ pip install -r requirements.txt    # installs dependencies + the aireadi package
 pytest tests/ -q
 ```
 
-Expected: `19 passed`. This runs entirely offline — if it passes, your
+Expected: `53 passed`. This runs entirely offline — if it passes, your
 environment is correct.
 
 ### 3. Add your credentials
@@ -138,4 +154,17 @@ minutes. They're cached in `data/cache/` afterwards, so every later run is
 fast — nothing re-streams from Azure.
 
 Then: save aggregate output to your paper's `results/`, and add one line to
-`RESULTS_LOG.md` — including if the result was null.
+`RESULTS_LOG.md` — including if the result was null. `results.save()` does both
+in one call, so an artifact and its log entry cannot drift apart.
+
+## How results get checked
+
+Paper 1 runs every experiment twice. `papers/*/scripts/run_*.py` produces the
+result through `src/aireadi`; `papers/*/scripts/verify/verify_*.py` recomputes
+the same numbers from the raw cached CSVs **without importing `aireadi` at
+all**, and diffs itself against the committed artifact. A bug in the shared
+data layer therefore cannot verify its own output. A result is not final until
+its verifier prints zero discrepancies.
+
+Plain-language write-ups of each phase live in `reports/` (gitignored, local
+only). The durable record is each paper's `RESULTS_LOG.md`, which is committed.

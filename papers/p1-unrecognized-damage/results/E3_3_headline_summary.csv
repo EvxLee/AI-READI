@@ -1,0 +1,11 @@
+claim,value,trend,reproduces_phase1,sites_same_direction,verdict
+A1.1 any-organ prevalence,34.6% (767/2216),z=11.162,True,3.0,confirmed
+A1.2 either-organ unrecognized fraction,76.6% (471/615); refusals included 75.8%,z=-2.851,True,3.0,confirmed
+A1.3 either-organ burden (abstract lead),21.3% overall; Insulin 40.7%,z=8.153,True,3.0,confirmed; rises at every cutoff rung (incl. the non-clinical detectable rung)
+A1.4 two-or-more organs,11.4%,z=10.134,True,3.0,confirmed
+A1.5 who-is-unrecognized models (E1.4),46 model terms reproduce E1_4_models.csv,,True,,"confirmed (kidney established, heart suggestive — unchanged)"
+A2.1 CES-D-10 -> nerve abnormal (spec covariates),"OR 1.1606 (1.0193-1.3214) per SD, p=0.0245, q=0.245; >=10: OR 1.3078 (0.9517-1.7973), p=0.098, q=0.49","site direction 3/3, Q p=0.42, I2=0.0%",,3.0,NOT claimed — pre-specified criterion not met
+"A2.4 missing-data sensitivity (single imputation, n=2,265)","OR 1.188 (1.0497-1.3445), q=0.0638; >=10: OR 1.3933, q=0.163",,,,criterion still not met
+A2.3 H3 CES-D -> unrecognized,0 of 6 survive FDR (= E2C.2 model),,,,null
+T1 undiagnosed-range -> kidney abnormal,"OR 4.1071 (Wald 2.0606-8.186; bootstrap 1.8291-8.5079), q=0.000596 (Phase-2 q=0.000893); CGM definition OR 2.9178, q=0.014","double-unrecognized 16/19; site direction 3/3, Q p=0.76",,3.0,"confirmed (exploratory-confirmatory: E2A.2 model, family narrowed 15 -> 10)"
+T2 QRS duration -> log troponin,"beta 0.1078 per SD, q=5e-24 (Phase-2 q=2e-23)","site direction 3/3, Q p=0.35",,3.0,"confirmed (supplement; E2E.2 model, family narrowed 40 -> 10)"

@@ -199,6 +199,27 @@ GARMIN_ERROR_CODES = {
 # `average_sleep_hours` in the manifest is a FRACTION OF A DAY -- multiply by 24.
 SLEEP_FRACTION_TO_HOURS = 24
 
+# Dropping the exact error codes is NOT enough. The manifest's averages were
+# computed upstream WITH the error codes included, so the contamination is baked
+# into the mean rather than sitting at the sentinel value: 12 participants carry a
+# resting heart rate under 30 bpm (the lowest is 0.03), 113 carry a NEGATIVE stress
+# score on a 0-100 scale, and one sleep average implies a fraction of a day above
+# 1.4. A mean of -1.19 on a 0-100 scale can only arise if most contributing
+# readings were the -2 sentinel. Found in E2D.1, 17 Aug 2026.
+#
+# So plausibility bounds are applied after the sentinel scrub. Values outside the
+# instrument's own scale are invalid by definition; the physiological bounds are
+# deliberately generous, meant to catch contaminated averages rather than to
+# trim a distribution. A zero step count or zero sleep average is "device not
+# worn", not a participant who took no steps for sixteen days.
+GARMIN_PLAUSIBLE_RANGES = {
+    "average_heartrate_bpm": (30.0, 120.0),      # multi-day resting average
+    "average_stress_level": (0.0, 100.0),        # Garmin's own scale
+    "average_sleep_hours": (1.0, 14.0),          # after the x24 conversion
+    "average_oxygen_saturation_pct": (70.0, 100.0),
+    "average_daily_activity": (1.0, 50000.0),    # steps; 0 means not worn
+}
+
 # Respiratory rate reads 6-9 against an expected 12-20. Device quirk, not
 # physiology: use for relative comparison only, never as an absolute value.
 RESPIRATORY_RATE_IS_RELATIVE_ONLY = True
@@ -217,6 +238,26 @@ CGM_TIR_HIGH = 180
 CGM_SEVERE_HIGH = 250
 CGM_INTERVAL_MINUTES = 5  # Dexcom G6 sampling interval
 CGM_MIN_READINGS = 12     # < 1 hour of data is not usable
+
+# The Dexcom G6 reports only between 40 and 400 mg/dL. Outside that it writes the
+# STRINGS "Low" and "High" into `blood_glucose.value` instead of a number, and
+# 39,632 readings across 495 participants (22% of the cohort) are one of those two
+# tokens -- 34,449 "High" and 5,183 "Low".
+#
+# These are CENSORED values, not missing ones: the same situation as the troponin
+# below-detection rows, and it must be handled as deliberately. A `float(value)`
+# that skips them silently drops readings from precisely the participants with the
+# worst control -- one participant has 2,258 of 2,568 readings recorded as "High",
+# and two participants are lost entirely because nothing numeric survives. The
+# resulting mean, CV, MAGE and time-above-range are all biased, and biased hardest
+# where glycaemia matters most for organ damage.
+#
+# Substituting the reportable-range boundary is the standard convention and is
+# conservative for time-above-range (a "High" is at least 400). It understates
+# variability, which is the honest direction: a censored excursion cannot have its
+# true amplitude recovered. Found 17 Aug 2026 while building E2A.1's CGM metrics.
+CGM_SENTINEL_VALUES = {"high": 400.0, "low": 40.0}
+CGM_REPORTABLE_RANGE = (40.0, 400.0)
 
 # ── Clinical sites ──────────────────────────────────────────────────────
 SITES = ["UW", "UAB", "UCSD"]

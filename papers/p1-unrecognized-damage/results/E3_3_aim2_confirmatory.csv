@@ -1,0 +1,13 @@
+exposure,outcome,exposure_label,outcome_label,family,scale,n,estimate,ci_lo,ci_hi,p,q,in_corrected_family,note
+cesd_total,abn_kidney,CES-D-10 total (per SD),Kidney abnormal (ACR >= 30 mg/g),binomial,per cohort-wide SD,2195,0.9155,0.7983,1.0499,0.2066011656895156,0.5481428610738164,True,
+cesd_total,abn_heart,CES-D-10 total (per SD),Heart abnormal (hs-cTnT >= 14 ng/L),binomial,per cohort-wide SD,2203,0.925,0.8126,1.053,0.23831106488479348,0.5481428610738164,True,
+cesd_total,abn_nerve,CES-D-10 total (per SD),Nerve abnormal (>= 2 insensate sites),binomial,per cohort-wide SD,2197,1.1606,1.0193,1.3214,0.0245009655726532,0.245009655726532,True,
+cesd_total,abn_any,CES-D-10 total (per SD),Any of the three organs abnormal,binomial,per cohort-wide SD,2190,0.9863,0.8889,1.0942,0.7940820696078814,0.8823134106754238,True,
+cesd_total,abn_multi,CES-D-10 total (per SD),Two or more organs abnormal,binomial,per cohort-wide SD,2190,0.96,0.8167,1.1283,0.6201153719538351,0.8823134106754238,True,
+cesd_total,monofilament_missed,CES-D-10 total (per SD),"Insensate sites, worse foot (0-10)",gaussian,per cohort-wide SD,2197,0.0647,-0.0166,0.146,0.11869995205035049,,False,
+cesd_positive,abn_kidney,CES-D-10 >= 10,Kidney abnormal (ACR >= 30 mg/g),binomial,yes vs no,2195,0.8292,0.5927,1.1599,0.2740714305369082,0.5481428610738164,True,
+cesd_positive,abn_heart,CES-D-10 >= 10,Heart abnormal (hs-cTnT >= 14 ng/L),binomial,yes vs no,2203,0.8671,0.6338,1.1863,0.3726276964201465,0.6210461607002441,True,
+cesd_positive,abn_nerve,CES-D-10 >= 10,Nerve abnormal (>= 2 insensate sites),binomial,yes vs no,2197,1.3078,0.9517,1.7973,0.09802290811207996,0.4901145405603998,True,
+cesd_positive,abn_any,CES-D-10 >= 10,Any of the three organs abnormal,binomial,yes vs no,2190,0.9812,0.7597,1.2674,0.8846412799535736,0.8846412799535737,True,
+cesd_positive,abn_multi,CES-D-10 >= 10,Two or more organs abnormal,binomial,yes vs no,2190,0.9457,0.6431,1.3908,0.7766679253697032,0.8823134106754238,True,
+cesd_positive,monofilament_missed,CES-D-10 >= 10,"Insensate sites, worse foot (0-10)",gaussian,yes vs no,2197,0.1421,-0.0578,0.342,0.16344040261719928,,False,

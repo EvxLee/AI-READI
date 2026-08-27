@@ -20,7 +20,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from aireadi import cohort, constants, omop, wearables
+from aireadi import cohort, constants, omop, thresholds, wearables
 
 
 # ── Dataset identity ────────────────────────────────────────────────────
@@ -318,6 +318,42 @@ def test_nerve_has_no_self_report_comparator():
         assert not any(proxy in items for items in constants.ORGAN_SELF_REPORT.values())
 
 
+def test_either_organ_requires_both_organs_evaluable():
+    """E1.2: the abstract's 'either organ' denominator is BOTH, not either.
+
+    Regression guard. This rule was written out by hand in two places -- the
+    E1.2 runner and the Phase-1 notebook -- and they disagreed: 615/471 the
+    strict way, 625/478 the loose way. It now lives in `thresholds.either_organ`
+    and both call sites use it.
+
+    Row by row below: (1) abnormal kidney, both answered -> counts, unrecognized.
+    (2) abnormal kidney but heart NEVER MEASURED -> excluded entirely, this is
+    the row the loose rule wrongly admitted. (3) abnormal heart, kidney item
+    refused -> in markers_ok but not in answered. (4) normal on both -> in the
+    denominator of the burden, not of the fraction.
+    """
+    df = pd.DataFrame({
+        "abn_kidney": [1.0, 1.0, 0.0, 0.0],
+        "abn_heart": [0.0, np.nan, 1.0, 0.0],
+        "sr_kidney": [0.0, 0.0, np.nan, 0.0],
+        "sr_heart": [0.0, 0.0, 0.0, 0.0],
+        "n_organs_unrecognized": [1.0, np.nan, 1.0, 0.0],
+    })
+    e = thresholds.either_organ(df)
+
+    assert list(e.abnormal) == [True, True, True, False]
+    # Row 1 is measured on both; row 2 is not -- that is the whole point.
+    assert list(e.markers_ok) == [True, False, True, True]
+    # Row 3 is measured on both but refused the kidney item.
+    assert list(e.answered) == [True, False, False, True]
+
+    # The fraction's denominator: abnormal AND fully evaluable.
+    assert int((e.answered & e.abnormal).sum()) == 1
+    # The loose "either evaluable" reading would have admitted row 2 as well.
+    loose = (df.abn_kidney.eq(1) & df.sr_kidney.notna()) | (df.abn_heart.eq(1) & df.sr_heart.notna())
+    assert int((loose & e.abnormal).sum()) == 3
+
+
 # ── Threshold flags ─────────────────────────────────────────────────────
 
 def test_missing_score_is_not_a_negative_screen():
@@ -407,3 +443,31 @@ def test_unknown_paper_is_rejected():
 
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-v"]))
+
+
+def test_secondary_artifact_does_not_steal_the_status_row(clean_log):
+    """An experiment with several outputs must advertise its headline one.
+
+    Every artifact gets its own log entry, but the status table has one row per
+    ID. Without `primary=False` the last save wins, which is how E1.2's row
+    ended up pointing at a supporting table instead of the headline result.
+    """
+    from aireadi import results
+
+    headline = pd.DataFrame({"organ": ["kidney"], "pct": [71.7]}).set_index("organ")
+    support = pd.DataFrame({"organ": ["kidney"], "burden": [10.2]}).set_index("organ")
+
+    clean_log.append(results.save("E1.2", headline, paper="p1", method="headline",
+                                  result="Unrecognized 71.7%", decision="keep",
+                                  name="unrecognized"))
+    clean_log.append(results.save("E1.2", support, paper="p1", method="support",
+                                  result="Burden 10.2%", decision="keep",
+                                  name="burden", primary=False))
+
+    text = results.log_path("p1").read_text(encoding="utf-8")
+    row = next(l for l in text.splitlines() if l.startswith("| E1.2 |"))
+    assert "Unrecognized 71.7%" in row      # headline kept the row
+    assert "Burden 10.2%" not in row
+    assert "E1_2_unrecognized.csv" in row
+    # ...but both runs are still in the log body.
+    assert "**Result:** Burden 10.2%" in text

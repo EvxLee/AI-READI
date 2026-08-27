@@ -1,0 +1,72 @@
+# Table 2 — Headline association models
+
+## A. Odds of being unrecognized, among the abnormal
+
+| Analysis | Term | OR (95% CI) | p | q | n | Exploratory (Phase 2) estimate |
+|---|---|---|---|---|---|---|
+| Kidney — model A | Pre-DM vs Healthy | 0.32 (0.12–0.85) | 0.023 |  | 315 |  |
+| Kidney — model A | Oral Med vs Healthy | 0.32 (0.13–0.79) | 0.013 |  | 315 |  |
+| Kidney — model A | Insulin vs Healthy | 0.14 (0.05–0.34) | <0.001 |  | 315 |  |
+| Kidney — model A | Age, per year | 0.99 (0.97–1.02) | 0.63 |  | 315 |  |
+| Kidney — model B | Pre-DM vs Healthy | 0.25 (0.09–0.70) | 0.009 |  | 310 |  |
+| Kidney — model B | Oral Med vs Healthy | 0.18 (0.07–0.50) | <0.001 |  | 310 |  |
+| Kidney — model B | Insulin vs Healthy | 0.06 (0.02–0.17) | <0.001 |  | 310 |  |
+| Kidney — model B | Age, per year | 1.00 (0.97–1.02) | 0.91 |  | 310 |  |
+| Kidney — model B | HbA1c, per % | 1.32 (1.08–1.61) | 0.007 |  | 310 |  |
+| Kidney — model B | BMI, per kg/m² | 1.02 (0.98–1.05) | 0.35 |  | 310 |  |
+| Kidney — model C | Pre-DM vs Healthy | 0.20 (0.06–0.61) | 0.005 |  | 310 |  |
+| Kidney — model C | Oral Med vs Healthy | 0.20 (0.07–0.60) | 0.004 |  | 310 |  |
+| Kidney — model C | Insulin vs Healthy | 0.08 (0.02–0.26) | <0.001 |  | 310 |  |
+| Kidney — model C | Age, per year | 0.99 (0.96–1.02) | 0.59 |  | 310 |  |
+| Kidney — model C | HbA1c, per % | 1.35 (1.09–1.67) | 0.006 |  | 310 |  |
+| Kidney — model C | BMI, per kg/m² | 1.01 (0.97–1.05) | 0.50 |  | 310 |  |
+| Kidney — model C | log ACR, per unit | 0.44 (0.34–0.57) | <0.001 |  | 310 |  |
+| Heart — model A | Pre-DM vs Healthy | 0.84 (0.42–1.70) | 0.64 |  | 447 |  |
+| Heart — model A | Oral Med vs Healthy | 0.52 (0.29–0.92) | 0.024 |  | 447 |  |
+| Heart — model A | Insulin vs Healthy | 0.47 (0.25–0.86) | 0.015 |  | 447 |  |
+| Heart — model A | Age, per year | 0.96 (0.94–0.98) | <0.001 |  | 447 |  |
+| Heart — model B | Pre-DM vs Healthy | 0.87 (0.42–1.80) | 0.71 |  | 438 |  |
+| Heart — model B | Oral Med vs Healthy | 0.56 (0.30–1.03) | 0.060 |  | 438 |  |
+| Heart — model B | Insulin vs Healthy | 0.55 (0.27–1.10) | 0.090 |  | 438 |  |
+| Heart — model B | Age, per year | 0.96 (0.94–0.98) | <0.001 |  | 438 |  |
+| Heart — model B | HbA1c, per % | 0.93 (0.79–1.09) | 0.36 |  | 438 |  |
+| Heart — model B | BMI, per kg/m² | 0.99 (0.96–1.02) | 0.39 |  | 438 |  |
+| Heart — model C | Pre-DM vs Healthy | 0.90 (0.43–1.88) | 0.78 |  | 438 |  |
+| Heart — model C | Oral Med vs Healthy | 0.55 (0.29–1.01) | 0.054 |  | 438 |  |
+| Heart — model C | Insulin vs Healthy | 0.59 (0.29–1.18) | 0.14 |  | 438 |  |
+| Heart — model C | Age, per year | 0.96 (0.94–0.98) | <0.001 |  | 438 |  |
+| Heart — model C | HbA1c, per % | 0.93 (0.80–1.09) | 0.40 |  | 438 |  |
+| Heart — model C | BMI, per kg/m² | 0.98 (0.95–1.02) | 0.34 |  | 438 |  |
+| Heart — model C | log hs-cTnT, per unit | 0.62 (0.39–0.98) | 0.043 |  | 438 |  |
+
+## B. Aim 2 — depressive symptoms and measured damage (pre-specified model)
+
+| Analysis | Term | OR (95% CI) | p | q | n | Exploratory (Phase 2) estimate |
+|---|---|---|---|---|---|---|
+| CES-D-10, per SD | Kidney abnormal | 0.92 (0.80–1.05) | 0.21 | 0.55 | 2195 | 0.95 (0.83–1.08), q 0.85 |
+| CES-D-10, per SD | Heart abnormal | 0.93 (0.81–1.05) | 0.24 | 0.55 | 2203 | 0.96 (0.84–1.08), q 0.85 |
+| CES-D-10, per SD | Nerve abnormal | 1.16 (1.02–1.32) | 0.025 | 0.25 | 2197 | 1.22 (1.08–1.38), q 0.027 |
+| CES-D-10, per SD | Any organ abnormal | 0.99 (0.89–1.09) | 0.79 | 0.88 | 2190 | 1.01 (0.92–1.12), q 0.85 |
+| CES-D-10, per SD | Two or more organs abnormal | 0.96 (0.82–1.13) | 0.62 | 0.88 | 2190 | 0.99 (0.85–1.16), q 0.90 |
+| CES-D-10 ≥ 10 | Kidney abnormal | 0.83 (0.59–1.16) | 0.27 | 0.55 | 2195 | 0.92 (0.67–1.26), q 0.85 |
+| CES-D-10 ≥ 10 | Heart abnormal | 0.87 (0.63–1.19) | 0.37 | 0.62 | 2203 | 0.96 (0.71–1.30), q 0.85 |
+| CES-D-10 ≥ 10 | Nerve abnormal | 1.31 (0.95–1.80) | 0.098 | 0.49 | 2197 | 1.48 (1.09–2.00), q 0.044 |
+| CES-D-10 ≥ 10 | Any organ abnormal | 0.98 (0.76–1.27) | 0.88 | 0.88 | 2190 | 1.07 (0.83–1.37), q 0.85 |
+| CES-D-10 ≥ 10 | Two or more organs abnormal | 0.95 (0.64–1.39) | 0.78 | 0.88 | 2190 | 1.05 (0.72–1.52), q 0.85 |
+
+## C. Unrecognized diabetes beneath unrecognized damage (exploratory-confirmatory)
+
+| Analysis | Term | OR (95% CI) | p | q | n | Exploratory (Phase 2) estimate |
+|---|---|---|---|---|---|---|
+| No diabetes label, HbA1c ≥ 6.5% (n = 46) | Kidney abnormal | 4.11 (2.06–8.19); bootstrap 1.83–8.51 | <0.001 | <0.001 | 1305 | Phase-2 q <0.001; 13/46 exposed abnormal (28.3% vs 8.7%) |
+| No diabetes label, HbA1c ≥ 6.5% (n = 46) | Heart abnormal | 1.93 (0.88–4.22); bootstrap 0.72–4.15 | 0.10 | 0.21 | 1306 | Phase-2 q 0.32; 10/46 exposed abnormal (21.7% vs 12.5%) |
+| No diabetes label, HbA1c ≥ 6.5% (n = 46) | Nerve abnormal | 0.91 (0.34–2.45); bootstrap 0.18–2.21 | 0.85 | 0.85 | 1302 | Phase-2 q 0.91; 5/45 exposed abnormal (11.1% vs 11.5%) |
+| No diabetes label, HbA1c ≥ 6.5% (n = 46) | Any organ abnormal | 2.58 (1.35–4.92); bootstrap 1.30–5.21 | 0.004 | 0.014 | 1301 | Phase-2 q 0.021; 20/45 exposed abnormal (44.4% vs 25.5%) |
+| No diabetes label, HbA1c ≥ 6.5% (n = 46) | Two or more organs abnormal | 1.69 (0.59–4.88); bootstrap 0.29–4.65 | 0.33 | 0.49 | 1301 | Phase-2 q 0.59; 5/45 exposed abnormal (11.1% vs 6.2%) |
+| No diabetes label, CGM mean ≥ 154 mg/dL (n = 55) | Kidney abnormal | 2.92 (1.44–5.91); bootstrap 1.25–5.80 | 0.003 | 0.014 | 1295 | Phase-2 q 0.021; 11/52 exposed abnormal (21.2% vs 8.7%) |
+| No diabetes label, CGM mean ≥ 154 mg/dL (n = 55) | Heart abnormal | 1.26 (0.56–2.84); bootstrap 0.42–2.82 | 0.57 | 0.64 | 1296 | Phase-2 q 0.66; 8/53 exposed abnormal (15.1% vs 13.0%) |
+| No diabetes label, CGM mean ≥ 154 mg/dL (n = 55) | Nerve abnormal | 1.41 (0.64–3.14); bootstrap 0.49–2.96 | 0.39 | 0.49 | 1310 | Phase-2 q 0.59; 8/55 exposed abnormal (14.5% vs 11.6%) |
+| No diabetes label, CGM mean ≥ 154 mg/dL (n = 55) | Any organ abnormal | 1.34 (0.71–2.53); bootstrap 0.63–2.50 | 0.37 | 0.49 | 1292 | Phase-2 q 0.59; 16/52 exposed abnormal (30.8% vs 26.0%) |
+| No diabetes label, CGM mean ≥ 154 mg/dL (n = 55) | Two or more organs abnormal | 2.19 (0.85–5.66); bootstrap 0.57–5.36 | 0.11 | 0.21 | 1292 | Phase-2 q 0.32; 6/52 exposed abnormal (11.5% vs 6.3%) |
+
+Block A: logistic regression of unrecognized status among participants with an abnormal result; model A = age + severity group + site, B = A + HbA1c + BMI, C = B + log marker magnitude. Block B: logistic regression of each damage outcome on CES-D-10, adjusted for age, BMI, HbA1c, severity group and site (complete case), Benjamini-Hochberg q within the ten models; the pre-specified criterion (q < 0.05 in both exposure forms) was not met for any outcome. Block C: logistic regression within the Healthy + Pre-DM groups adjusted for age and site; percentile bootstrap, 2,000 resamples; Benjamini-Hochberg q within the ten models. All from AI-READI v3.0.0.

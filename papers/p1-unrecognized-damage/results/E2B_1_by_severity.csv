@@ -1,0 +1,5 @@
+stratum,exposure,outcome,scale,n,smaller_cell,estimate,ci_lo,ci_hi,boot_ci_lo,boot_ci_hi,p,q,interval_note,note
+Healthy,bmi,abn_any,per 1 SD,760,193,1.1507,0.9557,1.3853,,,0.13833847566910756,0.13833847566910756,,
+Pre-DM,bmi,abn_any,per 1 SD,548,149,1.3521,1.1037,1.6564,,,0.0035803641286865713,0.014321456514746285,,
+Oral Med,bmi,abn_any,per 1 SD,662,264,1.2398,1.0366,1.4829,,,0.018603969887901785,0.03720793977580357,,
+Insulin,bmi,abn_any,per 1 SD,243,84,1.3033,0.9679,1.755,,,0.08101398545085957,0.10801864726781275,,

@@ -1,0 +1,34 @@
+claim,site,n,k,pct,pct_Healthy,pct_Insulin,trend_z,trend_p
+kidney prevalence rises with severity,UW,797,103,12.9,7.7,30.0,5.132,2.8642172268920767e-07
+kidney prevalence rises with severity,UAB,788,119,15.1,8.9,31.3,5.519,3.4127757902174294e-08
+kidney prevalence rises with severity,UCSD,640,97,15.2,9.8,29.6,4.395,1.108807007769297e-05
+heart prevalence rises with severity,UW,797,129,16.2,8.9,50.8,7.642,2.140749284619827e-14
+heart prevalence rises with severity,UAB,792,183,23.1,15.7,49.3,6.747,1.508197924677726e-11
+heart prevalence rises with severity,UCSD,644,135,21.0,15.5,47.3,4.397,1.0950548667763036e-05
+nerve prevalence rises with severity,UW,795,97,12.2,8.4,31.7,4.979,6.390681973392842e-07
+nerve prevalence rises with severity,UAB,799,140,17.5,15.5,25.0,2.62,0.008785612482571084
+nerve prevalence rises with severity,UCSD,674,94,13.9,14.1,24.1,0.467,0.6402971052337043
+any-organ prevalence rises with severity,UW,793,238,30.0,19.1,67.8,8.189,2.6263997185501704e-16
+any-organ prevalence rises with severity,UAB,788,299,37.9,29.8,65.7,6.414,1.4145679915776373e-10
+any-organ prevalence rises with severity,UCSD,635,230,36.2,30.9,62.7,3.904,9.454062421036276e-05
+kidney unrecognized fraction falls with severity,UW,102,73,71.6,92.0,55.6,-2.567,0.010269795346428072
+kidney unrecognized fraction falls with severity,UAB,118,90,76.3,95.0,61.9,-2.967,0.0030066584527350896
+kidney unrecognized fraction falls with severity,UCSD,95,63,66.3,77.8,43.8,-1.732,0.08328625035578824
+heart unrecognized fraction falls with severity,UW,129,92,71.3,73.3,66.7,-1.088,0.2764792973674399
+heart unrecognized fraction falls with severity,UAB,183,117,63.9,75.7,62.7,-1.514,0.13000083321126962
+heart unrecognized fraction falls with severity,UCSD,135,89,65.9,73.3,57.7,-1.134,0.25675327472270004
+either-organ unrecognized fraction falls with severity,UW,189,151,79.9,87.5,75.8,-1.542,0.12310808780146365
+either-organ unrecognized fraction falls with severity,UAB,237,177,74.7,85.4,69.6,-2.109,0.03494421535795648
+either-organ unrecognized fraction falls with severity,UCSD,189,143,75.7,81.4,64.5,-0.976,0.32902554240004467
+kidney unrecognized burden rises with severity,UW,794,73,9.2,6.9,16.7,2.805,0.005030003270630146
+kidney unrecognized burden rises with severity,UAB,784,90,11.5,8.2,19.4,3.299,0.000970484723811903
+kidney unrecognized burden rises with severity,UCSD,637,63,9.9,7.3,13.2,2.566,0.010280727129210118
+heart unrecognized burden rises with severity,UW,797,92,11.5,6.5,33.9,5.595,2.2105415648566615e-08
+heart unrecognized burden rises with severity,UAB,792,117,14.8,11.9,30.9,4.108,3.99914394139753e-05
+heart unrecognized burden rises with severity,UCSD,644,89,13.8,11.4,27.3,2.648,0.008095294653336776
+either-organ unrecognized burden rises with severity,UW,793,151,19.0,12.5,42.4,5.577,2.4402314674052206e-08
+either-organ unrecognized burden rises with severity,UAB,784,177,22.6,17.7,41.0,4.571,4.8623720715622235e-06
+either-organ unrecognized burden rises with severity,UCSD,637,143,22.4,18.2,37.7,3.663,0.00024959486401553675
+two-or-more organs rises with severity,UW,793,75,9.5,4.8,37.3,6.778,1.2145314869990577e-11
+two-or-more organs rises with severity,UAB,788,115,14.6,8.1,30.6,6.02,1.739327088751328e-09
+two-or-more organs rises with severity,UCSD,635,63,9.9,5.2,25.5,3.87,0.00010875577149230367
