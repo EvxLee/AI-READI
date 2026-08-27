@@ -1,0 +1,6 @@
+survey_item,survey,n_paired,median_days_before_visit,iqr_lo,iqr_hi,pct_same_day,pct_survey_after_visit,min_days,max_days
+mhoccur_rnl,Medical history (mhoccur) — source of every self-reported diagnosis,2233,35.0,20.0,54.0,3.4,0.5,-957,426
+cestl,CES-D-10 depression screen,2230,35.0,20.0,53.0,3.5,0.5,-957,425
+paidscore,PAID-5 diabetes distress,2182,35.0,21.0,54.0,2.0,0.3,-957,425
+pxfi1,PhenX SDOH battery (food insecurity item 1),2233,35.0,20.0,53.0,3.8,0.7,-957,425
+dmlfeet,Diabetes self-management battery (foot inspection item),2233,35.0,20.0,53.0,3.7,0.6,-957,425

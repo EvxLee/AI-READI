@@ -1,0 +1,6 @@
+exposure,label,n_available,pct_of_cohort
+steps,Daily steps,1994,87.5
+heart_rate,Resting heart rate (bpm),1987,87.1
+stress,Garmin stress score,1987,87.1
+sleep_hours,Sleep (hours/night),2053,90.0
+spo2,SpO2 (%),1628,71.4

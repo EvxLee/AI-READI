@@ -1,0 +1,9 @@
+combination,n,pct_of_complete,n_organs
+none,1449,65.4,0
+heart,204,9.2,1
+kidney,158,7.1,1
+nerve,152,6.9,1
+heart + nerve,95,4.3,2
+kidney + heart,87,3.9,2
+kidney + heart + nerve,49,2.2,3
+kidney + nerve,22,1.0,2

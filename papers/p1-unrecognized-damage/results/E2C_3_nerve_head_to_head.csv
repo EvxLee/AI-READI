@@ -1,0 +1,13 @@
+questionnaire,outcome,n,estimate,ci_lo,ci_hi,p
+CES-D-10 total,abn_nerve,2217,1.2104,1.0686,1.371,0.0026650107897226477
+CES-D-10 total,monofilament_missed,2217,0.115,0.0342,0.1957,0.005287474078860789
+PAID-5 total,abn_nerve,2217,0.9909,0.8681,1.1311,0.8923673176422228
+PAID-5 total,monofilament_missed,2217,-0.0104,-0.0916,0.0708,0.8018001734844563
+PAID-5 >= 8,abn_nerve,2217,0.9964,0.7214,1.3762,0.9824435923862792
+PAID-5 >= 8,monofilament_missed,2217,-0.0088,-0.2076,0.1901,0.9312376532075237
+CES-D-10 >= 10,abn_nerve,2217,1.4326,1.053,1.949,0.022078432987179396
+CES-D-10 >= 10,monofilament_missed,2217,0.2494,0.0496,0.4491,0.01443082760466053
+cesd_total | mutually adjusted,abn_nerve,2217,1.2516,1.0942,1.4317,0.0010659423992166542
+paid_total | mutually adjusted,abn_nerve,2217,0.9101,0.7881,1.0511,0.1998029726661139
+cesd_total | mutually adjusted,monofilament_missed,2217,0.1331,0.0475,0.2187,0.0023219271377690922
+paid_total | mutually adjusted,monofilament_missed,2217,-0.0548,-0.1408,0.0311,0.21108411343356645

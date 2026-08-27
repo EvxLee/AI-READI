@@ -1,0 +1,29 @@
+sample,step,outcome,n,estimate,ci_lo,ci_hi,p
+Phase-2 sample (each step's own complete cases),unadjusted,abn_nerve,2265,1.0783,0.9632,1.207,0.19042590909786938
+Phase-2 sample (each step's own complete cases),unadjusted,monofilament_missed,2265,0.0564,-0.0237,0.1364,0.1672485718203456
+Phase-2 sample (each step's own complete cases),+ age,abn_nerve,2265,1.2615,1.119,1.4222,0.00014604318639027634
+Phase-2 sample (each step's own complete cases),+ age,monofilament_missed,2265,0.1519,0.0718,0.232,0.00020432388341640287
+Phase-2 sample (each step's own complete cases),+ age + severity,abn_nerve,2265,1.2211,1.0804,1.3801,0.001379665740838223
+Phase-2 sample (each step's own complete cases),+ age + severity,monofilament_missed,2265,0.1158,0.0357,0.1958,0.004635453699201974
+Phase-2 sample (each step's own complete cases),+ age + severity + site,abn_nerve,2265,1.2175,1.0768,1.3766,0.0016795136669682106
+Phase-2 sample (each step's own complete cases),+ age + severity + site,monofilament_missed,2265,0.1133,0.0332,0.1934,0.005591818612492045
+Phase-2 sample (each step's own complete cases),+ age + severity + site + HbA1c,abn_nerve,2200,1.1852,1.0419,1.3481,0.009740433340012289
+Phase-2 sample (each step's own complete cases),+ age + severity + site + HbA1c,monofilament_missed,2200,0.0848,0.0031,0.1664,0.04203187177456972
+Phase-2 sample (each step's own complete cases),+ age + severity + site + BMI,abn_nerve,2262,1.1928,1.0539,1.3499,0.0052481796194460174
+Phase-2 sample (each step's own complete cases),+ age + severity + site + BMI,monofilament_missed,2262,0.0942,0.0145,0.1739,0.020610464607108452
+Phase-2 sample (each step's own complete cases),full spec (+ BMI + HbA1c),abn_nerve,2197,1.1606,1.0193,1.3214,0.0245009655726532
+Phase-2 sample (each step's own complete cases),full spec (+ BMI + HbA1c),monofilament_missed,2197,0.0647,-0.0166,0.146,0.11869995205035049
+"fixed spec complete-case sample (n=2,197)",unadjusted,abn_nerve,2197,1.0561,0.9383,1.1888,0.3657427091067199
+"fixed spec complete-case sample (n=2,197)",unadjusted,monofilament_missed,2197,0.0298,-0.0513,0.1109,0.4710480163134848
+"fixed spec complete-case sample (n=2,197)",+ age,abn_nerve,2197,1.24,1.0938,1.4057,0.000777141334745017
+"fixed spec complete-case sample (n=2,197)",+ age,monofilament_missed,2197,0.1252,0.0443,0.2061,0.002434301927761944
+"fixed spec complete-case sample (n=2,197)",+ age + severity,abn_nerve,2197,1.1978,1.0537,1.3616,0.005790313342419336
+"fixed spec complete-case sample (n=2,197)",+ age + severity,monofilament_missed,2197,0.089,0.008,0.1699,0.03121160489985494
+"fixed spec complete-case sample (n=2,197)",+ age + severity + site,abn_nerve,2197,1.1935,1.0494,1.3573,0.00704944243876766
+"fixed spec complete-case sample (n=2,197)",+ age + severity + site,monofilament_missed,2197,0.0859,0.005,0.1669,0.037393743720605686
+"fixed spec complete-case sample (n=2,197)",+ age + severity + site + HbA1c,abn_nerve,2197,1.1842,1.0408,1.3474,0.010229436592362015
+"fixed spec complete-case sample (n=2,197)",+ age + severity + site + HbA1c,monofilament_missed,2197,0.0829,0.002,0.1638,0.04471601610140597
+"fixed spec complete-case sample (n=2,197)",+ age + severity + site + BMI,abn_nerve,2197,1.1673,1.0255,1.3288,0.01921376641756845
+"fixed spec complete-case sample (n=2,197)",+ age + severity + site + BMI,monofilament_missed,2197,0.0668,-0.0146,0.1481,0.10756604919276734
+"fixed spec complete-case sample (n=2,197)",full spec (+ BMI + HbA1c),abn_nerve,2197,1.1606,1.0193,1.3214,0.0245009655726532
+"fixed spec complete-case sample (n=2,197)",full spec (+ BMI + HbA1c),monofilament_missed,2197,0.0647,-0.0166,0.146,0.11869995205035049

@@ -1,0 +1,6 @@
+infarct_tier,n,pct_troponin_abnormal,median_troponin
+acute or recent only,26,20.8,9.0
+consider prior infarct,47,27.7,7.73
+definite prior infarct,179,32.8,9.83
+none,1945,18.8,7.84
+probable prior infarct,54,17.0,7.71

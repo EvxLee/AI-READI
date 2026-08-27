@@ -1,0 +1,8 @@
+claim,holds_at_every_cutoff,detail
+kidney prevalence rises with severity,True,"trend z 6.90 to 8.81, max p 5.2e-12"
+heart prevalence rises with severity,True,"trend z 7.71 to 11.31, max p 1.3e-14"
+nerve prevalence rises with severity,True,"trend z 5.12 to 6.19, max p 3.1e-07"
+kidney majority of abnormal results are unrecognized,False,range 32.8% to 76.7%
+kidney unrecognized FRACTION falls with severity,True,trend z -5.34 to -0.85; significant at 3/5 cutoffs
+heart majority of abnormal results are unrecognized,True,range 59.2% to 79.0%
+heart unrecognized FRACTION falls with severity,True,trend z -5.27 to -1.52; significant at 3/6 cutoffs

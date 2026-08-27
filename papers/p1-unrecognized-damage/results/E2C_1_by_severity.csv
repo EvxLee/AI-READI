@@ -1,0 +1,9 @@
+outcome,stratum,exposure,outcome,scale,n,smaller_cell,estimate,ci_lo,ci_hi,boot_ci_lo,boot_ci_hi,p,q,interval_note,note
+abn_any,Healthy,cesd_total,abn_any,per 1 SD,761,193,0.9695,0.7984,1.1773,,,0.7546033842847081,0.981093767683246,,
+abn_any,Pre-DM,cesd_total,abn_any,per 1 SD,548,149,1.1407,0.9324,1.3954,,,0.2006777488892877,0.8027109955571508,,
+abn_any,Oral Med,cesd_total,abn_any,per 1 SD,662,264,0.9979,0.8415,1.1834,,,0.981093767683246,0.981093767683246,,
+abn_any,Insulin,cesd_total,abn_any,per 1 SD,242,84,0.9017,0.6754,1.2038,,,0.48278360356859495,0.9655672071371899,,
+abn_nerve,Healthy,cesd_total,abn_nerve,per 1 SD,771,93,1.2322,0.9698,1.5656,,,0.08741338859724118,0.1319518741168501,,
+abn_nerve,Pre-DM,cesd_total,abn_nerve,per 1 SD,557,62,1.1958,0.9089,1.5731,,,0.20138145478307123,0.20138145478307123,,
+abn_nerve,Oral Med,cesd_total,abn_nerve,per 1 SD,685,109,1.1946,0.9671,1.4755,,,0.09896390558763758,0.1319518741168501,,
+abn_nerve,Insulin,cesd_total,abn_nerve,per 1 SD,252,67,1.3057,0.9565,1.7823,,,0.09299033153938964,0.1319518741168501,,

@@ -1,0 +1,4 @@
+organ,marker,source_fields,n_measured,n_summarised,median,p95,notes
+kidney,urine ACR (mg/g),import_urine_albumin / import_urine_creatinine,2225,2225,7.0,119.8,"same units, so ratio x1000 = mg/g; 1 zero-creatinine void -> NaN"
+heart,hs-cTnT (ng/L),import_troponin_t,2233,1521,10.24,33.2,"712 below detection, reported AT the 6 ng/L limit; assay URL 16. CORRECTED 2026-08-11: median/p95 are over the 1,521 DETECTABLE results only. Over all 2,233 the median is 7.96 and p95 28.4 — but those include 712 rows whose value is a limit, not a reading. One further row reads 1.77 ng/L with an '=' operator, below the stated limit."
+nerve,"monofilament sites felt, worse foot (0-10)",msslffl / mssrffl,2268,2268,10.0,,"10 = full protective sensation; both feet examined. 14 participants score 0 on both feet and 6 score 0 on one foot and 10 on the other — check before treating extreme asymmetry as physiology."

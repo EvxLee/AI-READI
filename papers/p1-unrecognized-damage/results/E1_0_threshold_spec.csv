@@ -1,0 +1,4 @@
+organ,marker,definition,self_report_comparator,sweep_in_E1_5,n_measured,pct_of_cohort,n_abnormal,n_sr_missing_cohort,n_sr_refused_among_abnormal,n_abnormal_with_comparator
+kidney,urine ACR,ACR >= 30 mg/g,mhoccur_rnl,"20, 30, 50, 100, 300",2225,97.6,319,11,4,315
+heart,hs-cTnT,hs-cTnT >= 14 ng/L,mhoccur_mi | mhoccur_cvdot,"detectable, 10.0, 14.0, 16.0, 19.0, 22.0",2233,97.9,447,0,0,447
+nerve,monofilament (worse foot),>= 2 insensate sites of 10,none — E0.GATE,"1, 2, 3, 4, 5",2268,99.5,331,,,

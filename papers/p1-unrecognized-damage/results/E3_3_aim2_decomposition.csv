@@ -1,0 +1,11 @@
+step,outcome,n,estimate,ci_lo,ci_hi,p
+Phase-2 model on the Phase-2 sample (age + severity + site),abn_nerve,2265,1.2175,1.0768,1.3766,0.0016795136669682106
+Phase-2 model on the Phase-2 sample (age + severity + site),monofilament_missed,2265,0.1133,0.0332,0.1934,0.005591818612492045
+Phase-2 model on the SPEC complete-case sample (same covariates),abn_nerve,2197,1.19,1.0486,1.3506,0.007049442438767976
+Phase-2 model on the SPEC complete-case sample (same covariates),monofilament_missed,2197,0.0845,0.0049,0.1641,0.03739374372060462
++ HbA1c only,abn_nerve,2200,1.1852,1.0419,1.3481,0.009740433340012289
++ HbA1c only,monofilament_missed,2200,0.0848,0.0031,0.1664,0.04203187177456972
++ BMI only,abn_nerve,2262,1.1928,1.0539,1.3499,0.0052481796194460174
++ BMI only,monofilament_missed,2262,0.0942,0.0145,0.1739,0.020610464607108452
+full spec (+ BMI + HbA1c),abn_nerve,2197,1.1606,1.0193,1.3214,0.0245009655726532
+full spec (+ BMI + HbA1c),monofilament_missed,2197,0.0647,-0.0166,0.146,0.11869995205035049

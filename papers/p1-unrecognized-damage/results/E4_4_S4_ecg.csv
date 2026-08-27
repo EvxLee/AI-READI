@@ -1,0 +1,15 @@
+,kind,exposure,outcome,metric_label,family,n,estimate,ci_lo,ci_hi,p,q,phase2_q,note,ecg_pattern,self_report,n_with_pattern,n_eligible,n_never_told,pct_unrecognized
+0,"numeric ECG measurement (T2, age + severity + site)",rate_bpm,abn_heart,ECG heart rate (bpm),binomial,2208.0,1.2058,1.0698,1.3591,0.0021827202980446,0.0031181718543494,0.0051358124659873,,,,,,,
+1,"numeric ECG measurement (T2, age + severity + site)",rate_bpm,log_troponin,ECG heart rate (bpm),gaussian,2208.0,0.0464,0.025,0.0678,2.172272815694781e-05,6.841939315265728e-05,0.0001368387863053,,,,,,,
+2,"numeric ECG measurement (T2, age + severity + site)",pr_ms,abn_heart,PR interval (ms),binomial,2171.0,1.1554,1.0328,1.2924,0.0115689223305026,0.0144611529131283,0.0220360425342908,,,,,,,
+3,"numeric ECG measurement (T2, age + severity + site)",pr_ms,log_troponin,PR interval (ms),gaussian,2171.0,0.0328,0.0121,0.0535,0.0019342101647295,0.0031181718543494,0.0048355254118239,,,,,,,
+4,"numeric ECG measurement (T2, age + severity + site)",qrsd_ms,abn_heart,QRS duration (ms),binomial,2208.0,1.4358,1.2934,1.5939,1.1371338306606644e-11,5.685669153303323e-11,1.5161784408808862e-10,,,,,,,
+5,"numeric ECG measurement (T2, age + severity + site)",qrsd_ms,log_troponin,QRS duration (ms),gaussian,2208.0,0.1078,0.0876,0.128,4.9526681265938e-25,4.9526681265938e-24,1.9810672506375202e-23,,,,,,,
+6,"numeric ECG measurement (T2, age + severity + site)",qt_ms,abn_heart,QT interval (ms),binomial,2208.0,1.0279,0.9158,1.1536,0.6404711156448972,0.7116345729387746,0.7116345729387746,,,,,,,
+7,"numeric ECG measurement (T2, age + severity + site)",qt_ms,log_troponin,QT interval (ms),gaussian,2208.0,0.0004,-0.0206,0.0214,0.9705488827681672,0.9705488827681672,0.982512944060886,,,,,,,
+8,"numeric ECG measurement (T2, age + severity + site)",qtc_ms,abn_heart,QTc interval (ms),binomial,2208.0,1.2042,1.08,1.3428,0.0008238355432502,0.0016476710865004,0.0023538158378578,,,,,,,
+9,"numeric ECG measurement (T2, age + severity + site)",qtc_ms,log_troponin,QTc interval (ms),gaussian,2208.0,0.0438,0.0234,0.0642,2.7367757261062908e-05,6.841939315265728e-05,0.0001368387863053,,,,,,,
+10,UNADJUDICATED machine-read prior-infarct statement vs self-report — physician-unreviewed; supplementary only,,,,,,,77.6,88.4,,,,,Definite machine-read prior infarct,Self-reported heart attack (mhoccur_mi),179.0,178.0,149.0,83.7
+11,UNADJUDICATED machine-read prior-infarct statement vs self-report — physician-unreviewed; supplementary only,,,,,,,62.2,75.6,,,,,Definite machine-read prior infarct,Self-reported any heart condition (Aim 1 composite),179.0,179.0,124.0,69.3
+12,UNADJUDICATED machine-read prior-infarct statement vs self-report — physician-unreviewed; supplementary only,,,,,,,81.1,89.3,,,,,Definite + hedged (probable/consider),Self-reported heart attack (mhoccur_mi),280.0,279.0,239.0,85.7
+13,UNADJUDICATED machine-read prior-infarct statement vs self-report — physician-unreviewed; supplementary only,,,,,,,66.6,77.1,,,,,Definite + hedged (probable/consider),Self-reported any heart condition (Aim 1 composite),280.0,280.0,202.0,72.1

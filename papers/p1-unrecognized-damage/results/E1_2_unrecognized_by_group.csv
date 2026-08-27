@@ -1,0 +1,16 @@
+stratum,organ,definition,n,k,pct,ci_lo,ci_hi,trend_z,trend_p,chi2_p,n_incl_refusals,pct_incl_refusals
+Overall,kidney,Kidney — ACR >= 30 mg/g vs 'kidney problems',315,226,71.7,66.5,76.4,-3.921,8.813631765300566e-05,0.0004849473727722611,319,70.8
+Healthy,kidney,Kidney — ACR >= 30 mg/g vs 'kidney problems',63,56,88.9,78.8,94.5,-3.921,8.813631765300566e-05,0.0004849473727722611,66,84.8
+Pre-DM,kidney,Kidney — ACR >= 30 mg/g vs 'kidney problems',56,40,71.4,58.5,81.6,-3.921,8.813631765300566e-05,0.0004849473727722611,57,70.2
+Oral Med,kidney,Kidney — ACR >= 30 mg/g vs 'kidney problems',120,87,72.5,63.9,79.7,-3.921,8.813631765300566e-05,0.0004849473727722611,120,72.5
+Insulin,kidney,Kidney — ACR >= 30 mg/g vs 'kidney problems',76,43,56.6,45.4,67.1,-3.921,8.813631765300566e-05,0.0004849473727722611,76,56.6
+Overall,heart,Heart — hs-cTnT >= 14 ng/L vs 'heart attack / other heart issues',447,298,66.7,62.2,70.9,-2.285,0.022311711700010773,0.07699394885287086,447,66.7
+Healthy,heart,Heart — hs-cTnT >= 14 ng/L vs 'heart attack / other heart issues',97,72,74.2,64.7,81.9,-2.285,0.022311711700010773,0.07699394885287086,97,74.2
+Pre-DM,heart,Heart — hs-cTnT >= 14 ng/L vs 'heart attack / other heart issues',76,56,73.7,62.8,82.3,-2.285,0.022311711700010773,0.07699394885287086,76,73.7
+Oral Med,heart,Heart — hs-cTnT >= 14 ng/L vs 'heart attack / other heart issues',151,93,61.6,53.6,69.0,-2.285,0.022311711700010773,0.07699394885287086,151,61.6
+Insulin,heart,Heart — hs-cTnT >= 14 ng/L vs 'heart attack / other heart issues',123,77,62.6,53.8,70.6,-2.285,0.022311711700010773,0.07699394885287086,123,62.6
+Overall,either,Kidney or heart — unrecognized among those abnormal on either,615,471,76.6,73.1,79.8,-2.851,0.004353916438337888,0.029846563884782778,621,75.8
+Healthy,either,Kidney or heart — unrecognized among those abnormal on either,139,118,84.9,78.0,89.9,-2.851,0.004353916438337888,0.029846563884782778,142,83.1
+Pre-DM,either,Kidney or heart — unrecognized among those abnormal on either,118,90,76.3,67.8,83.0,-2.851,0.004353916438337888,0.029846563884782778,120,75.0
+Oral Med,either,Kidney or heart — unrecognized among those abnormal on either,215,163,75.8,69.7,81.1,-2.851,0.004353916438337888,0.029846563884782778,216,75.5
+Insulin,either,Kidney or heart — unrecognized among those abnormal on either,143,100,69.9,62.0,76.8,-2.851,0.004353916438337888,0.029846563884782778,143,69.9

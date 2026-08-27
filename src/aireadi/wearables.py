@@ -18,10 +18,12 @@ import pandas as pd
 from .constants import (
     CGM_INTERVAL_MINUTES,
     CGM_MIN_READINGS,
+    CGM_SENTINEL_VALUES,
     CGM_SEVERE_HIGH,
     CGM_TIR_HIGH,
     CGM_TIR_LOW,
     GARMIN_ERROR_CODES,
+    GARMIN_PLAUSIBLE_RANGES,
     PLAUSIBLE_RANGES,
     SLEEP_FRACTION_TO_HOURS,
 )
@@ -36,17 +38,30 @@ __all__ = [
 _trapezoid = getattr(np, "trapezoid", None) or np.trapz
 
 
-def clean_garmin_manifest(manifest: pd.DataFrame) -> pd.DataFrame:
+def clean_garmin_manifest(manifest: pd.DataFrame, *,
+                          apply_plausibility: bool = True) -> pd.DataFrame:
     """Clean the Garmin activity manifest into usable summary metrics.
 
-    Applies three fixes that are wrong by default in the raw file:
+    Applies four fixes that are wrong by default in the raw file:
 
     * error codes to NaN -- 0 for heart rate and SpO2, -2 for stress and
       respiratory rate. These are "no reading", not measurements, and
       averaging them in drags every summary toward zero;
     * `average_sleep_hours` is a fraction of a day, so multiply by 24;
+    * **plausibility bounds**, because scrubbing the sentinel value does not
+      undo it. These averages were computed upstream WITH the error codes in
+      them, so a contaminated mean lands somewhere between the sentinel and the
+      truth rather than on the sentinel: a resting heart rate of 0.03 bpm, a
+      stress score of -1.19 on a 0-100 scale. Those rows pass an `!= 0` test and
+      are still not measurements. Bounds are in `GARMIN_PLAUSIBLE_RANGES`;
+      `apply_plausibility=False` returns the sentinel-only cleaning, which is
+      what a sensitivity check needs;
     * respiratory rate is left as-is but is a device-quirk scale (reads 6-9
       against an expected 12-20). Relative comparison only, never absolute.
+
+    Returns a `garmin_dropped_implausible` attribute on `.attrs` recording how
+    many values each column lost to the bounds, so a caller can report it
+    instead of discovering it later.
     """
     out = manifest.copy()
     out.columns = out.columns.str.strip().str.lower()
@@ -67,6 +82,16 @@ def clean_garmin_manifest(manifest: pd.DataFrame) -> pd.DataFrame:
             sleep = sleep * SLEEP_FRACTION_TO_HOURS
         out["average_sleep_hours"] = sleep
 
+    dropped: dict[str, int] = {}
+    if apply_plausibility:
+        for col, (lo, hi) in GARMIN_PLAUSIBLE_RANGES.items():
+            if col in out.columns:
+                vals = pd.to_numeric(out[col], errors="coerce")
+                keep = vals.between(lo, hi)
+                dropped[col] = int((vals.notna() & ~keep).sum())
+                out[col] = vals.where(keep)
+    out.attrs["garmin_dropped_implausible"] = dropped
+
     return out
 
 
@@ -83,6 +108,15 @@ def parse_dexcom_json(raw: bytes | str) -> pd.DataFrame | None:
     mg/dL are dropped. Returns a DataFrame of [timestamp, glucose_mg_dl]
     sorted ascending, or None when fewer than 12 valid readings survive
     (under an hour of data is not analysable).
+
+    **The Dexcom writes "Low" and "High" as strings** when a reading falls
+    outside its 40-400 mg/dL reportable range, and those are censored values
+    rather than missing ones -- see `CGM_SENTINEL_VALUES`. They are mapped to the
+    range boundary, not skipped: skipping them silently deletes readings from the
+    participants with the worst control, which is the opposite of what a
+    damage analysis can afford. The counts are reported on
+    `.attrs["censored"]` as `{"high": n, "low": n}` so a caller can flag a
+    heavily-censored participant instead of treating the stream as clean.
     """
     if isinstance(raw, bytes):
         try:
@@ -116,6 +150,7 @@ def parse_dexcom_json(raw: bytes | str) -> pd.DataFrame | None:
         return None
 
     rows = []
+    censored = {"high": 0, "low": 0}
     for r in readings:
         if not isinstance(r, dict):
             continue
@@ -139,6 +174,18 @@ def parse_dexcom_json(raw: bytes | str) -> pd.DataFrame | None:
 
         if value is None or timestamp is None:
             continue
+
+        # A sentinel string is a censored reading at the reportable-range
+        # boundary. This branch has to come before float(), which would raise
+        # and send it to the silent `continue` below.
+        if isinstance(value, str):
+            token = value.strip().lower()
+            if token in CGM_SENTINEL_VALUES:
+                censored[token] += 1
+                rows.append({"timestamp": timestamp,
+                             "glucose_mg_dl": CGM_SENTINEL_VALUES[token]})
+                continue
+
         try:
             rows.append({"timestamp": timestamp, "glucose_mg_dl": float(value)})
         except (TypeError, ValueError):
@@ -157,7 +204,10 @@ def parse_dexcom_json(raw: bytes | str) -> pd.DataFrame | None:
         .drop_duplicates("timestamp")
         .reset_index(drop=True)
     )
-    return df if len(df) >= CGM_MIN_READINGS else None
+    if len(df) < CGM_MIN_READINGS:
+        return None
+    df.attrs["censored"] = censored
+    return df
 
 
 def _find_runs(mask: np.ndarray, min_len: int) -> list[tuple[int, int]]:

@@ -1,0 +1,7 @@
+exposure,outcome,exposure_label,scale,n,estimate,ci_lo,ci_hi,p,q,note
+cesd_total,unrec_kidney,CES-D-10 total (per SD),per cohort-wide SD,308,0.9299,0.6759,1.2792,0.655011706792876,0.655011706792876,
+cesd_positive,unrec_kidney,CES-D-10 >= 10,yes vs no,308,0.7141,0.3397,1.5011,0.37435425410649903,0.4492251049277988,
+cesd_total,unrec_heart,CES-D-10 total (per SD),per cohort-wide SD,436,0.7608,0.6017,0.9621,0.022454450314249568,0.1347267018854974,
+cesd_positive,unrec_heart,CES-D-10 >= 10,yes vs no,436,0.6041,0.3436,1.0621,0.08000116499637774,0.17155249912291815,
+cesd_total,unrec_either,CES-D-10 total (per SD),per cohort-wide SD,603,0.8321,0.6746,1.0262,0.08577624956145907,0.17155249912291815,
+cesd_positive,unrec_either,CES-D-10 >= 10,yes vs no,603,0.7158,0.4275,1.1984,0.20351780319203427,0.3052767047880514,

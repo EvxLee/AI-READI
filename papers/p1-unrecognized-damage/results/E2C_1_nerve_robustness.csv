@@ -1,0 +1,19 @@
+check,outcome,sample,n,estimate,ci_lo,ci_hi,p
+unadjusted,abn_nerve,all,2265,1.0783,0.9632,1.207,0.19042590909786938
+unadjusted,monofilament_missed,all,2265,0.0564,-0.0237,0.1364,0.1672485718203456
++ age only,abn_nerve,all,2265,1.2615,1.119,1.4222,0.00014604318639027634
++ age only,monofilament_missed,all,2265,0.1519,0.0718,0.232,0.00020432388341640287
++ severity only,abn_nerve,all,2265,1.0368,0.9237,1.1637,0.540120591292335
++ severity only,monofilament_missed,all,2265,0.021,-0.0588,0.1008,0.6061753618066443
++ site only,abn_nerve,all,2265,1.0682,0.9537,1.1964,0.25423179273154484
++ site only,monofilament_missed,all,2265,0.0492,-0.0308,0.1293,0.22792734368930273
++ age + severity,abn_nerve,all,2265,1.2211,1.0804,1.3801,0.001379665740838223
++ age + severity,monofilament_missed,all,2265,0.1158,0.0357,0.1958,0.004635453699201974
+full (age + severity + site),abn_nerve,all,2265,1.2175,1.0768,1.3766,0.0016795136669682106
+full (age + severity + site),monofilament_missed,all,2265,0.1133,0.0332,0.1934,0.005591818612492045
+drop both-feet-zero (n=14),abn_nerve,restricted,2251,1.1927,1.0516,1.3526,0.0060643275698157905
+drop both-feet-zero (n=14),monofilament_missed,restricted,2251,0.0805,0.0059,0.1551,0.03451594963761966
+drop 0-vs-10 asymmetric (n=6),abn_nerve,restricted,2259,1.219,1.0776,1.379,0.0016460130051346052
+drop 0-vs-10 asymmetric (n=6),monofilament_missed,restricted,2259,0.1118,0.0338,0.1898,0.004986638689326984
+drop both sets (n=20),abn_nerve,restricted,2245,1.1939,1.0522,1.3548,0.005993832500429492
+drop both sets (n=20),monofilament_missed,restricted,2245,0.0787,0.0065,0.151,0.03263721338463257

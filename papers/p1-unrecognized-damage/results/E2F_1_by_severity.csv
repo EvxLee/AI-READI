@@ -1,0 +1,9 @@
+outcome,stratum,exposure,outcome,scale,n,smaller_cell,estimate,ci_lo,ci_hi,boot_ci_lo,boot_ci_hi,p,q,interval_note,note
+unrec_either,Healthy,healthcare_access_barriers,unrec_either,per 1 SD,124,18,0.6633,0.3745,1.1749,0.1276,1.4734,0.159344115391856,0.637376461567424,bootstrap: smaller cell n=18,
+unrec_either,Pre-DM,healthcare_access_barriers,unrec_either,per 1 SD,99,22,0.9566,0.6391,1.432,0.4767,1.8516,0.8294555199431424,0.8294555199431424,bootstrap: smaller cell n=22,
+unrec_either,Oral Med,healthcare_access_barriers,unrec_either,per 1 SD,184,48,0.8725,0.6096,1.2487,0.5881,1.2707,0.4558756796655522,0.8294555199431424,bootstrap: smaller cell n=48,
+unrec_either,Insulin,healthcare_access_barriers,unrec_either,per 1 SD,121,33,1.1272,0.6668,1.9056,0.6497,2.2855,0.654832085203354,0.8294555199431424,bootstrap: smaller cell n=33,
+unrec_heart,Healthy,healthcare_access_barriers,unrec_heart,per 1 SD,83,22,0.5612,0.3174,0.9922,0.0376,1.1146,0.04692539703630359,0.09385079407260719,bootstrap: smaller cell n=22,
+unrec_heart,Pre-DM,healthcare_access_barriers,unrec_heart,per 1 SD,62,16,0.3851,0.1872,0.7922,0.0,0.6241,0.0095227178763024,0.0380908715052096,bootstrap: smaller cell n=16,
+unrec_heart,Oral Med,healthcare_access_barriers,unrec_heart,per 1 SD,128,49,0.7103,0.4776,1.0564,0.4193,1.0709,0.09120458188504478,0.12160610918005971,bootstrap: smaller cell n=49,
+unrec_heart,Insulin,healthcare_access_barriers,unrec_heart,per 1 SD,102,37,0.7694,0.4865,1.2168,0.4348,1.303,0.2623306591533173,0.2623306591533173,bootstrap: smaller cell n=37,

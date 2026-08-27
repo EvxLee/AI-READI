@@ -1,0 +1,41 @@
+,table,claim,organ,site,n,pct,pct_Healthy,pct_Pre-DM,pct_Oral Med,pct_Insulin,trend_z,trend_p,same_direction_as_pooled,significant_within_site,pooled,sites_fitted,sites_same_direction,sites_p_lt_05,consistent_across_sites,heterogeneity_q_p,i_squared_pct,UW_estimate,UAB_estimate,UCSD_estimate,UW_p,UAB_p,UCSD_p
+0,S1a core trends within site,prevalence,kidney,UW,797.0,12.9,7.7,11.8,18.0,30.0,5.132,2.864217226892077e-07,True,True,,,,,,,,,,,,,
+1,S1a core trends within site,prevalence,kidney,UAB,788.0,15.1,8.9,8.8,15.9,31.3,5.519,3.4127757902174294e-08,True,True,,,,,,,,,,,,,
+2,S1a core trends within site,prevalence,kidney,UCSD,640.0,15.2,9.8,9.9,21.3,29.6,4.395,1.108807007769297e-05,True,True,,,,,,,,,,,,,
+3,S1a core trends within site,prevalence,heart,UW,797.0,16.2,8.9,12.3,22.6,50.8,7.642,2.1407492846198273e-14,True,True,,,,,,,,,,,,,
+4,S1a core trends within site,prevalence,heart,UAB,792.0,23.1,15.7,12.2,22.4,49.3,6.747,1.508197924677726e-11,True,True,,,,,,,,,,,,,
+5,S1a core trends within site,prevalence,heart,UCSD,644.0,21.0,15.5,16.7,23.0,47.3,4.397,1.0950548667763036e-05,True,True,,,,,,,,,,,,,
+6,S1a core trends within site,prevalence,nerve,UW,795.0,12.2,8.4,8.6,16.8,31.7,4.979,6.390681973392842e-07,True,True,,,,,,,,,,,,,
+7,S1a core trends within site,prevalence,nerve,UAB,799.0,17.5,15.5,10.1,19.5,25.0,2.62,0.008785612482571,True,True,,,,,,,,,,,,,
+8,S1a core trends within site,prevalence,nerve,UCSD,674.0,13.9,14.1,14.5,10.6,24.1,0.467,0.6402971052337043,True,False,,,,,,,,,,,,,
+9,S1a core trends within site,prevalence,any,UW,793.0,30.0,19.1,26.2,41.8,67.8,8.189,2.6263997185501704e-16,True,True,,,,,,,,,,,,,
+10,S1a core trends within site,prevalence,any,UAB,788.0,37.9,29.8,25.0,38.4,65.7,6.414,1.414567991577637e-10,True,True,,,,,,,,,,,,,
+11,S1a core trends within site,prevalence,any,UCSD,635.0,36.2,30.9,30.4,40.1,62.7,3.904,9.454062421036276e-05,True,True,,,,,,,,,,,,,
+12,S1a core trends within site,unrecognized_fraction,kidney,UW,102.0,71.6,92.0,68.0,67.6,55.6,-2.567,0.010269795346428,True,True,,,,,,,,,,,,,
+13,S1a core trends within site,unrecognized_fraction,kidney,UAB,118.0,76.3,95.0,84.6,79.1,61.9,-2.967,0.003006658452735,True,True,,,,,,,,,,,,,
+14,S1a core trends within site,unrecognized_fraction,kidney,UCSD,95.0,66.3,77.8,66.7,69.8,43.8,-1.732,0.0832862503557882,True,False,,,,,,,,,,,,,
+15,S1a core trends within site,unrecognized_fraction,heart,UW,129.0,71.3,73.3,84.6,65.1,66.7,-1.088,0.2764792973674399,True,False,,,,,,,,,,,,,
+16,S1a core trends within site,unrecognized_fraction,heart,UAB,183.0,63.9,75.7,72.2,55.7,62.7,-1.514,0.1300008332112696,True,False,,,,,,,,,,,,,
+17,S1a core trends within site,unrecognized_fraction,heart,UCSD,135.0,65.9,73.3,65.6,66.0,57.7,-1.134,0.2567532747227,True,False,,,,,,,,,,,,,
+18,S1a core trends within site,unrecognized_fraction,either,UW,189.0,79.9,87.5,80.4,75.8,75.8,-1.542,0.1231080878014636,True,False,,,,,,,,,,,,,
+19,S1a core trends within site,unrecognized_fraction,either,UAB,237.0,74.7,85.4,79.3,71.6,69.6,-2.109,0.0349442153579564,True,True,,,,,,,,,,,,,
+20,S1a core trends within site,unrecognized_fraction,either,UCSD,189.0,75.7,81.4,69.8,80.6,64.5,-0.976,0.3290255424000446,True,False,,,,,,,,,,,,,
+21,S1a core trends within site,population_burden,kidney,UW,794.0,9.2,6.9,8.1,12.2,16.7,2.805,0.0050300032706301,True,True,,,,,,,,,,,,,
+22,S1a core trends within site,population_burden,kidney,UAB,784.0,11.5,8.2,7.4,12.6,19.4,3.299,0.0009704847238119,True,True,,,,,,,,,,,,,
+23,S1a core trends within site,population_burden,kidney,UCSD,637.0,9.9,7.3,6.3,14.9,13.2,2.566,0.0102807271292101,True,True,,,,,,,,,,,,,
+24,S1a core trends within site,population_burden,heart,UW,797.0,11.5,6.5,10.4,14.7,33.9,5.595,2.2105415648566618e-08,True,True,,,,,,,,,,,,,
+25,S1a core trends within site,population_burden,heart,UAB,792.0,14.8,11.9,8.8,12.5,30.9,4.108,3.99914394139753e-05,True,True,,,,,,,,,,,,,
+26,S1a core trends within site,population_burden,heart,UCSD,644.0,13.8,11.4,10.9,15.2,27.3,2.648,0.0080952946533367,True,True,,,,,,,,,,,,,
+27,S1a core trends within site,population_burden,either,UW,793.0,19.0,12.5,17.6,24.9,42.4,5.577,2.440231467405221e-08,True,True,,,,,,,,,,,,,
+28,S1a core trends within site,population_burden,either,UAB,784.0,22.6,17.7,15.5,21.5,41.0,4.571,4.8623720715622235e-06,True,True,,,,,,,,,,,,,
+29,S1a core trends within site,population_burden,either,UCSD,637.0,22.4,18.2,15.8,28.7,37.7,3.663,0.0002495948640155,True,True,,,,,,,,,,,,,
+30,S1a core trends within site,two_or_more_organs,multi,UW,793.0,9.5,4.8,6.2,12.7,37.3,6.778,1.2145314869990575e-11,True,True,,,,,,,,,,,,,
+31,S1a core trends within site,two_or_more_organs,multi,UAB,788.0,14.6,8.1,6.1,17.0,30.6,6.02,1.739327088751328e-09,True,True,,,,,,,,,,,,,
+32,S1a core trends within site,two_or_more_organs,multi,UCSD,635.0,9.9,5.2,8.9,11.4,25.5,3.87,0.0001087557714923,True,True,,,,,,,,,,,,,
+33,"S1b model-based rows: direction, Cochran's Q, I²",A2.1 CES-D per SD -> nerve,,,,,,,,,,,,,1.1606,3.0,3.0,1.0,True,0.422620849983382,0.0,1.0923,1.1016,1.3301,0.5004772223027931,0.3525010483224109,0.018808348373578
+34,"S1b model-based rows: direction, Cochran's Q, I²",A2.1 CES-D >= 10 -> nerve,,,,,,,,,,,,,1.3078,3.0,3.0,0.0,True,0.436549142663322,0.0,1.184,1.1383,1.8813,0.5771187542378761,0.5969449964127005,0.0540168551928312
+35,"S1b model-based rows: direction, Cochran's Q, I²",T1 undiagnosed-range -> kidney,,,,,,,,,,,,,4.1071,3.0,3.0,2.0,True,0.760985224934878,0.0,3.1625,5.6363,3.9323,0.0267556902525589,0.0031437343191015,0.1117838623222455
+36,"S1b model-based rows: direction, Cochran's Q, I²",T2 qrsd_ms -> abn_heart,,,,,,,,,,,,,1.4358,3.0,3.0,3.0,True,0.0601603034505041,64.4,1.7411,1.2821,1.3638,2.9635426590341145e-08,0.0056572301349186,0.0006423158332713
+37,"S1b model-based rows: direction, Cochran's Q, I²",T2 qrsd_ms -> log_troponin,,,,,,,,,,,,,0.1078,3.0,3.0,3.0,True,0.3497130352314908,4.8,0.1268,0.0928,0.1033,3.473696606826624e-15,8.257195241973866e-07,8.212771726437072e-08
+38,"S1b model-based rows: direction, Cochran's Q, I²",T2 qtc_ms -> abn_heart,,,,,,,,,,,,,1.2042,3.0,3.0,1.0,True,0.4744802780834731,0.0,1.3347,1.1536,1.1508,0.0039437097640966,0.1160560868524549,0.1526958812364558
+39,"S1b model-based rows: direction, Cochran's Q, I²",T2 qtc_ms -> log_troponin,,,,,,,,,,,,,0.0438,3.0,3.0,3.0,True,0.8684011905044485,0.0,0.0505,0.0374,0.0447,0.0015988848926399,0.0468889234037557,0.0221015410023263

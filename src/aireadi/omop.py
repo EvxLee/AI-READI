@@ -36,6 +36,7 @@ __all__ = [
     "extract_lab",
     "comorbidity_count",
     "phenx_family",
+    "phenx_scores",
 ]
 
 OBSERVATION_KEY_COL = "observation_source_value"
@@ -264,3 +265,85 @@ def phenx_family(observation_with_keys: pd.DataFrame, family: str) -> pd.DataFra
 
     prefix = PHENX_FAMILIES.get(family, family)
     return pivot_items(observation_with_keys, item_pattern=rf"^{re.escape(prefix)}\d")
+
+
+def phenx_scores(observation_with_keys: pd.DataFrame) -> pd.DataFrame:
+    """Score the SDOH batteries P1 uses, one column per construct.
+
+    Selecting the right items is only half the job -- `phenx_family` already does
+    that. Scoring them is where the remaining traps are, and there are three:
+
+    **1. Two batteries are NOT monotonic in their coded values.** `pxhi1` ("What
+    is your living situation today?") runs 0 = no steady place (n=15), 1 = steady
+    place (n=1,943), 2 = have a place but worried about losing it (n=95). Housing
+    security is therefore 1 > 2 > 0, not 0 < 1 < 2, and treating the code as a
+    continuous severity score points the effect in a direction that matches
+    nothing. The same applies to `pxfi1`/`pxfi2`, whose 1 level is RARER than
+    their 2 level (63 vs 246) -- the giveaway that the answer order is
+    never / often / sometimes rather than a graded scale. Both are handled by
+    recoding to an affirmative indicator, never by summing the raw code.
+
+    **2. Skip-gated items cannot enter a summed score.** `pxahc3` (n=256),
+    `pxahc4` (n=1,788) and `pxahc6` (n=30) are only asked of some participants, so
+    a sum including them scores how many questions someone was asked. Only
+    full-cohort items are used.
+
+    **3. Some items are nominal.** `pxahc5` ("what kind of place do you go to")
+    and `pxhi2` (a housing-problem list where 8 = none, n=1,707) are categories,
+    not quantities. They are excluded rather than summed.
+
+    Scores returned, all oriented so HIGHER MEANS MORE HARDSHIP:
+
+    ``food_insecurity``            USDA 5-item short-form affirmative count, 0-5
+    ``food_insecure``              USDA short-form cutoff, >= 2 affirmatives
+    ``prescription_unaffordable``  count of pxpa1-4, 0-4
+    ``clinician_discrimination``   mean of pxdhc1-7, 1-5
+    ``healthcare_access_barriers`` count of the three unambiguous barrier items
+    ``housing_insecure``           pxhi1 recoded: 1 if no steady place or at risk
+
+    See docs/CAVEATS.md, "PhenX SDOH".
+    """
+    out = {}
+
+    food = phenx_family(observation_with_keys, "food_insecurity")
+    # Affirmative = "often true" or "sometimes true" for the two 0-2 items, which
+    # is USDA's own scoring and sidesteps their non-monotonic coding entirely.
+    graded = [c for c in ("pxfi1", "pxfi2") if c in food.columns]
+    binary = [c for c in ("pxfi3", "pxfi4", "pxfi5") if c in food.columns]
+    parts = [food[c].isin([1, 2]).astype(float).mask(food[c].isna()) for c in graded]
+    parts += [food[c].eq(1).astype(float).mask(food[c].isna()) for c in binary]
+    if parts:
+        affirmative = pd.concat(parts, axis=1)
+        # Require most of the instrument before scoring anyone, so a participant
+        # who answered one item does not get a reassuring 0.
+        enough = affirmative.notna().sum(axis=1).ge(4)
+        out["food_insecurity"] = affirmative.sum(axis=1, skipna=True).mask(~enough)
+        out["food_insecure"] = out["food_insecurity"].ge(2).astype(float).mask(~enough)
+
+    presc = phenx_family(observation_with_keys, "prescription_affordability")
+    cols = [c for c in ("pxpa1", "pxpa2", "pxpa3", "pxpa4") if c in presc.columns]
+    if cols:
+        enough = presc[cols].notna().sum(axis=1).ge(3)
+        out["prescription_unaffordable"] = (
+            presc[cols].eq(1).sum(axis=1).astype(float).mask(~enough))
+
+    disc = phenx_family(observation_with_keys, "clinician_discrimination")
+    cols = [c for c in disc.columns if re.fullmatch(r"pxdhc[1-7]", c)]
+    if cols:
+        enough = disc[cols].notna().sum(axis=1).ge(5)
+        out["clinician_discrimination"] = disc[cols].mean(axis=1).mask(~enough)
+
+    access = phenx_family(observation_with_keys, "healthcare_access")
+    # Only the three unambiguous, full-cohort, same-direction barrier items.
+    cols = [c for c in ("pxahc8", "pxahc9", "pxahc10") if c in access.columns]
+    if cols:
+        enough = access[cols].notna().sum(axis=1).ge(2)
+        out["healthcare_access_barriers"] = (
+            access[cols].eq(1).sum(axis=1).astype(float).mask(~enough))
+
+    housing = phenx_family(observation_with_keys, "housing_insecurity")
+    if "pxhi1" in housing.columns:
+        out["housing_insecure"] = (
+            housing["pxhi1"].isin([0, 2]).astype(float).mask(housing["pxhi1"].isna()))
+
+    return pd.DataFrame(out)
