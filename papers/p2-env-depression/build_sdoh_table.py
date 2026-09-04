@@ -33,6 +33,11 @@ prefix-selection convention (never positional slicing -- see
     smoking is the substance-use item most directly comparable to
     PM2.5/VOC/NOx exposure in the literature (an indoor combustion
     source), rather than being buried inside the 7-item count.
+  - food_insecurity_score: mean of the 5 z-scored pxfi items (PhenX Food
+    Insecurity battery), added 2026-09-02 for the neighborhood/food deep
+    dive follow-up. Same z-score-then-average treatment as
+    neighborhood_score, for the same reason (mixed Likert scales). Sign
+    of "worse" is likewise unconfirmed against the PhenX codebook.
 
 Output: data/processed/p2/sdoh_survey_scores.csv (participant-level,
 gitignored, no identifiers beyond person_id per repo convention for
@@ -71,6 +76,12 @@ def main() -> None:
     neighborhood_score = neigh_z.mean(axis=1, skipna=True).rename("neighborhood_score")
     neighborhood_n_items = neigh_wide.notna().sum(axis=1).rename("neighborhood_n_items_answered")
 
+    # Food insecurity: 5-item PhenX battery, same z-score-then-average treatment.
+    food_wide = omop.phenx_family(obs, "food_insecurity")
+    food_z = (food_wide - food_wide.mean()) / food_wide.std()
+    food_insecurity_score = food_z.mean(axis=1, skipna=True).rename("food_insecurity_score")
+    food_n_items = food_wide.notna().sum(axis=1).rename("food_n_items_answered")
+
     cesd_total = omop.first_value(obs, "cestl", name="cesd_total")
     paid_total = omop.first_value(obs, "paidscore", name="paid_total")
     diet_score = omop.first_value(obs, "dietscore", name="diet_score")
@@ -80,8 +91,8 @@ def main() -> None:
     current_smoker = substance_wide["susmkncf"].rename("current_smoker")
 
     table = pd.concat(
-        [neighborhood_score, neighborhood_n_items, cesd_total, paid_total, diet_score,
-         substance_use_count, current_smoker],
+        [neighborhood_score, neighborhood_n_items, food_insecurity_score, food_n_items,
+         cesd_total, paid_total, diet_score, substance_use_count, current_smoker],
         axis=1,
     ).reset_index().rename(columns={"index": "person_id"})
 
