@@ -1,0 +1,25 @@
+,stratum_type,stratum,predictor,outcome,n,coef,p
+0,global,all,log_pm25,hba1c,2161,0.12062666024137624,1.9881218964971998e-06
+1,global,all,log_pm25,glucose_cv,2203,0.40867797390083327,0.001107226913906895
+2,global,all,log_pm25,tar_180,2203,1.525915697656826,0.0019989933264171495
+3,global,all,log_pm25,interday_glucose_variance,2201,39.52448756491367,1.07951574453988e-05
+4,global,all,bmi,hba1c,2161,0.02570092202701813,1.8260358402916556e-14
+5,global,all,bmi,glucose_cv,2203,0.03388316490000735,0.04067344887281497
+6,global,all,bmi,tar_180,2203,0.38402689208687363,4.471104003545826e-09
+7,global,all,bmi,interday_glucose_variance,2201,4.244788528229771,0.0003359324696600642
+8,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),log_pm25,hba1c,1276,0.014006562494627561,0.4120619161004211
+9,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),log_pm25,glucose_cv,1287,0.056691383447520304,0.6673712727892157
+10,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),log_pm25,tar_180,1287,-0.3506783965466978,0.2522556957087876
+11,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),log_pm25,interday_glucose_variance,1285,-2.5196757092665476,0.6282403864448843
+12,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),bmi,hba1c,1276,0.009857167316726055,1.6800586922230796e-05
+13,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),bmi,glucose_cv,1287,0.0006400070349531582,0.9710731424180116
+14,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),bmi,tar_180,1287,0.12169241265465913,0.003026387227838196
+15,diabetic_status_2group,non-diabetic (Healthy+Pre-DM),bmi,interday_glucose_variance,1285,-0.6013169296581073,0.3853579520912262
+16,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),log_pm25,hba1c,885,0.1800954499789481,0.00015305502946725335
+17,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),log_pm25,glucose_cv,916,0.5533270298003802,0.007347519284387073
+18,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),log_pm25,tar_180,916,2.376644067751428,0.01057070525996381
+19,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),log_pm25,interday_glucose_variance,916,74.32746062380369,5.296548188893354e-05
+20,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),bmi,hba1c,885,0.016993291191539975,0.007688938121005919
+21,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),bmi,glucose_cv,916,-0.028217967245839144,0.31146994797445177
+22,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),bmi,tar_180,916,0.1689902080085129,0.1785077273980554
+23,diabetic_status_2group,diabetic-treated (Oral Med+Insulin),bmi,interday_glucose_variance,916,4.212577827857631,0.08921335264547985
