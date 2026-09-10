@@ -1,0 +1,17 @@
+,group,predictor,activity_outcome,n,coef,p
+0,non-diabetic (Healthy+Pre-DM),log_pm25,steps,1161,328.72040359427683,0.0010845161125027482
+1,non-diabetic (Healthy+Pre-DM),log_pm25,active_calories,1262,5.283109091092437,0.19286224424211781
+2,non-diabetic (Healthy+Pre-DM),log_pm25,active_minutes_v1_per_day,1224,3.6444352169990917,0.4152739963363389
+3,non-diabetic (Healthy+Pre-DM),log_pm25,active_minutes_v2_per_day,1224,-2.0868071441100646,0.5232404639621504
+4,non-diabetic (Healthy+Pre-DM),bmi,steps,1161,-18.181388321618687,0.18171404850638512
+5,non-diabetic (Healthy+Pre-DM),bmi,active_calories,1262,-0.42349502553534346,0.43778436722122127
+6,non-diabetic (Healthy+Pre-DM),bmi,active_minutes_v1_per_day,1224,-0.8500241667492132,0.15979770222905598
+7,non-diabetic (Healthy+Pre-DM),bmi,active_minutes_v2_per_day,1224,-1.7991179357122684,4.9198563645135366e-05
+8,T2DM (Oral Med+Insulin),log_pm25,steps,799,439.0668285168269,0.0010429389782095067
+9,T2DM (Oral Med+Insulin),log_pm25,active_calories,886,20.829772385143517,0.0002486461014692163
+10,T2DM (Oral Med+Insulin),log_pm25,active_minutes_v1_per_day,856,12.092424012959574,0.017580350726287646
+11,T2DM (Oral Med+Insulin),log_pm25,active_minutes_v2_per_day,856,-1.6407564660898757,0.6171761321025226
+12,T2DM (Oral Med+Insulin),bmi,steps,799,-58.33575503338825,0.0018192536473599422
+13,T2DM (Oral Med+Insulin),bmi,active_calories,886,-0.9880781987024372,0.20456073492056243
+14,T2DM (Oral Med+Insulin),bmi,active_minutes_v1_per_day,856,-1.0730328020828344,0.12708598437117444
+15,T2DM (Oral Med+Insulin),bmi,active_minutes_v2_per_day,856,-1.81945298169698,6.565591512908271e-05
