@@ -1,0 +1,109 @@
+block,predictor,outcome,stratum,n,coef,p
+A_glycemia_vs_pollutants,PM2.5,hba1c,all,2166,0.1486001304566398,4.367559479911981e-09
+A_glycemia_vs_pollutants,PM2.5,hba1c,Healthy,741,0.03862315144243643,0.054961988426696376
+A_glycemia_vs_pollutants,PM2.5,hba1c,Pre-DM,539,-0.011744555312473738,0.6639509768865233
+A_glycemia_vs_pollutants,PM2.5,hba1c,T2DM (Oral Med+Insulin),886,0.19110442969160873,5.841043855861776e-05
+A_glycemia_vs_pollutants,PM2.5,glucose_mean,all,2208,2.660789720340293,0.0017698638041289073
+A_glycemia_vs_pollutants,PM2.5,glucose_mean,Healthy,745,-0.0036903195125869833,0.9956383250860995
+A_glycemia_vs_pollutants,PM2.5,glucose_mean,Pre-DM,546,-2.6436112922299695,0.027778262619919083
+A_glycemia_vs_pollutants,PM2.5,glucose_mean,T2DM (Oral Med+Insulin),917,3.3297962894470414,0.03176074489282057
+A_glycemia_vs_pollutants,PM2.5,tir,all,2208,-2.039534676094415,2.7572646965654826e-05
+A_glycemia_vs_pollutants,PM2.5,tir,Healthy,745,-0.04552126141348125,0.8674356633558093
+A_glycemia_vs_pollutants,PM2.5,tir,Pre-DM,546,0.6842812349968644,0.2849092780318005
+A_glycemia_vs_pollutants,PM2.5,tir,T2DM (Oral Med+Insulin),917,-2.7366912506728167,0.0028256068841839557
+A_glycemia_vs_pollutants,NOx,hba1c,all,2166,-0.13064282965858645,0.3322042151605998
+A_glycemia_vs_pollutants,NOx,hba1c,Healthy,741,-0.039005943398061765,0.7381143109834756
+A_glycemia_vs_pollutants,NOx,hba1c,Pre-DM,539,0.07339167556324569,0.5890315143657144
+A_glycemia_vs_pollutants,NOx,hba1c,T2DM (Oral Med+Insulin),886,-0.30677264354309774,0.20293573428668846
+A_glycemia_vs_pollutants,NOx,glucose_mean,all,2208,-3.312333512762816,0.4760655190645427
+A_glycemia_vs_pollutants,NOx,glucose_mean,Healthy,745,-5.279038870464034,0.17469766126105868
+A_glycemia_vs_pollutants,NOx,glucose_mean,Pre-DM,546,0.5981106395422968,0.922295840319975
+A_glycemia_vs_pollutants,NOx,glucose_mean,T2DM (Oral Med+Insulin),917,-3.7677888058961404,0.6499435584347116
+A_glycemia_vs_pollutants,NOx,tir,all,2208,0.2978150023208057,0.9108259862974905
+A_glycemia_vs_pollutants,NOx,tir,Healthy,745,-0.38549566958868753,0.8063119237041376
+A_glycemia_vs_pollutants,NOx,tir,Pre-DM,546,-1.1587219969271418,0.72227680141746
+A_glycemia_vs_pollutants,NOx,tir,T2DM (Oral Med+Insulin),917,1.5503436328772244,0.7523258663767515
+A_glycemia_vs_pollutants,VOC,hba1c,all,2166,-0.11558775597592609,0.5095556921807749
+A_glycemia_vs_pollutants,VOC,hba1c,Healthy,741,-0.006132504524145261,0.9661712400296623
+A_glycemia_vs_pollutants,VOC,hba1c,Pre-DM,539,-0.07778127219495225,0.6729971323145906
+A_glycemia_vs_pollutants,VOC,hba1c,T2DM (Oral Med+Insulin),886,-0.41288427591573895,0.19232852708363304
+A_glycemia_vs_pollutants,VOC,glucose_mean,all,2208,-2.4338883779713774,0.6817412651185679
+A_glycemia_vs_pollutants,VOC,glucose_mean,Healthy,745,0.42875704972013484,0.9295258358580597
+A_glycemia_vs_pollutants,VOC,glucose_mean,Pre-DM,546,-6.686318519845846,0.41544658482023966
+A_glycemia_vs_pollutants,VOC,glucose_mean,T2DM (Oral Med+Insulin),917,-9.37322437737435,0.3734335871256293
+A_glycemia_vs_pollutants,VOC,tir,all,2208,-0.6941565529538744,0.8380074507719284
+A_glycemia_vs_pollutants,VOC,tir,Healthy,745,-0.9442019175392851,0.6297073438842505
+A_glycemia_vs_pollutants,VOC,tir,Pre-DM,546,-1.5428522822835542,0.7238514267934111
+A_glycemia_vs_pollutants,VOC,tir,T2DM (Oral Med+Insulin),917,3.900541300567194,0.5314072802110993
+B_glycemia_vs_activityBMI,bmi,hba1c,all,2206,0.02830289101438454,1.1707775112563387e-17
+B_glycemia_vs_activityBMI,bmi,hba1c,Healthy,757,0.006211579771716743,0.0326188637243427
+B_glycemia_vs_activityBMI,bmi,hba1c,Pre-DM,545,0.008432857039679605,0.009412351968934748
+B_glycemia_vs_activityBMI,bmi,hba1c,T2DM (Oral Med+Insulin),904,0.019045898142877223,0.002629515513473631
+B_glycemia_vs_activityBMI,bmi,glucose_mean,all,2238,0.7482434201765916,2.2121068330101416e-11
+B_glycemia_vs_activityBMI,bmi,glucose_mean,Healthy,756,0.11989849056265012,0.22413379346180748
+B_glycemia_vs_activityBMI,bmi,glucose_mean,Pre-DM,551,0.3415732739424262,0.018394902701856945
+B_glycemia_vs_activityBMI,bmi,glucose_mean,T2DM (Oral Med+Insulin),931,0.28346204344457254,0.17357835399695987
+B_glycemia_vs_activityBMI,bmi,tir,all,2238,-0.40519762415991956,2.4589916853060217e-10
+B_glycemia_vs_activityBMI,bmi,tir,Healthy,756,-0.04601954807188713,0.24630791948520336
+B_glycemia_vs_activityBMI,bmi,tir,Pre-DM,551,-0.12865035508783568,0.09543679933262288
+B_glycemia_vs_activityBMI,bmi,tir,T2DM (Oral Med+Insulin),931,-0.18321879270446254,0.13744848416843053
+B_glycemia_vs_activityBMI,steps,hba1c,all,1937,3.1805598735967914e-05,1.0900599996918367e-05
+B_glycemia_vs_activityBMI,steps,hba1c,Healthy,674,1.9255237868154513e-05,0.00150953336884038
+B_glycemia_vs_activityBMI,steps,hba1c,Pre-DM,484,4.341409719179599e-06,0.605364731283515
+B_glycemia_vs_activityBMI,steps,hba1c,T2DM (Oral Med+Insulin),779,3.0092681013616026e-05,0.01750018775510375
+B_glycemia_vs_activityBMI,steps,glucose_mean,all,1974,0.0006934872964539606,0.004624744696738984
+B_glycemia_vs_activityBMI,steps,glucose_mean,Healthy,677,0.0002080206210402704,0.2750868771521845
+B_glycemia_vs_activityBMI,steps,glucose_mean,Pre-DM,490,-0.0006424713871275033,0.0939449149736229
+B_glycemia_vs_activityBMI,steps,glucose_mean,T2DM (Oral Med+Insulin),807,0.000877319954234442,0.037701709520978816
+B_glycemia_vs_activityBMI,steps,tir,all,1974,-0.00032126536512650623,0.020746096051295074
+B_glycemia_vs_activityBMI,steps,tir,Healthy,677,-7.28699060899698e-05,0.32457857651433347
+B_glycemia_vs_activityBMI,steps,tir,Pre-DM,490,0.00019183068395428618,0.3403639117694423
+B_glycemia_vs_activityBMI,steps,tir,T2DM (Oral Med+Insulin),807,-0.0003428506574472219,0.16639593009767248
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,hba1c,all,2054,0.00024066299334017844,0.16239236652684336
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,hba1c,Healthy,703,0.00020074146619801676,0.1359693235022788
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,hba1c,Pre-DM,516,0.0005358836223177326,0.0024462098099958546
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,hba1c,T2DM (Oral Med+Insulin),835,0.00017071146254776158,0.6008398086598424
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,glucose_mean,all,2095,0.014950016249710646,0.008413453202954488
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,glucose_mean,Healthy,707,0.006412297102557633,0.11953786336984384
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,glucose_mean,Pre-DM,523,0.01319500576922051,0.0968254961812577
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,glucose_mean,T2DM (Oral Med+Insulin),865,0.02544818583921654,0.016090325096348636
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,tir,all,2095,-0.006020850544882651,0.06277214293242828
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,tir,Healthy,707,-0.001668142922654069,0.2946474383176649
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,tir,Pre-DM,523,-0.007005499048548646,0.09909708723792479
+B_glycemia_vs_activityBMI,active_minutes_v1_per_day,tir,T2DM (Oral Med+Insulin),865,-0.011232273575882572,0.07141654320517943
+C_pollutants_vs_activityBMI,PM2.5,bmi,all,2225,1.0836737358809636,1.1069952320889513e-11
+C_pollutants_vs_activityBMI,PM2.5,bmi,Healthy,752,1.2497498600852057,5.491833238557248e-07
+C_pollutants_vs_activityBMI,PM2.5,bmi,Pre-DM,550,1.004167983492488,0.004514743632497422
+C_pollutants_vs_activityBMI,PM2.5,bmi,T2DM (Oral Med+Insulin),923,0.5776237366601812,0.01733060340496232
+C_pollutants_vs_activityBMI,PM2.5,steps,all,1965,370.7456544554032,3.839196215476595e-06
+C_pollutants_vs_activityBMI,PM2.5,steps,Healthy,676,433.15932175233246,0.0008692899503810485
+C_pollutants_vs_activityBMI,PM2.5,steps,Pre-DM,489,47.25732878761594,0.7561198180593961
+C_pollutants_vs_activityBMI,PM2.5,steps,T2DM (Oral Med+Insulin),800,408.5113316500317,0.0023416704277568375
+C_pollutants_vs_activityBMI,PM2.5,active_minutes_v1_per_day,all,2085,6.710200768932417,0.04228995874772347
+C_pollutants_vs_activityBMI,PM2.5,active_minutes_v1_per_day,Healthy,706,4.163992718922067,0.4689825613501095
+C_pollutants_vs_activityBMI,PM2.5,active_minutes_v1_per_day,Pre-DM,522,-1.4336617979947448,0.8336987353258885
+C_pollutants_vs_activityBMI,PM2.5,active_minutes_v1_per_day,T2DM (Oral Med+Insulin),857,11.462365910434048,0.024025646817189994
+C_pollutants_vs_activityBMI,NOx,bmi,all,2225,-2.187217586039387,0.011340846136152338
+C_pollutants_vs_activityBMI,NOx,bmi,Healthy,752,-1.7192275491138007,0.23691760654159164
+C_pollutants_vs_activityBMI,NOx,bmi,Pre-DM,550,-3.2957340141755607,0.0657078658908024
+C_pollutants_vs_activityBMI,NOx,bmi,T2DM (Oral Med+Insulin),923,-1.722447901560121,0.17499869749782723
+C_pollutants_vs_activityBMI,NOx,steps,all,1965,-180.46872536533678,0.6809367488964421
+C_pollutants_vs_activityBMI,NOx,steps,Healthy,676,-1059.2343667871005,0.18023808248093393
+C_pollutants_vs_activityBMI,NOx,steps,Pre-DM,489,1637.2769623249117,0.030874414472877237
+C_pollutants_vs_activityBMI,NOx,steps,T2DM (Oral Med+Insulin),800,-458.4204354402592,0.5167901068724303
+C_pollutants_vs_activityBMI,NOx,active_minutes_v1_per_day,all,2085,-10.17521755848041,0.5713430956395612
+C_pollutants_vs_activityBMI,NOx,active_minutes_v1_per_day,Healthy,706,-16.740878718196168,0.6278938384326479
+C_pollutants_vs_activityBMI,NOx,active_minutes_v1_per_day,Pre-DM,522,29.074013808711275,0.39807231072594385
+C_pollutants_vs_activityBMI,NOx,active_minutes_v1_per_day,T2DM (Oral Med+Insulin),857,-18.483447606325186,0.4865596343761626
+C_pollutants_vs_activityBMI,VOC,bmi,all,2225,4.092344411342465,0.00024414635193402857
+C_pollutants_vs_activityBMI,VOC,bmi,Healthy,752,1.582130320242661,0.3782090770386445
+C_pollutants_vs_activityBMI,VOC,bmi,Pre-DM,550,6.403544026733205,0.008023138025678814
+C_pollutants_vs_activityBMI,VOC,bmi,T2DM (Oral Med+Insulin),923,4.118721208208541,0.012709873813210686
+C_pollutants_vs_activityBMI,VOC,steps,all,1965,1172.2344190808853,0.04074337616042349
+C_pollutants_vs_activityBMI,VOC,steps,Healthy,676,1376.6462609117873,0.13895216664607327
+C_pollutants_vs_activityBMI,VOC,steps,Pre-DM,489,784.9297075931528,0.4665263225508445
+C_pollutants_vs_activityBMI,VOC,steps,T2DM (Oral Med+Insulin),800,1085.1287269833488,0.2520994251642482
+C_pollutants_vs_activityBMI,VOC,active_minutes_v1_per_day,all,2085,3.353858742765735,0.886378428077176
+C_pollutants_vs_activityBMI,VOC,active_minutes_v1_per_day,Healthy,706,31.420291854995384,0.4444031894878114
+C_pollutants_vs_activityBMI,VOC,active_minutes_v1_per_day,Pre-DM,522,-28.461371392890655,0.5539710346736645
+C_pollutants_vs_activityBMI,VOC,active_minutes_v1_per_day,T2DM (Oral Med+Insulin),857,0.07807447501349465,0.9982492745327111
